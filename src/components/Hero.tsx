@@ -1,30 +1,32 @@
 import { site } from '../data/site'
 import { publicUrl } from '../lib/publicUrl'
+import { CategoryNav } from './CategoryNav'
 import styles from './Hero.module.css'
 
 export function Hero() {
   return (
     <section className={styles.hero} aria-label="Apresentação">
-      <div className={`container ${styles.content}`}>
-        {/*
-          The wordmark stands in for the page's H1 — it's the site's name,
-          not decoration, so it carries the heading semantics and its alt
-          text is the accessible name a screen reader announces.
-        */}
-        <h1 className={styles.logoWrap}>
-          <img
-            src={publicUrl('/images/analunps-logo.png')}
-            alt={site.name}
-            width={2172}
-            height={724}
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-            className={styles.logo}
-          />
-        </h1>
+      {/* Placeholder art — replace with a real photograph of {site.fullName}
+          and give it a descriptive alt (e.g. "{site.fullName} sorrindo,
+          cabelo cacheado solto"), since it would no longer be decorative. */}
+      <img
+        src={publicUrl('/images/hero.svg')}
+        alt=""
+        aria-hidden="true"
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
+        className={styles.image}
+      />
+      <div className={styles.scrim} />
 
-        <p className={styles.tagline}>{site.heroTagline}</p>
+      <div className={`container ${styles.content}`}>
+        <div className={styles.copy}>
+          <p className={styles.eyebrow}>{site.heroTagline}</p>
+          <h1 className={styles.heading}>{site.heroHeading}</h1>
+        </div>
+
+        <CategoryNav />
       </div>
     </section>
   )

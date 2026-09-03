@@ -10,6 +10,7 @@ export const site = {
   instagramUrl: 'https://instagram.com/analunps',
   domain: 'elisagouvea.com',
   heroTagline: 'Moda, cachos e lifestyle',
+  heroHeading: 'analunps',
   footerNote:
     'um mural pessoal de achados. sem preço, sem carrinho — só o que eu realmente uso.',
   metaDescription:
