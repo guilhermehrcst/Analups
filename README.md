@@ -51,10 +51,11 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
 3. **Domínio.** `elisagouvea.com` em `index.html`, `site.ts`,
    `robots.txt` e `sitemap.xml` é um placeholder — atualize ao registrar o
    domínio definitivo.
-4. **OG image.** `og:image`/`twitter:image` apontam para o SVG do hero;
-   várias redes (Facebook, em especial) não renderizam SVG em preview de
-   link. Gerar um raster 1200×630 (JPG/PNG) a partir da foto real de hero
-   antes do lançamento.
+4. **OG image real.** `public/images/og-image.jpg` é um screenshot do hero
+   placeholder (gerado via Playwright, sem depender de libs de imagem). Ao
+   trocar a fotografia do hero, regenere esse arquivo para refletir a foto
+   real — instruções no `package.json` não incluem isso ainda por depender
+   de fotografia final.
 5. **Ícone de app.** Só existe `favicon.svg` (ícone de aba). Falta um
    `apple-touch-icon.png` (180×180) para adicionar à tela inicial no iOS.
 
