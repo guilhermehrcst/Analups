@@ -1,8 +1,5 @@
 .section {
   padding-block: var(--space-8);
-}
-
-.sunken {
   background: var(--color-surface-sunken);
 }
 
@@ -25,8 +22,19 @@
   line-height: var(--leading-relaxed);
 }
 
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
 @media (min-width: 768px) {
   .section {
     padding-block: var(--space-9);
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-7);
   }
 }

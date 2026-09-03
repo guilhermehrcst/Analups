@@ -32,10 +32,19 @@ public/
 - **Trocar produtos/categorias:** edite `src/data/products.ts` e
   `src/data/categories.ts`. Nenhum componente precisa mudar.
 - **Trocar nome/Instagram/textos do hero:** edite `src/data/site.ts`.
+- **Trocar Instagram/TikTok da seção "me acompanha por lá":** edite
+  `src/data/social.ts`. Não depende de API do Instagram/TikTok — é só link e
+  imagem local, igual aos produtos.
 - **Trocar fotografia:** troque o arquivo apontado por `image` em
-  `products.ts` (ou `/public/images/hero.svg`) por um `.webp`/`.jpg` real —
-  o componente `AspectImage` já cuida de `object-fit`, `loading="lazy"` e
-  proporção consistente.
+  `products.ts`/`social.ts` (ou `/public/images/hero.svg`) por um
+  `.webp`/`.jpg` real — o componente `AspectImage` já cuida de
+  `object-fit`, `loading="lazy"` e proporção consistente. Caminhos de
+  imagem sempre passam por `publicUrl()` (`src/lib/publicUrl.ts`), que
+  resolve contra o base path do deploy (`import.meta.env.BASE_URL`) — nunca
+  referencie um arquivo de `/public` com uma string `/algo.jpg` direto em
+  JSX/dados sem passar por `publicUrl()`, ou ele quebra quando o site for
+  publicado fora da raiz do domínio (como no GitHub Pages, `base:
+  '/Analups/'`).
 
 ## Pendências antes do lançamento (não implementadas nesta sessão)
 
@@ -69,3 +78,6 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
   calculado formula de luminância relativa.
 - `prefers-reduced-motion` reduz todas as transições/animações a 0ms.
 - Sem erros de console nem requisições falhas no build de produção.
+- Build servido sob `/Analups/` (base path real do GitHub Pages) sem 404 —
+  hero, produtos, seção social, fontes e favicon resolvidos via
+  `publicUrl()`/reescrita automática do Vite.
