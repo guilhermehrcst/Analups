@@ -26,7 +26,7 @@ export function Header() {
           rel="noreferrer noopener"
           aria-label={`Instagram de ${site.fullName}`}
         >
-          <InstagramIcon size={20} />
+          <InstagramIcon size={19} />
         </a>
       </div>
     </header>
