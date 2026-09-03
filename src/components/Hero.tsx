@@ -1,32 +1,30 @@
 import { site } from '../data/site'
 import { publicUrl } from '../lib/publicUrl'
-import { CategoryNav } from './CategoryNav'
 import styles from './Hero.module.css'
 
 export function Hero() {
   return (
     <section className={styles.hero} aria-label="Apresentação">
-      {/* Placeholder art — replace with a real photograph of {site.name} and
-          give it a descriptive alt (e.g. "{site.name} sorrindo ao ar livre"). */}
-      <img
-        src={publicUrl('/images/hero.svg')}
-        alt=""
-        aria-hidden="true"
-        loading="eager"
-        fetchPriority="high"
-        decoding="async"
-        className={styles.image}
-      />
-      <div className={styles.scrim} />
-
       <div className={`container ${styles.content}`}>
-        <div className={styles.copy}>
-          <p className={styles.kicker}>{site.heroKicker}</p>
-          <h1 className={styles.heading}>{site.heroHeading}</h1>
-          <p className={styles.subheading}>{site.heroSubheading}</p>
-        </div>
+        {/*
+          The wordmark stands in for the page's H1 — it's the site's name,
+          not decoration, so it carries the heading semantics and its alt
+          text is the accessible name a screen reader announces.
+        */}
+        <h1 className={styles.logoWrap}>
+          <img
+            src={publicUrl('/images/analunps-logo.png')}
+            alt={site.name}
+            width={2172}
+            height={724}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            className={styles.logo}
+          />
+        </h1>
 
-        <CategoryNav />
+        <p className={styles.tagline}>{site.heroTagline}</p>
       </div>
     </section>
   )

@@ -6,13 +6,10 @@
 export const site = {
   name: 'Analunps',
   fullName: 'Analunps',
-  instagramHandle: '@elisagouvea',
-  instagramUrl: 'https://instagram.com/elisagouvea',
+  instagramHandle: '@analunps',
+  instagramUrl: 'https://instagram.com/analunps',
   domain: 'elisagouvea.com',
-  heroKicker: 'bem-vinda ao meu mural',
-  heroHeading: 'achados.',
-  heroSubheading:
-    'tudo que eu ando amando, testando e indicando — sem filtro, com link.',
+  heroTagline: 'Moda, cachos e lifestyle',
   footerNote:
     'um mural pessoal de achados. sem preço, sem carrinho — só o que eu realmente uso.',
   metaDescription:
