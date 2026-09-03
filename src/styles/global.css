@@ -162,12 +162,12 @@ p {
 }
 
 /* ---------------------------------------------------------------- */
-/* Editorial link — animated underline                                */
+/* Editorial link — animated underline                               */
 /* ---------------------------------------------------------------- */
 
 .editorial-link {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   gap: var(--space-2);
   font-family: var(--font-body);
   font-size: var(--text-sm);
@@ -188,10 +188,11 @@ p {
 }
 
 .editorial-link__arrow {
+  flex: 0 0 auto;
   transition: transform var(--duration-base) var(--ease-editorial);
 }
 
 .editorial-link:hover .editorial-link__arrow,
 .editorial-link:focus-visible .editorial-link__arrow {
-  transform: translateX(3px);
+  transform: translate(2px, -2px);
 }
