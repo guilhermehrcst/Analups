@@ -1,4 +1,5 @@
 import { site } from '../data/site'
+import { publicUrl } from '../lib/publicUrl'
 import { CategoryNav } from './CategoryNav'
 import styles from './Hero.module.css'
 
@@ -8,7 +9,7 @@ export function Hero() {
       {/* Placeholder art — replace with a real photograph of {site.name} and
           give it a descriptive alt (e.g. "{site.name} sorrindo ao ar livre"). */}
       <img
-        src="/images/hero.svg"
+        src={publicUrl('/images/hero.svg')}
         alt=""
         aria-hidden="true"
         loading="eager"
