@@ -4,8 +4,8 @@
  * into components.
  */
 export const site = {
-  name: 'Elisa',
-  fullName: 'Elisa Gouvea',
+  name: 'Analunps',
+  fullName: 'Analunps',
   instagramHandle: '@elisagouvea',
   instagramUrl: 'https://instagram.com/elisagouvea',
   domain: 'elisagouvea.com',
@@ -16,5 +16,5 @@ export const site = {
   footerNote:
     'um mural pessoal de achados. sem preço, sem carrinho — só o que eu realmente uso.',
   metaDescription:
-    'O mural pessoal de achados da Elisa: beleza, cabelo, skincare, acessórios e treino — tudo testado e indicado de verdade.',
+    'O mural pessoal de achados da Analunps: beleza, cabelo, skincare, acessórios e treino — tudo testado e indicado de verdade.',
 } as const
