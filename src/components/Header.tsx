@@ -1,6 +1,6 @@
 import { categories } from '../data/categories'
 import { site } from '../data/site'
-import { InstagramIcon } from './icons/SocialIcons'
+import { InstagramIcon } from './icons/EditorialIcons'
 import styles from './Header.module.css'
 
 export function Header() {

@@ -18,14 +18,24 @@ npm run lint
 
 ```
 src/
-  components/   # componentes de UI reutilizáveis (dumb, sem regra de negócio)
+  components/
+    icons/      # EditorialIcons.tsx — único sistema de ícones do projeto
   data/         # site.ts, categories.ts, products.ts — única fonte de conteúdo
   pages/        # Home.tsx compõe o ritmo editorial a partir dos dados
   styles/       # tokens.css (design tokens) + global.css (reset/utilitários)
 public/
-  fonts/        # Fraunces + Instrument Sans, self-hosted (woff2, subset latin)
+  fonts/        # Bodoni Moda + Instrument Sans, self-hosted (woff2, subset latin)
   images/       # placeholders + fotografia real quando disponível
 ```
+
+**Tipografia:** Bodoni Moda (display/editorial — títulos, nomes de produto,
+assinatura) e Instrument Sans (interface — navegação, descrições, CTAs).
+Ambas controladas só por `--font-display`/`--font-body` em `tokens.css`;
+nenhum componente declara uma fonte diretamente.
+
+**Ícones:** um sistema local só, `src/components/icons/EditorialIcons.tsx`
+— outline fino, `currentColor`, sem biblioteca externa. Ao precisar de um
+ícone novo, adicione ali; não crie um segundo arquivo de ícones.
 
 ## Editar conteúdo
 
@@ -100,3 +110,14 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
   header aponta para `instagram.com/analunps` (antes apontava para a conta
   errada — corrigido). Chips de categoria quebram linha no mobile em vez de
   rolar horizontalmente (mudança deliberada desta versão do hero).
+- Tipografia (Bodoni Moda self-hosted): zero referências a "Fraunces",
+  "SocialIcons" ou setas textuais "→" restando no código (checado via
+  grep, não só assumido). `instrument-sans-italic.woff2` removido por
+  estar genuinely sem uso (nenhum componente aplica itálico a texto em
+  Instrument Sans). Fontes preloadadas (Bodoni normal + Instrument Sans
+  normal) confirmadas carregando com `document.fonts` sob o base path real
+  do GitHub Pages.
+- Ícones Instagram/TikTok calibrados para o mesmo peso visual por medição
+  real (`SVGGraphicsElement.getBBox()`), não só visualmente — ambos
+  resultam em ~18×18 dentro do viewBox de 24×24, não só "mesmo `size` em
+  px" (que já havia se mostrado insuficiente).

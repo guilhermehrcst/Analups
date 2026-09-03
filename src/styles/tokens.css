@@ -19,18 +19,21 @@
   --color-border-strong: #d8c9ad;
 
   /* ---- typography ---- */
-  --font-display: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
-  --font-body: 'Instrument Sans', ui-sans-serif, system-ui, -apple-system,
-    'Segoe UI', sans-serif;
+  --font-display: 'Bodoni Moda', serif;
+  --font-body: 'Instrument Sans', system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   --text-xs: 0.75rem;
   --text-sm: 0.8125rem;
   --text-base: 1rem;
   --text-md: 1.125rem;
-  --text-lg: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);
+  /* product name, cards normais — ~26-34px */
+  --text-lg: clamp(1.625rem, 1.449rem + 0.75vw, 2.125rem);
   --text-xl: clamp(1.75rem, 1.45rem + 1.2vw, 2.25rem);
-  --text-2xl: clamp(2.25rem, 1.7rem + 2.2vw, 3.25rem);
-  --text-3xl: clamp(2.75rem, 1.9rem + 3.6vw, 4.75rem);
+  /* product name, featured — ~40-56px */
+  --text-2xl: clamp(2.5rem, 2.148rem + 1.5vw, 3.5rem);
+  /* títulos de seção + hero — ~42-80px */
+  --text-3xl: clamp(2.625rem, 1.95rem + 3.4vw, 5rem);
 
   --leading-tight: 1.05;
   --leading-snug: 1.25;

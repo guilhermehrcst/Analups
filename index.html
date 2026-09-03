@@ -13,6 +13,23 @@
     <meta name="theme-color" content="#5a1c28" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <!-- Only the two fonts needed for above-the-fold text at first paint —
+         Bodoni Moda italic (header) and body-text weights aren't preloaded. -->
+    <link
+      rel="preload"
+      href="/fonts/bodoni-moda-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/instrument-sans-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Analunps" />

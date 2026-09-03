@@ -1,6 +1,6 @@
 import type { SocialProfile } from '../data/social'
 import { AspectImage } from './AspectImage'
-import { InstagramIcon, TikTokIcon } from './icons/SocialIcons'
+import { ArrowUpRightIcon, InstagramIcon, TikTokIcon } from './icons/EditorialIcons'
 import styles from './SocialCard.module.css'
 
 const ICONS = {
@@ -28,16 +28,14 @@ export function SocialCard({ profile }: SocialCardProps) {
 
       <div className={styles.body}>
         <p className={styles.eyebrow}>
-          <Icon className={styles.icon} />
+          <Icon className={styles.icon} size={17} />
           {profile.label}
         </p>
         <h3 className={styles.handle}>{profile.handle}</h3>
         <p className={styles.text}>{profile.text}</p>
         <span className="editorial-link">
           {profile.cta}
-          <span className="editorial-link__arrow" aria-hidden="true">
-            →
-          </span>
+          <ArrowUpRightIcon className="editorial-link__arrow" />
         </span>
       </div>
     </a>
