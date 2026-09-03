@@ -1,3 +1,4 @@
+import { publicUrl } from '../lib/publicUrl'
 import styles from './AspectImage.module.css'
 
 interface AspectImageProps {
@@ -22,7 +23,7 @@ export function AspectImage({
   return (
     <div className={`${styles.frame} ${className ?? ''}`} style={{ aspectRatio: ratio }}>
       <img
-        src={src}
+        src={publicUrl(src)}
         alt={alt}
         loading={priority ? 'eager' : 'lazy'}
         decoding="async"
