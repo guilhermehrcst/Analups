@@ -8,8 +8,12 @@ export interface SocialProfile {
   text: string
   cta: string
   url: string
-  /** Path under /public, or a fully-qualified URL once real photography exists. */
+  /** Path under /public, or a fully-qualified URL. Resolved through publicUrl() by AspectImage. */
   image: string
+  /** Real, descriptive alt text — these are actual photos, not decoration. */
+  alt: string
+  /** CSS object-position, tuned per photo so face/hair/phone stay in frame at 4:5. */
+  imagePosition: string
 }
 
 export const socialProfiles: SocialProfile[] = [
@@ -20,7 +24,9 @@ export const socialProfiles: SocialProfile[] = [
     text: 'beleza, cachos, rotina e um pouco de tudo que faz parte dos meus dias.',
     cta: 'ver no Instagram',
     url: 'https://www.instagram.com/analunps/',
-    image: '/images/placeholders/social-instagram.svg',
+    image: '/images/social/instagram.jpg',
+    alt: 'Ana Luiza fazendo uma selfie no espelho com celular rosa',
+    imagePosition: '50% 22%',
   },
   {
     platform: 'tiktok',
@@ -29,6 +35,8 @@ export const socialProfiles: SocialProfile[] = [
     text: 'vídeos, cabelo, estilo e aqueles momentos que acabam virando conteúdo.',
     cta: 'ver no TikTok',
     url: 'https://www.tiktok.com/@analunps',
-    image: '/images/placeholders/social-tiktok.svg',
+    image: '/images/social/tiktok.jpg',
+    alt: 'Ana Luiza fazendo uma selfie no espelho',
+    imagePosition: '50% 38%',
   },
 ]

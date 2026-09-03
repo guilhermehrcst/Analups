@@ -19,8 +19,9 @@ export function SocialCard({ profile }: SocialCardProps) {
     <a href={profile.url} target="_blank" rel="noopener noreferrer" className={styles.card}>
       <AspectImage
         src={profile.image}
-        alt={`${profile.label} — ${profile.handle}`}
+        alt={profile.alt}
         ratio="4 / 5"
+        objectPosition={profile.imagePosition}
         className={styles.image}
         sizes="(min-width: 768px) 46vw, 92vw"
       />

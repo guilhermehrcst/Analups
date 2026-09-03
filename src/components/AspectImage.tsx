@@ -10,6 +10,8 @@ interface AspectImageProps {
   priority?: boolean
   sizes?: string
   className?: string
+  /** CSS object-position, for photos whose subject isn't centered — e.g. "50% 30%". */
+  objectPosition?: string
 }
 
 export function AspectImage({
@@ -19,6 +21,7 @@ export function AspectImage({
   priority = false,
   sizes,
   className,
+  objectPosition,
 }: AspectImageProps) {
   return (
     <div className={`${styles.frame} ${className ?? ''}`} style={{ aspectRatio: ratio }}>
@@ -30,6 +33,7 @@ export function AspectImage({
         fetchPriority={priority ? 'high' : 'auto'}
         sizes={sizes}
         className={styles.img}
+        style={objectPosition ? { objectPosition } : undefined}
       />
     </div>
   )

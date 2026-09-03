@@ -50,11 +50,12 @@ public/
 
 Documentado explicitamente em vez de deixado como suposição silenciosa:
 
-1. **Fotografia real.** Sem acesso a fotos da criadora nem ao Unsplash (a
-   conta MCP retornou "email não confirmado"), todas as imagens são
+1. **Fotografia real.** A seção "me acompanha por lá." já usa fotos reais
+   da Ana (`public/images/social/*.jpg`, referenciadas em `social.ts`, com
+   `imagePosition` ajustado por foto). Hero e produtos ainda são
    placeholders SVG abstratos na paleta da marca — não fotos de stock
    genéricas, para não comprometer a sensação de "feito para essa pessoa".
-   Troque os arquivos em `products.ts` e `hero.svg` por fotografia real.
+   Troque os arquivos em `products.ts` e `hero.svg` quando houver fotografia.
 2. **Links de produto.** Todos apontam para `example.com/produto/...`
    (domínio reservado para documentação). Troque pelos links reais/afiliados.
 3. **Domínio.** `elisagouvea.com` em `index.html`, `site.ts`,
