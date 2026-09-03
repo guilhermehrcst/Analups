@@ -1,0 +1,54 @@
+/* Composition classes owned by the page: components stay dumb and reusable,
+   the page decides how they combine into editorial rhythm per section. */
+
+.splitFeature {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.horizontalStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.spotlightSecondary {
+  margin-top: var(--space-6);
+  max-width: var(--content-narrow);
+}
+
+@media (min-width: 768px) {
+  .splitFeature {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .splitFeature.reverse {
+    flex-direction: row-reverse;
+  }
+
+  .bigCol {
+    flex: 1.6 1 0%;
+    min-width: 0;
+  }
+
+  .smallCol {
+    flex: 1 1 0%;
+    min-width: 0;
+    display: flex;
+  }
+
+  .smallCol > * {
+    width: 100%;
+  }
+
+  .horizontalStack {
+    flex-direction: row;
+  }
+
+  .horizontalStack > * {
+    flex: 1;
+    min-width: 0;
+  }
+}

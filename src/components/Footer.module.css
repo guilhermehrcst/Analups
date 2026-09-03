@@ -1,0 +1,70 @@
+.footer {
+  background: var(--color-primary);
+  color: var(--color-surface);
+  margin-top: var(--space-9);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-6);
+  padding-block: var(--space-7);
+}
+
+.signature {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-xl);
+}
+
+.note {
+  margin-top: var(--space-3);
+  max-width: 42ch;
+  color: rgba(255, 253, 249, 0.75);
+  line-height: var(--leading-relaxed);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-4);
+  align-content: start;
+  margin: calc(var(--space-2) * -1) 0;
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  text-transform: lowercase;
+}
+
+.nav a {
+  padding: var(--space-2) 0;
+  transition: opacity var(--duration-fast) var(--ease-editorial);
+}
+
+.nav a:hover,
+.nav a:focus-visible {
+  opacity: 0.7;
+}
+
+.handle {
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  align-self: start;
+  transition: opacity var(--duration-fast) var(--ease-editorial);
+}
+
+.handle:hover,
+.handle:focus-visible {
+  opacity: 0.7;
+}
+
+.bottom {
+  border-top: 1px solid rgba(255, 253, 249, 0.15);
+  padding-block: var(--space-4);
+  font-size: var(--text-xs);
+  color: rgba(255, 253, 249, 0.6);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1.4fr 1fr auto;
+  }
+}

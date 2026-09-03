@@ -1,0 +1,61 @@
+.card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+.image {
+  border-radius: var(--radius-md);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.brand {
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+}
+
+.description {
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--color-muted);
+  max-width: 42ch;
+  margin-top: var(--space-1);
+  margin-bottom: var(--space-1);
+}
+
+.card:hover img,
+.card:focus-visible img {
+  transform: scale(1.015);
+}
+
+@media (min-width: 768px) {
+  .card {
+    grid-template-columns: 1.15fr 1fr;
+    align-items: center;
+    gap: var(--space-7);
+  }
+
+  .reverse {
+    grid-template-columns: 1fr 1.15fr;
+  }
+
+  .reverse .image {
+    order: 2;
+  }
+}

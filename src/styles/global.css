@@ -1,0 +1,197 @@
+@import './fonts.css';
+@import './tokens.css';
+
+/* ---------------------------------------------------------------- */
+/* Reset                                                             */
+/* ---------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  /*
+    Safety net only — the real fix for any overflowing element is fixing
+    that element. This lives on <html>, not <body>: browsers propagate a
+    non-visible overflow from <body> up to the viewport while leaving
+    <body> itself free to grow to its content's shrink-to-fit width,
+    which silently widens the whole page past 100vw.
+  */
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 400;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* ---------------------------------------------------------------- */
+/* Motion — global guard                                             */
+/* ---------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Accessibility                                                     */
+/* ---------------------------------------------------------------- */
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: -3rem;
+  background: var(--color-primary);
+  color: var(--color-surface);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  z-index: 100;
+  transition: top var(--duration-fast) var(--ease-editorial);
+}
+
+.skip-link:focus-visible {
+  top: var(--space-4);
+}
+
+/* ---------------------------------------------------------------- */
+/* Layout primitives                                                 */
+/* ---------------------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--edge-padding);
+}
+
+/* ---------------------------------------------------------------- */
+/* Editorial link — animated underline                                */
+/* ---------------------------------------------------------------- */
+
+.editorial-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  text-transform: lowercase;
+  color: var(--color-primary);
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  padding-bottom: 0.2em;
+  transition: background-size var(--duration-base) var(--ease-editorial);
+}
+
+.editorial-link:hover,
+.editorial-link:focus-visible {
+  background-size: 0% 1px;
+}
+
+.editorial-link__arrow {
+  transition: transform var(--duration-base) var(--ease-editorial);
+}
+
+.editorial-link:hover .editorial-link__arrow,
+.editorial-link:focus-visible .editorial-link__arrow {
+  transform: translateX(3px);
+}

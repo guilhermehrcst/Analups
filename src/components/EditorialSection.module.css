@@ -1,0 +1,32 @@
+.section {
+  padding-block: var(--space-8);
+}
+
+.section:nth-of-type(even) {
+  background: var(--color-surface-sunken);
+}
+
+.header {
+  max-width: var(--content-narrow);
+  margin-bottom: var(--space-6);
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+  letter-spacing: var(--tracking-tight);
+}
+
+.description {
+  margin-top: var(--space-2);
+  color: var(--color-muted);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: var(--space-9);
+  }
+}
