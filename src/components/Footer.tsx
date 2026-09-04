@@ -7,11 +7,10 @@ export function Footer() {
 
   return (
     <footer className={styles.footer}>
-      <div className={`container ${styles.grid}`}>
-        <div>
-          <p className={styles.signature}>{site.name}</p>
-          <p className={styles.note}>{site.footerNote}</p>
-        </div>
+      <div className={`container ${styles.bar}`}>
+        <p className={styles.copyright}>
+          © {year} {site.fullName}
+        </p>
 
         <nav aria-label="Categorias" className={styles.nav}>
           {categories.map((category) => (
@@ -29,12 +28,6 @@ export function Footer() {
         >
           {site.instagramHandle}
         </a>
-      </div>
-
-      <div className={`container ${styles.bottom}`}>
-        <p>
-          © {year} {site.fullName}
-        </p>
       </div>
     </footer>
   )

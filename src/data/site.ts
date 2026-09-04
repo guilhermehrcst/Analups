@@ -11,8 +11,6 @@ export const site = {
   domain: 'elisagouvea.com',
   heroTagline: 'Moda, cachos e lifestyle',
   heroHeading: 'analunps',
-  footerNote:
-    'um mural pessoal de achados. sem preço, sem carrinho — só o que eu realmente uso.',
   metaDescription:
     'O mural pessoal de achados da Analunps: beleza, cabelo, skincare, acessórios e treino — tudo testado e indicado de verdade.',
 } as const
