@@ -850,3 +850,39 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
     requisição com falha nas 8 larguras, no build de produção sob o base
     path real. `prefers-reduced-motion` reconferido: card entra com
     opacity 1, sem transform e com transição zerada.
+- Micro-polish final de ritmo/escala (sem redesenho; hero, melu,
+  nailsbyanacc e footer congelados). Medido antes/depois em 8 larguras no
+  build de produção sob `/Analups/`:
+  - **Espaçamento vertical.** A faixa vazia entre seções é
+    `padding-bottom` de uma + `padding-top` da seguinte. Cada seção
+    repetia --space-8/--space-9 no próprio arquivo e a nails ainda usava
+    um par assimétrico (104 no topo, 72 embaixo), então essa faixa
+    variava de 176 a 208px sem intenção. Criado `--section-space`
+    (--space-7 no mobile, --space-8 a partir de 768px), consumido por
+    EditorialSection, SocialProfiles e NailsByAnacc — os três overrides
+    de 768px saíram junto. Desktop: 208 -> 144px (-30,8%) em
+    social->melu, melu->nails e cachos->treino; 176 -> 144px (-18,2%) em
+    nails->cachos e hero->social; 104 -> 72px antes do footer. Mobile:
+    144 -> 96px (-33%). Altura total da página: -7,3% (390px) a -8,4%
+    (1440px).
+  - **cachos mais compacta.** Só a proporção da imagem mudou, de 1/1 para
+    5/4 — fotos, textos, títulos, composição assimétrica e estilo do card
+    intactos. Altura dos 4 cards a 1440px: 743/655/665/707 ->
+    626/550/558/592 (-15,7% a -16,3%, dentro dos 12-18% pedidos).
+    Defeito real encontrado na conferência por screenshot: o crop mais
+    baixo cortava o topo do coque no card "coque cacheado" — justamente o
+    assunto do card. Corrigido com `imagePosition: '50% 30%'` só nessa
+    foto (as outras 3 seguem centralizadas, conferidas uma a uma: nenhum
+    rosto ou cabelo importante cortado).
+  - **social reduzida.** Proporção 1/1 -> 6/5 nos dois cards; título,
+    subtítulo, gap e grid intocados. Altura a 1440px: 781 -> 690 (-11,7%,
+    dentro dos 8-12%). Os dois cards passam a ler como introdução pessoal
+    em vez de seção com o mesmo peso das de baixo.
+  - **Não mexido, como pedido**: altura dos cards de melu (744 a 1440px)
+    e de treino (725) idêntica antes e depois — só a distância vertical
+    entre as seções mudou. Título gigante, carrossel, dots e CTA da
+    nailsbyanacc inalterados.
+  - 0 overflow horizontal, 0 erro de console e 0 requisição com falha nas
+    8 larguras (375/390/430/768/820/1024/1280/1440). `npm run lint` e
+    `npm run build` limpos.
+

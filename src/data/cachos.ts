@@ -25,6 +25,9 @@ export const cachosLooks: CachosLook[] = [
     label: 'analunps',
     title: 'coque cacheado',
     description: 'praticidade sem perder textura, presença e estilo.',
+    /* O crop mais baixo (5/4) cortava o próprio coque no topo — que é o
+       assunto do card. Sobe a janela visível para mantê-lo inteiro. */
+    imagePosition: '50% 30%',
   },
   {
     id: 'ondas-em-vermelho',

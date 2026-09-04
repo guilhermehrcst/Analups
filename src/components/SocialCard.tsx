@@ -29,13 +29,15 @@ export function SocialCard({ profile, revealDelay = 0 }: SocialCardProps) {
       style={{ transitionDelay: visible ? `${revealDelay}ms` : undefined }}
       className={`${styles.card} reveal ${visible ? 'is-visible' : ''}`}
     >
-      {/* Square, not 4/5: these two cards sit in a wide 2-up grid, where a
-          portrait crop measured ~900px tall at 1440px — a poster next to the
-          ~690-740px cards in every other section. */}
+      {/* 6/5, not the 4/5 portrait this started as: these two cards sit in a
+          wide 2-up grid, where the portrait crop measured ~900px tall at
+          1440px. Square brought that to ~780px; 6/5 takes the last step so
+          the pair reads as a personal intro rather than a section with the
+          same weight as melu/cachos below it. */}
       <AspectImage
         src={profile.image}
         alt={profile.alt}
-        ratio="1 / 1"
+        ratio="6 / 5"
         objectPosition={profile.imagePosition}
         className={styles.image}
         sizes="(min-width: 768px) 46vw, 92vw"

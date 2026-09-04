@@ -9,9 +9,9 @@
    grid. The featured card's edge over its row partner is intentionally
    modest — "levemente destacado" — not the wider split used before, which
    let it dominate the section.
-   Every card shares the same 1/1 image ratio (see CachosCard) — a square
-   crop cuts ~20% off the old 4/5 portrait's height while still framing
-   these close-up shots well, and keeps the "wider card, taller card"
+   Every card shares the same 5/4 image ratio (see CachosCard) — the crop
+   went 4/5 -> 1/1 -> 5/4 across rounds, each step trading height for a
+   less poster-like card while keeping the "wider card, taller card"
    height difference within a row small and proportional, never the ~3x
    mismatch a single card stacked against 3 others would force. */
 
@@ -101,7 +101,7 @@
   max-width: 42ch;
 }
 
-/* ---- featured: same 1/1 image ratio as every other card (see
+/* ---- featured: same 5/4 image ratio as every other card (see
    CachosCard) — bigger presence comes from getting more grid-column width
    at tablet+ and larger caption type, not a different image shape. ---- */
 

@@ -1,5 +1,5 @@
 .section {
-  padding-block: var(--space-8);
+  padding-block: var(--section-space);
   background: var(--color-surface-sunken);
 }
 
@@ -31,10 +31,6 @@
 }
 
 @media (min-width: 768px) {
-  .section {
-    padding-block: var(--space-9);
-  }
-
   .grid {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-7);
