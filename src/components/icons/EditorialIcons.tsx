@@ -114,6 +114,35 @@ export function ChevronRightIcon({ className, size = 18 }: IconProps) {
   )
 }
 
+export function BookmarkIcon({ className, size = 16 }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true" className={className}>
+      <path
+        d="M6 4h12v16l-6-4-6 4V4Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={STROKE}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+/** Filled, not outlined like the rest of this set — at the tiny size this
+ *  decorative sparkle is used, a 1.5px stroke reads as a blur rather than
+ *  a shape. */
+export function SparkleIcon({ className, size = 14 }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true" className={className}>
+      <path
+        d="M12 2c.6 5.4 1.3 8.1 10 10-8.7 1.9-9.4 4.6-10 10-.6-5.4-1.3-8.1-10-10 8.7-1.9 9.4-4.6 10-10Z"
+        fill="currentColor"
+      />
+    </svg>
+  )
+}
+
 export function ExternalLinkIcon({ className, size = 16 }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true" className={className}>

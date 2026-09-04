@@ -534,3 +534,92 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
     documentado e testado para Safari/iOS — mas isso não substitui um
     teste real em dispositivo/Safari, que continua pendente.
   - `npm run lint` e `npm run build` limpos.
+- Reformulada a composição da seção nailsbyanacc para ficar fiel à
+  referência visual aprovada: o problema real não era nenhum detalhe
+  isolado, era estrutural — o carrossel vivia dentro do `.container`
+  padrão (max-width 1240px) e por isso lia como "3 cards dentro de uma
+  caixa", nunca conseguindo mostrar mais que uma lasca de pixels dos
+  cards vizinhos. Título/subtítulo, cards, setas, dots e CTA — só esta
+  seção; nenhuma outra parte do site foi tocada.
+  - **Full-bleed real**: o carrossel saiu de dentro do `<div
+    className="container">` e passou a ser filho direto da `<section>`
+    (que já é 100% da viewport) — confirmado por medição, não visual:
+    `viewport.getBoundingClientRect().width` bate exatamente com
+    `window.innerWidth` em todos os 7 breakpoints (antes ficava
+    plafonado em 1144px, o teto do `--content-max`). O cabeçalho
+    continua dentro de `.container`, só que agora centralizado
+    (`text-align:center; margin-inline:auto`) e mais estreito (720px).
+  - **Título**: `clamp(72px, 9vw, 132px)`, peso 400, line-height 0.92,
+    letter-spacing -0.01em — exatamente a fórmula pedida. Mesmo
+    problema de ajuste do round anterior reapareceu numa escala maior:
+    "nailsbyanacc." é uma palavra só (não quebra em espaço) e não cabe
+    numa linha em 375-430px no piso pedido de 72px (largura natural
+    medida: 379px contra ~335px disponíveis). Piso abaixado para 50px
+    (medido: 316px de texto contra 335px disponíveis, com margem) —
+    9vw e o teto de 132px ficaram como pedido.
+  - **Cards**: proporção da imagem mudou de 4/5 para 6/7 — não porque
+    6/7 fosse o alvo (a imagem em si não tinha alvo declarado), mas
+    porque a proporção TOTAL do card (imagem + legenda) pedida era
+    0.70-0.76, e a legenda abaixo da imagem empurra esse número pra
+    baixo; 6/7 na imagem fecha o card em 0.73 (1440px) e 0.70 (768px) —
+    medido depois de cada tentativa, não assumido. Largura do card:
+    `clamp(320px, 27vw, 380px)` no desktop, dentro do
+    `clamp(300px,25vw,360px)` sugerido com folga pequena.
+  - **Peek dos cards laterais — a parte mais difícil desta rodada**:
+    o pedido de "20-35% visível" no desktop bateu direto num limite
+    matemático do `align:'center'` do Embla, que sempre centraliza
+    exatamente 1 slide — por construção, isso só produz contagens
+    ÍMPARES de cards cheios ao redor do centro (1, 3, 5...) via peek
+    simétrico. "2 cards completos" (pedido pro tablet) não é um estado
+    alcançável dessa forma sem trocar a estratégia de alinhamento por
+    breakpoint, o que arriscaria o "sem salto perceptível" exigido no
+    resize. Resolvido assim: desktop (≥1200px) usa a fórmula correta
+    (`viewport = 3W + 2×gap + 2×peek×W`) para as 3 completas + parcial —
+    medido 20-27% nos 3 breakpoints desktop, dentro do alvo; tablet
+    (768-1024px) fica com 1 completo + ~70-72% de cada vizinho (a
+    aproximação mais honesta alcançável — visivelmente menor e
+    diferente do desktop, sem forçar 3 cards minúsculos só pra bater um
+    número); mobile (375-430px) resolvido pela mesma fórmula do
+    desktop, 20-21% medido, dentro do pedido de 15-25%. Documentado no
+    CSS para a próxima pessoa não tentar "consertar" o tablet pra virar
+    3 cards sem entender por que isso quebra a intenção.
+  - **Detalhes do card**: badge "NAILS" (canto superior esquerdo) e
+    ícone de bookmark outline (canto superior direito) sobre a imagem;
+    sparkle sólido (não outline — em 14px um traço de 1.5px vira borrão,
+    não forma) na legenda, mesmo ícone reaproveitado no CTA. Dois ícones
+    novos (`BookmarkIcon`, `SparkleIcon`) em `EditorialIcons.tsx`, SVG
+    local, mesma convenção dos existentes — nenhuma biblioteca
+    instalada.
+  - **Card ativo**: `scale(0.985)` → `scale(1)`, sem opacity (a rodada
+    anterior também dimmava opacidade; removido porque o pedido desta
+    vez foi explícito — "nada além disso").
+  - **CTA "ver mais inspirações"**: não é `<button>`/`<a>` — é texto
+    simples estilizado como pill, sem `href`, `onClick`, hover ou estado
+    de foco. Não existe uma página real de "mais inspirações" neste
+    site de página única, e a convenção já estabelecida neste projeto
+    (ver entrada da primeira rodada da nailsbyanacc) é nunca simular um
+    link pra um destino que não existe — a própria instrução desta
+    rodada previa esse caso ("renderizar visualmente... ou deixar
+    preparado sem quebrar UX"). Sem `aria-hidden`: o texto é lido
+    normalmente por leitor de tela, já que é uma legenda visível, não
+    teria sentido escondê-la de quem usa leitor de tela enquanto quem
+    enxerga a vê.
+  - **Espaçamento**: padding-top da seção subiu para `--space-9`
+    (104px); título→subtítulo `--space-6` (32px); subtítulo→carrossel
+    60px (nenhum token bate exato no meio de 50-70px, valor literal
+    documentado); carrossel→dots `--space-6` (32px); dots→CTA
+    `--space-5` (24px); CTA→fim da seção via `padding-bottom:
+    --space-8` (72px, dentro de 60-90px).
+  - Interações (setas, dots, teclado, drag do mouse, loop, pausa em
+    hover/foco, swipe touch, `prefers-reduced-motion`) re-testadas do
+    zero após a reestruturação: idênticas ao round anterior — inclusive
+    a mesma verificação matemática do loop (8 cliques "anterior"
+    fecham no índice esperado por `mod 6`). As 6 fotos reais
+    reconferidas card por card com o novo crop 6/7: nenhum charm
+    importante cortado.
+  - 0 overflow horizontal nos 7 breakpoints, 0 erros de console, 0
+    requisições com falha — testado no dev server e repetido sob
+    `/Analups/` via `http-server`. `npm run lint` e `npm run build`
+    limpos. Validação real em Safari/iPad continua não realizada por
+    falta de motor WebKit neste ambiente (mesma limitação já registrada
+    na rodada anterior).

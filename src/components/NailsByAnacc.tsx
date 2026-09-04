@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState, type KeyboardEvent } from 'react'
 import { nails } from '../data/nails'
 import { useReveal } from '../lib/useReveal'
 import { AspectImage } from './AspectImage'
-import { ChevronLeftIcon, ChevronRightIcon } from './icons/EditorialIcons'
+import { BookmarkIcon, ChevronLeftIcon, ChevronRightIcon, SparkleIcon } from './icons/EditorialIcons'
 import styles from './NailsByAnacc.module.css'
 
 interface NailsByAnaccProps {
@@ -105,65 +105,72 @@ export function NailsByAnacc({ index }: NailsByAnaccProps) {
         </div>
       </div>
 
-      <div className="container">
-        <div
-          className={styles.carousel}
-          role="region"
-          aria-roledescription="carousel"
-          aria-label="Fotos de unhas by anacc"
-          onKeyDown={handleKeyDown}
+      {/* Deliberately NOT wrapped in .container: the carousel needs to span
+          near the full viewport width so the previous/next cards can peek
+          past its edges — the one requirement this whole rewrite exists
+          for. Only the header above stays inside .container/narrowed. */}
+      <div
+        className={styles.carousel}
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Fotos de unhas by anacc"
+        onKeyDown={handleKeyDown}
+      >
+        <button
+          type="button"
+          className={`${styles.arrow} ${styles.arrowPrev}`}
+          onClick={scrollPrev}
+          aria-label="Inspiração anterior"
         >
-          <button
-            type="button"
-            className={`${styles.arrow} ${styles.arrowPrev}`}
-            onClick={scrollPrev}
-            aria-label="Inspiração anterior"
-          >
-            <ChevronLeftIcon size={20} />
-          </button>
+          <ChevronLeftIcon size={20} />
+        </button>
 
-          <div className={styles.viewport} ref={emblaRef}>
-            <div className={styles.track}>
-              {nails.map((look, i) => (
-                <div
-                  key={look.id}
-                  className={styles.slide}
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label={`${i + 1} de ${nails.length}`}
-                >
-                  <div
-                    className={`${styles.card} ${i === selectedIndex ? styles.cardActive : ''}`}
-                  >
+        <div className={styles.viewport} ref={emblaRef}>
+          <div className={styles.track}>
+            {nails.map((look, i) => (
+              <div
+                key={look.id}
+                className={styles.slide}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${i + 1} de ${nails.length}`}
+              >
+                <div className={`${styles.card} ${i === selectedIndex ? styles.cardActive : ''}`}>
+                  <div className={styles.imageWrap}>
                     <AspectImage
                       src={look.image}
                       alt={`Unha ${look.name}, by anacc`}
-                      ratio="4 / 5"
+                      ratio="6 / 7"
                       objectPosition={look.imagePosition}
                       className={styles.image}
                       priority={i === 0}
-                      sizes="(min-width: 1024px) 380px, (min-width: 768px) 45vw, 82vw"
+                      sizes="(min-width: 1200px) 380px, (min-width: 768px) 39vw, 62.5vw"
                     />
                     <div className={styles.overlay} aria-hidden="true" />
-                    <div className={styles.caption}>
+                    <span className={styles.badge}>nails</span>
+                    <BookmarkIcon size={16} className={styles.bookmark} />
+                  </div>
+                  <div className={styles.caption}>
+                    <div className={styles.captionText}>
                       <p className={styles.by}>by anacc</p>
                       <p className={styles.name}>{look.name}</p>
                     </div>
+                    <SparkleIcon size={14} className={styles.sparkle} />
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-
-          <button
-            type="button"
-            className={`${styles.arrow} ${styles.arrowNext}`}
-            onClick={scrollNext}
-            aria-label="Próxima inspiração"
-          >
-            <ChevronRightIcon size={20} />
-          </button>
         </div>
+
+        <button
+          type="button"
+          className={`${styles.arrow} ${styles.arrowNext}`}
+          onClick={scrollNext}
+          aria-label="Próxima inspiração"
+        >
+          <ChevronRightIcon size={20} />
+        </button>
       </div>
 
       <div className={styles.dots} role="tablist" aria-label="Selecionar inspiração">
@@ -179,6 +186,18 @@ export function NailsByAnacc({ index }: NailsByAnaccProps) {
           />
         ))}
       </div>
+
+      {/* Visual-only: there's no real "more inspirations" destination on
+          this single-page site yet, and this project's convention (see
+          README) is to never wire a CTA to a page that doesn't exist. Not
+          a <button>/<a> on purpose — no href, onClick, hover, or focus
+          affordance — so it doesn't announce itself as interactive to
+          anyone, sighted or on assistive tech. Plain text either way, so
+          screen-reader users get the same caption sighted users see. */}
+      <p className={styles.cta}>
+        ver mais inspirações
+        <SparkleIcon size={14} className={styles.ctaIcon} />
+      </p>
     </section>
   )
 }
