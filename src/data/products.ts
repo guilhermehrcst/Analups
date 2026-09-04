@@ -10,26 +10,26 @@ import type { Product } from './types'
  */
 export const products: Product[] = [
   {
-    id: 'bruma-mystic',
-    name: 'Bruma Mystic',
-    brand: 'Aurel',
-    category: 'beleza',
-    image: '/images/placeholders/beleza-1.svg',
+    id: 'bruma-glow',
+    name: 'Bruma Glow',
+    brand: 'MELU',
+    category: 'melu',
+    image: '/images/placeholders/melu-1.svg',
     description:
-      'um dos meus favoritos de sempre — fixa o dia inteiro e não enjoa.',
-    url: 'https://example.com/produto/bruma-mystic',
+      'um dos meus favoritos pra dar viço rápido e deixar a rotina mais prática.',
+    url: 'https://example.com/produto/bruma-glow',
     featured: true,
     cta: 'ver meu favorito',
   },
   {
-    id: 'creme-corporal-amalfi',
-    name: 'Creme Corporal Amalfi',
-    brand: 'Aurel',
-    category: 'beleza',
-    image: '/images/placeholders/beleza-2.svg',
+    id: 'creme-corporal-vanilove',
+    name: 'Creme Corporal Vanilove',
+    brand: 'MELU',
+    category: 'melu',
+    image: '/images/placeholders/melu-2.svg',
     description:
-      'hidrata sem pesar e deixa aquele perfume suave por baixo da roupa.',
-    url: 'https://example.com/produto/creme-corporal-amalfi',
+      'hidrata sem pesar e deixa aquele cheirinho doce e confortável pro dia a dia.',
+    url: 'https://example.com/produto/creme-corporal-vanilove',
   },
   {
     id: 'oleo-nutritivo',

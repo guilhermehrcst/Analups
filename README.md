@@ -195,3 +195,71 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
   seu acento (beleza=pink, cabelo=amarelo, skincare=lilás,
   acessórios=coral, treino=pink+coral), footer e header permanecem
   neutros como âncora, zero overflow horizontal, zero erro de console.
+- Rebrand de identidade Gen Z — categoria "beleza" virou "melu" (parceria
+  de patrocínio), tipografia de interface trocada de Instrument Sans para
+  Outfit (self-hosted, variável, pesos 400-600), microinterações de scroll
+  reveal adicionadas via IntersectionObserver nativo:
+  - `types.ts`, `categories.ts`, `products.ts` e `Home.tsx` migrados de
+    `'beleza'` para `'melu'` — slug, label, `id`/`aria-labelledby`
+    derivados de `category.slug` (nenhum anchor `#beleza` estava
+    hardcoded, então a migração não deixou link quebrado). Os dois
+    produtos de demonstração da seção viraram "Bruma Glow" (destaque,
+    `ver meu favorito`) e "Creme Corporal Vanilove" (`ver produto`);
+    os placeholders `beleza-{1,2}.svg` foram renomeados para
+    `melu-{1,2}.svg` (mesma arte gerada, sem edição de conteúdo) em vez
+    de ficarem com nome de categoria que não existe mais.
+  - Outfit baixado como variável latin-only (cobre os diacríticos do
+    PT-BR) direto do Google Fonts, self-hosted em `/public/fonts`,
+    `font-display: swap`; `instrument-sans-normal.woff2` removido junto
+    com o preload e o `@font-face` que apontavam pra ele.
+  - Escala tipográfica recalculada por interpolação linear de dois pontos
+    (375px/1440px) para bater exatamente com os alvos pedidos — conferido
+    por `getComputedStyle` real, não só pelo cálculo: nome de produto
+    normal 28→34px, variante grande/handle social 34→42px, featured
+    42→56px, subtítulo/texto social 16,9→18px. Título de seção (`h2`)
+    voltou de peso 500 para 400 (pedido explícito desta rodada); nome de
+    produto featured ganhou peso 500 explícito (antes herdava 400 do
+    reset de `h1-h4`, ficando fino demais no tamanho grande).
+  - Um defeito real teria passado batido sem a checagem: a seção "melu"
+    reusava a borda-hover em pink (herdada de "beleza", categoria de cor
+    única) mesmo depois de a direção desta rodada pedir "hot pink +
+    coral" para ela — igual à seção "treino". Corrigido agrupando
+    `melu` com `acessorios`/`treino` no hover em coral, mantendo o mat
+    de fundo em pink; confirmado por `getComputedStyle` antes e depois
+    (`rgba(246,91,145,…)` → `rgba(255,122,99,…)`).
+  - Scroll reveal: hook `useReveal` (IntersectionObserver, dispara uma
+    vez) + classe utilitária `.reveal`/`.is-visible` em `global.css`,
+    aplicado ao cabeçalho de cada seção e a todo card de produto/social,
+    com stagger de 75ms entre cards que entram juntos (dentro da faixa
+    60-90ms pedida) via `transitionDelay` inline. Sob
+    `prefers-reduced-motion`, `.reveal` fica sempre visível sem
+    transição — confirmado que o hook ainda dispara (não deixa o
+    conteúdo dependente de JS para aparecer), só não há mais nada pra
+    animar. Verificado via DOM real: elemento fora da viewport começa
+    `opacity:0` sem a classe `is-visible`; após rolar até ele e esperar a
+    transição, ganha `is-visible`, `opacity:1` e o delay de stagger
+    correto (`0s`/`0.075s`) nos dois cards da seção "melu".
+  - Escala do hover de foto ajustada de `scale(1.015)` para `scale(1.02)`
+    nos três componentes de card (ProductCard, FeaturedProduct,
+    SocialCard).
+  - Gradiente do hero: stop de 78% ajustado de `#FF8B6A` para `#FF7A63`
+    (o token `--color-coral` exato); contraste do texto sobre o hero
+    re-medido por amostragem de pixel real após a mudança — mínimo
+    5,22:1 nos 6 breakpoints, sem regressão em relação à rodada anterior.
+  - `grep` de limpeza (`beleza`, `#beleza`, `Instrument Sans`): as únicas
+    ocorrências restantes de "beleza" são uso natural da palavra (bio do
+    Instagram, meta description, e o próprio subtítulo novo da seção
+    "melu" — "com beleza leve, divertida..." — pedido literalmente pelo
+    usuário), não a categoria; zero `#beleza`; zero `Instrument Sans`.
+  - Corrigido incidentalmente: `theme-color` do `index.html` ainda
+    apontava para o vinho antigo (`#5a1c28`) de antes da rodada de cores;
+    atualizado para o `--color-wine` atual (`#5b2136`).
+  - Não implementado por decisão deliberada: textura de grain/ruído
+    (item 27 do pedido) — a própria instrução marca como opcional
+    ("pode adicionar") e condiciona à ausência de custo de performance;
+    sem esse item ser obrigatório, a complexidade de gerar e aplicar a
+    textura sem custo perceptível não se justificava nesta rodada.
+  - Build de produção servido sob `/Analups/` (base path real) após esta
+    rodada: 0 erros de console, 0 requisições com falha, 0 overflow,
+    Outfit e Bodoni Moda carregando (nenhum Instrument Sans), anchor
+    `#melu` resolvendo — confirmado via Playwright.

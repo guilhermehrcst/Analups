@@ -1,4 +1,5 @@
 import type { Product } from '../data/types'
+import { useReveal } from '../lib/useReveal'
 import { AspectImage } from './AspectImage'
 import { ArrowUpRightIcon } from './icons/EditorialIcons'
 import styles from './FeaturedProduct.module.css'
@@ -7,16 +8,22 @@ interface FeaturedProductProps {
   product: Product
   /** Mirrors the image to the opposite side, for cross-section rhythm. */
   reverse?: boolean
+  /** Stagger for cards entering the viewport together — see useReveal. */
+  revealDelay?: number
 }
 
-export function FeaturedProduct({ product, reverse = false }: FeaturedProductProps) {
+export function FeaturedProduct({ product, reverse = false, revealDelay = 0 }: FeaturedProductProps) {
+  const { ref, visible } = useReveal<HTMLAnchorElement>()
+
   return (
     <a
+      ref={ref}
       href={product.url}
       target="_blank"
       rel="noreferrer noopener"
       data-category={product.category}
-      className={`${styles.card} ${reverse ? styles.reverse : ''}`}
+      style={{ transitionDelay: visible ? `${revealDelay}ms` : undefined }}
+      className={`${styles.card} ${reverse ? styles.reverse : ''} reveal ${visible ? 'is-visible' : ''}`}
     >
       <AspectImage
         src={product.image}

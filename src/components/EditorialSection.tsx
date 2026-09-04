@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import type { Category } from '../data/types'
+import { useReveal } from '../lib/useReveal'
 import styles from './EditorialSection.module.css'
 
 interface EditorialSectionProps {
@@ -14,6 +15,7 @@ interface EditorialSectionProps {
 
 export function EditorialSection({ category, index, children }: EditorialSectionProps) {
   const sunken = index % 2 === 1
+  const { ref, visible } = useReveal<HTMLElement>()
 
   return (
     <section
@@ -22,7 +24,10 @@ export function EditorialSection({ category, index, children }: EditorialSection
       aria-labelledby={`${category.slug}-heading`}
     >
       <div className="container">
-        <header className={styles.header}>
+        <header
+          ref={ref}
+          className={`${styles.header} reveal ${visible ? 'is-visible' : ''}`}
+        >
           <h2 id={`${category.slug}-heading`} className={styles.heading}>
             {category.label}.
           </h2>

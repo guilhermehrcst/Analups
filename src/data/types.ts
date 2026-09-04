@@ -1,5 +1,5 @@
 export type CategorySlug =
-  | 'beleza'
+  | 'melu'
   | 'cabelo'
   | 'skincare'
   | 'acessorios'

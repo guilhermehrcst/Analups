@@ -46,8 +46,8 @@
 
   /* ---- typography ---- */
   --font-display: 'Bodoni Moda', serif;
-  --font-body: 'Instrument Sans', system-ui, -apple-system,
-    BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
 
   /* eyebrow/marca (13-14px) e rodapé — legível mesmo pequeno */
   --text-xs: 0.875rem;
@@ -55,14 +55,14 @@
   --text-sm: 0.9375rem;
   /* corpo global e descrição de produto — ~16-17px */
   --text-base: clamp(1rem, 0.978rem + 0.1vw, 1.0625rem);
-  /* subtítulo de seção e texto dos cards sociais — ~16-20px */
-  --text-md: clamp(1rem, 1rem + 0.2vw, 1.25rem);
-  /* nome de produto, cards normais — ~27-34px */
-  --text-lg: clamp(1.6875rem, 1.619rem + 0.56vw, 2.25rem);
-  /* nome de produto, variante "large" — ~34-44px */
-  --text-xl: clamp(2.125rem, 1.905rem + 0.94vw, 2.75rem);
-  /* nome de produto, featured — ~40-56px */
-  --text-2xl: clamp(2.5rem, 2.148rem + 1.5vw, 3.5rem);
+  /* subtítulo de seção e texto dos cards sociais — 16-18px */
+  --text-md: clamp(1rem, 1.02rem + 0.15vw, 1.125rem);
+  /* nome de produto, cards normais — 28-34px */
+  --text-lg: clamp(1.75rem, 1.618rem + 0.563vw, 2.125rem);
+  /* nome de produto, variante "large", handle social — 34-42px */
+  --text-xl: clamp(2.125rem, 1.949rem + 0.751vw, 2.625rem);
+  /* nome de produto, featured — 42-56px */
+  --text-2xl: clamp(2.625rem, 2.317rem + 1.315vw, 3.5rem);
   /* títulos de seção + hero — ~42-76px */
   --text-3xl: clamp(2.625rem, 1.877rem + 3.2vw, 4.75rem);
 
@@ -100,6 +100,7 @@
   --ease-editorial: cubic-bezier(0.22, 0.61, 0.36, 1);
   --duration-fast: 160ms;
   --duration-base: 320ms;
+  --duration-reveal: 600ms; /* scroll-reveal fade + translateY, see .reveal in global.css */
 
   color-scheme: light;
 }
@@ -108,5 +109,6 @@
   :root {
     --duration-fast: 0ms;
     --duration-base: 0ms;
+    --duration-reveal: 0ms;
   }
 }

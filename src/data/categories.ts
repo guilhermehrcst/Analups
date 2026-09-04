@@ -2,9 +2,10 @@ import type { Category } from './types'
 
 export const categories: Category[] = [
   {
-    slug: 'beleza',
-    label: 'beleza',
-    description: 'perfumaria, corpo e os pequenos rituais do dia a dia.',
+    slug: 'melu',
+    label: 'melu',
+    description:
+      'meus favoritos da Melu, com beleza leve, divertida e cheia de personalidade.',
   },
   {
     slug: 'cabelo',
