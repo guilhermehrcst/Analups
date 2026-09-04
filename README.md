@@ -753,3 +753,35 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
     de antes, confirmando que a mudança do Hero não teve nenhum efeito
     colateral aqui. 0 overflow, 4 cards, 0 imagem quebrada, 0 erro de
     console, 0 requisição com falha nos 7 breakpoints.
+- Removida a faixa branca acima do hero. Causa raiz: `Header.tsx`
+  renderizava um `<header>` com `background: #ffffff` e um `.bar` com
+  `min-height: 64px` — literalmente uma barra branca vazia, sem
+  logo/nav/conteúdo nenhum, herdada de uma rodada anterior
+  ("Esvazia o header: faixa branca sem conteúdo") que deliberadamente
+  a deixou assim. Ela ficava em fluxo normal, antes do `<main>`, então
+  empurrava o hero pra baixo em toda a página. Investigação descartou
+  qualquer outra causa antes de decidir a correção: `global.css` zera
+  margin de todo elemento (`* { margin: 0 }`, sem colapso possível),
+  `body`/`html` não têm padding-top, não existe regra para `#root` em
+  lugar nenhum do projeto, e o skip-link é `position:absolute`
+  (não ocupa espaço em fluxo).
+  - Como o header não tinha nenhum conteúdo real (nem mesmo um wordmark
+    — só uma div vazia), mascará-lo (deixar `background:transparent`
+    e `min-height:0`, por exemplo) seria manter um elemento sem
+    propósito só pra escondê-lo — exatamente o tipo de gambiarra que
+    a correção deveria evitar. Removidos `Header.tsx` e
+    `Header.module.css`, e em `App.tsx` o `<div id="top"><Header /></div>`
+    (o `id="top"` não era usado por nenhum link/âncora — grep
+    confirmou) deu lugar direto ao `<main id="main">`, que agora é o
+    primeiro elemento da página depois do skip-link (que fica fora do
+    fluxo).
+  - Nada do Hero em si mudou (`Hero.tsx`/`Hero.module.css` intactos) —
+    ele já era full-bleed (`position:absolute; inset:0` na imagem,
+    `.hero` como único ancestral em fluxo); o espaço branco nunca veio
+    de dentro dele.
+  - Medido via Playwright nos 7 breakpoints (375-1440): topo do hero e
+    da imagem em `y=0` em todos, sem exceção; largura da imagem igual
+    à do viewport; 0 overflow horizontal; 0 erro de console; 0
+    requisição com falha. Repetido sob `/Analups/` (base path real via
+    `http-server`): mesmos números. `npm run lint` e `npm run build`
+    limpos.
