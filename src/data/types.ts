@@ -70,3 +70,23 @@ export interface CachosLook {
   /** The one card given the large, spotlighted slot in the grid. */
   featured?: boolean
 }
+
+/**
+ * A single photo in the treino grid — personal photography, not a
+ * shoppable product: same shape and reasoning as CachosLook, minus
+ * `featured` (the grid always pairs exactly 2 cards of equal weight,
+ * no spotlighted slot).
+ */
+export interface TreinoLook {
+  id: string
+  /** Path under /public. */
+  image: string
+  /** Small eyebrow above the title, e.g. "analunps". */
+  label: string
+  /** Short editorial title, e.g. "rotina real". */
+  title: string
+  /** Short, first-person line — never marketing copy. */
+  description: string
+  /** CSS object-position — mirrors CachosLook.imagePosition. */
+  imagePosition?: string
+}
