@@ -1,8 +1,7 @@
 export type CategorySlug =
   | 'melu'
-  | 'cabelo'
-  | 'skincare'
-  | 'acessorios'
+  | 'nails'
+  | 'cachos'
   | 'treino'
 
 export interface Category {
@@ -30,8 +29,64 @@ export interface Product {
   /** Overrides the category's default accent — for sections (like "melu")
    *  where each product carries its own color identity instead of sharing
    *  one accent across the whole category. */
-  accent?: 'pink' | 'coral' | 'yellow' | 'lilac' | 'mint'
+  accent?: 'pink' | 'coral' | 'yellow' | 'mint'
   /** CSS object-position, for real photos whose subject isn't centered
    *  at the card's 4:5 crop — mirrors SocialProfile.imagePosition. */
+  imagePosition?: string
+}
+
+/**
+ * A single nail-art photo in the nailsbyanacc carousel — editorial
+ * photography, not a shoppable product: no brand, price, or outbound
+ * link, so it deliberately doesn't reuse Product.
+ */
+export interface NailLook {
+  id: string
+  /** Path under /public. */
+  image: string
+  /** Short editorial title, e.g. "Chrome Estelar". */
+  name: string
+  /** CSS object-position — mirrors Product.imagePosition. */
+  imagePosition?: string
+}
+
+/**
+ * A single hair photo in the cachos grid — personal photography, not a
+ * shoppable product: no brand, price, or outbound link, same reasoning
+ * as NailLook.
+ */
+export interface CachosLook {
+  id: string
+  /** Path under /public. */
+  image: string
+  /** Small eyebrow above the title, e.g. "analunps". */
+  label: string
+  /** Short editorial title, e.g. "volume dourado". */
+  title: string
+  /** Short, first-person line — never marketing copy. */
+  description: string
+  /** CSS object-position — mirrors Product.imagePosition. */
+  imagePosition?: string
+  /** The one card given the large, spotlighted slot in the grid. */
+  featured?: boolean
+}
+
+/**
+ * A single photo in the treino grid — personal photography, not a
+ * shoppable product: same shape and reasoning as CachosLook, minus
+ * `featured` (the grid always pairs exactly 2 cards of equal weight,
+ * no spotlighted slot).
+ */
+export interface TreinoLook {
+  id: string
+  /** Path under /public. */
+  image: string
+  /** Small eyebrow above the title, e.g. "analunps". */
+  label: string
+  /** Short editorial title, e.g. "rotina real". */
+  title: string
+  /** Short, first-person line — never marketing copy. */
+  description: string
+  /** CSS object-position — mirrors CachosLook.imagePosition. */
   imagePosition?: string
 }

@@ -8,19 +8,14 @@ export const categories: Category[] = [
       'meus favoritos da Melu, com beleza leve, divertida e cheia de personalidade.',
   },
   {
-    slug: 'cabelo',
-    label: 'cabelo',
-    description: 'o que mantém o cronograma capilar em dia, sem enrolação.',
+    slug: 'nails',
+    label: 'nailsbyanacc',
+    description: 'inspirações que traduzem personalidade, beleza e atitude.',
   },
   {
-    slug: 'skincare',
-    label: 'skincare',
-    description: 'rotina enxuta, resultado visível — nada de dez passos.',
-  },
-  {
-    slug: 'acessorios',
-    label: 'acessórios',
-    description: 'peças que uso sozinha ou empilhadas, quase todo dia.',
+    slug: 'cachos',
+    label: 'cachos',
+    description: 'meus favoritos pra cuidar, finalizar e viver cada fase do meu cabelo.',
   },
   {
     slug: 'treino',

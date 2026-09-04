@@ -6,20 +6,11 @@ import styles from './ProductCard.module.css'
 
 interface ProductCardProps {
   product: Product
-  /** Horizontal reads as a compact row — used sparingly for rhythm. */
-  orientation?: 'vertical' | 'horizontal'
-  /** Large steps up type scale for a card carrying more visual weight in a section. */
-  size?: 'default' | 'large'
   /** Stagger for cards entering the viewport together — see useReveal. */
   revealDelay?: number
 }
 
-export function ProductCard({
-  product,
-  orientation = 'vertical',
-  size = 'default',
-  revealDelay = 0,
-}: ProductCardProps) {
+export function ProductCard({ product, revealDelay = 0 }: ProductCardProps) {
   const { ref, visible } = useReveal<HTMLAnchorElement>()
 
   return (
@@ -31,25 +22,15 @@ export function ProductCard({
       data-category={product.category}
       data-accent={product.accent}
       style={{ transitionDelay: visible ? `${revealDelay}ms` : undefined }}
-      className={[
-        styles.card,
-        orientation === 'horizontal' ? styles.horizontal : '',
-        size === 'large' ? styles.large : '',
-        'reveal',
-        visible ? 'is-visible' : '',
-      ].join(' ')}
+      className={[styles.card, 'reveal', visible ? 'is-visible' : ''].join(' ')}
     >
       <AspectImage
         src={product.image}
         alt={`${product.name} — ${product.brand}`}
-        ratio={orientation === 'horizontal' ? '1 / 1' : '4 / 5'}
+        ratio="4 / 5"
         objectPosition={product.imagePosition}
         className={styles.image}
-        sizes={
-          orientation === 'horizontal'
-            ? '(min-width: 768px) 220px, 40vw'
-            : '(min-width: 1024px) 32vw, (min-width: 768px) 45vw, 88vw'
-        }
+        sizes="(min-width: 1024px) 32vw, (min-width: 768px) 45vw, 88vw"
       />
 
       <div className={styles.body}>

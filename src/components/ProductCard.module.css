@@ -1,9 +1,21 @@
+/* Card finish comes from the shared tokens (see --radius-card in tokens.css)
+   so melu/treino, social, cachos and nails read as one system — before this,
+   this card and SocialCard used radius 3px with no resting shadow while
+   cachos/nails used 20px with one, which put two different card systems on
+   the same page. Only the interactive cards (this one and SocialCard) add a
+   hover lift: cachos and nails cards aren't links, so they correctly have no
+   hover state. */
+
 .card {
   display: flex;
   flex-direction: column;
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
+  border: var(--card-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--card-shadow);
+  /* Clips the flush image to the card's radius — the image carries no
+     radius of its own (see .image). */
+  overflow: hidden;
   transition:
     transform var(--duration-base) var(--ease-editorial),
     box-shadow var(--duration-base) var(--ease-editorial),
@@ -13,7 +25,7 @@
 .card:hover,
 .card:focus-visible {
   transform: translateY(-3px);
-  box-shadow: 0 14px 28px -20px rgba(37, 28, 26, 0.35);
+  box-shadow: var(--card-shadow-hover);
 }
 
 /* ---- per-category accent: soft tint as a thin mat around the image.
@@ -23,46 +35,9 @@
    padding here creates that gap on purpose, so the color reads as a small
    frame detail rather than dead CSS. Hover swaps it to a colored hairline.
 
-   "melu" has no rule of its own here: unlike the other sections, each of
-   its products carries its own accent (data-accent) instead of sharing
-   one color across the whole category — see the accent block below. */
-
-.card[data-category='cabelo'] .image {
-  padding: 6px;
-  background: var(--color-yellow-soft);
-}
-
-.card[data-category='skincare'] .image {
-  padding: 6px;
-  background: var(--color-lilac-soft);
-}
-
-.card[data-category='acessorios'] .image {
-  padding: 6px;
-  background: var(--color-coral-soft);
-}
-
-.card[data-category='treino'] .image {
-  padding: 6px;
-  background: var(--color-pink-soft);
-}
-
-.card[data-category='cabelo']:hover,
-.card[data-category='cabelo']:focus-visible {
-  border-color: var(--color-yellow-border);
-}
-
-.card[data-category='skincare']:hover,
-.card[data-category='skincare']:focus-visible {
-  border-color: var(--color-lilac-border);
-}
-
-.card[data-category='acessorios']:hover,
-.card[data-category='acessorios']:focus-visible,
-.card[data-category='treino']:hover,
-.card[data-category='treino']:focus-visible {
-  border-color: var(--color-coral-border);
-}
+   melu is the only section using this card now (treino moved to its own
+   TreinoGrid), and each of its products carries its own accent via
+   data-accent rather than sharing one across the category. */
 
 /* ---- per-product accent (melu): each of its 3 cards carries its own
    color identity instead of sharing one across the category. ---- */
@@ -104,6 +79,9 @@
 
 .image {
   flex-shrink: 0;
+  /* The card clips it; a radius here left a rounded image floating inside
+     a differently-rounded card. */
+  border-radius: 0;
 }
 
 .body {
@@ -111,7 +89,21 @@
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-2);
-  padding: var(--space-4) var(--space-1) var(--space-2);
+  /* Same caption inset as cachos/nails. Was --space-1 (4px) horizontally,
+     which sat the text 5px from the card's visible border. */
+  padding: var(--space-4) var(--space-4) var(--space-5);
+  /* Fills the card's leftover height so the CTA below can be pinned to the
+     bottom edge. */
+  flex: 1 1 auto;
+}
+
+/* Pins the CTA to the bottom of every card in a row: grid rows already make
+   the cards equal height, but a name that wraps to two lines (or a longer
+   description) pushed its CTA ~45px lower than its neighbours'. */
+.body :global(.editorial-link) {
+  margin-top: auto;
+  /* auto only collapses the gap above it; keep the intended breathing room. */
+  padding-top: var(--space-2);
 }
 
 .brand {
@@ -137,36 +129,3 @@
   max-width: 44ch;
 }
 
-/* ---- horizontal variant: compact row, used for editorial variety ---- */
-
-.horizontal {
-  flex-direction: row;
-  align-items: stretch;
-  gap: var(--space-4);
-}
-
-.horizontal .image {
-  width: 34%;
-  max-width: 180px;
-}
-
-.horizontal .body {
-  min-width: 0;
-  padding: var(--space-2) var(--space-2) var(--space-2) 0;
-  justify-content: center;
-}
-
-.horizontal .description {
-  max-width: none;
-}
-
-/* ---- large variant: more visual weight, used for a section's stand-out pick ---- */
-
-.large .name {
-  font-size: var(--text-xl);
-}
-
-.large .description {
-  font-size: var(--text-md);
-  max-width: 46ch;
-}

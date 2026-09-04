@@ -145,6 +145,11 @@ p {
      4.5:1 this text size needs. White on wine measures 12.2:1. */
   background: var(--color-wine);
   color: var(--color-surface);
+  /* inline-flex + min-height so the target clears 44px: padding alone gave
+     it 40px. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-sm);
   font-size: var(--text-sm);
