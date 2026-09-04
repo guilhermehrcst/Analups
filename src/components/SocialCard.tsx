@@ -16,7 +16,13 @@ export function SocialCard({ profile }: SocialCardProps) {
   const Icon = ICONS[profile.platform]
 
   return (
-    <a href={profile.url} target="_blank" rel="noopener noreferrer" className={styles.card}>
+    <a
+      href={profile.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-platform={profile.platform}
+      className={styles.card}
+    >
       <AspectImage
         src={profile.image}
         alt={profile.alt}

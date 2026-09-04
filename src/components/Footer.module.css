@@ -53,7 +53,9 @@
 
 .handle:hover,
 .handle:focus-visible {
-  color: #cfcac5;
+  /* Hot pink measures 6.1:1 against this bar's near-black — safe as text
+     here even though it isn't on the site's light backgrounds. */
+  color: var(--color-primary);
 }
 
 @media (min-width: 768px) {

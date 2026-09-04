@@ -5,18 +5,44 @@
 */
 
 :root {
-  /* ---- color ---- */
-  --color-background: #f7f1e4; /* creme sofisticado */
-  --color-surface: #fffdf9; /* branco quente */
-  --color-surface-sunken: #f1e9da; /* creme mais escuro, para separar seções */
-  --color-primary: #5a1c28; /* vinho profundo */
-  --color-primary-strong: #3f131c; /* vinho, hover/pressed */
-  --color-accent: #f0dcd8; /* rosa extremamente suave */
-  --color-accent-strong: #e2bdb8; /* rosa suave, usado com parcimônia */
-  --color-text: #251e1c; /* carvão quente */
-  --color-muted: #655955; /* texto secundário — contraste ≥5.5:1 em todos os fundos usados */
-  --color-border: #e7ddc9;
-  --color-border-strong: #d8c9ad;
+  /* ---- color ----
+     Sistema: base clara (cream/surface) domina; vinho carrega texto e
+     títulos; hot pink/coral/amarelo/lilás entram só como acento (ícones,
+     bordas, fundos muito suaves, hover) — nunca como cor de texto corrido,
+     pois nenhum deles sozinho atinge 4.5:1 em fundo claro (medido). Onde a
+     direção pede "hot pink"/"coral" como texto (hover de CTA), usamos a
+     variante -text, uma versão escurecida da mesma cor que passa em AA. */
+  --color-background: #fff8ef; /* cream */
+  --color-surface: #ffffff;
+  --color-surface-sunken: #f9f0e5; /* cream levemente mais escuro, mesma proporção de escurecimento de antes — alternância de seção */
+  --color-text: #2a2023;
+  --color-muted: #67585d; /* contraste ≥6:1 em background/surface/surface-sunken (medido) */
+
+  --color-wine: #5b2136; /* títulos de seção, marca/eyebrow, links editoriais, focus ring, skip-link */
+
+  --color-primary: #f65b91; /* hot pink — acento: ícone, borda, hover de fundo. NÃO usar como texto (2.9-3.1:1, abaixo de AA) */
+  --color-primary-hover: #de487c; /* preenchimento de hover (chip do hero) — não usar como texto */
+  --color-primary-text: #c43c6c; /* hot pink escurecido — único uso seguro como cor de texto, ≥4.5:1 medido */
+
+  /* coral, amarelo e lilás só existem aqui como derivados (soft/border/
+     text): a cor plena (#FF7A63/#FFC857/#B99AF8) mede 1.5-2.6:1 como texto
+     ou ícone sobre este fundo claro, abaixo até do piso de 3:1 para objetos
+     gráficos — então nunca aparece pura em primeiro plano, só nesses tons
+     já ajustados para o uso real que este site faz dela. */
+  --color-coral-text: #c2452f; /* coral escurecido — seguro como texto/ícone, ≥4.5:1 medido */
+  --color-coral-soft: #ffe3db;
+  --color-coral-border: rgba(255, 122, 99, 0.35);
+
+  --color-yellow-soft: #fff1c9;
+  --color-yellow-border: rgba(255, 200, 87, 0.45);
+
+  --color-lilac-soft: #efe8ff;
+  --color-lilac-border: rgba(185, 154, 248, 0.35);
+
+  --color-pink-soft: #fce4ed;
+  --color-pink-border: rgba(246, 91, 145, 0.35);
+
+  --color-border: rgba(91, 33, 54, 0.14); /* hairline sutil em cards sobre o fundo cream */
 
   /* ---- typography ---- */
   --font-display: 'Bodoni Moda', serif;

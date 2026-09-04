@@ -148,3 +148,50 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
 - Build de produção servido sob `/Analups/` (base path real) após esta
   rodada: 0 erros de console, 0 requisições com falha, 0 overflow,
   exatamente um `<h1>` — confirmado via Playwright, não apenas visual.
+- Direção de arte — nova paleta (cream/hot pink/coral/amarelo/lilás/vinho):
+  tokens de cor totalmente redefinidos em `tokens.css`; vinho continua
+  carregando títulos de seção, marca/eyebrow, links editoriais e o focus
+  ring — hot pink/coral/amarelo/lilás entram só como acento (ícone, borda,
+  fundo muito suave, hover), nunca como texto corrido: medido por
+  luminância relativa, nenhum dos quatro atinge 4,5:1 sozinho em fundo
+  claro (1,5–3,1:1). Onde a direção pedia a cor vibrante como texto de
+  hover, foi usada uma variante escurecida da mesma cor (`-text`,
+  ≥4,5:1 medido) em vez da cor pura.
+- Dois defeitos reais encontrados por medição, não por inspeção visual, e
+  corrigidos antes do commit:
+  1. o tom de fundo por categoria nos cards de produto (`--color-*-soft`)
+     era invisível — `object-fit:cover` cobre o frame inteiro, sem brecha
+     para o fundo aparecer. Corrigido com um "passe-partout": padding no
+     frame que abre uma margem onde a cor aparece de verdade (confirmado
+     por screenshot antes/depois).
+  2. o ícone do TikTok em coral puro sobre o card branco media 2,56:1,
+     abaixo até do piso de 3:1 para objetos gráficos (e o do Instagram em
+     hot pink puro passava por margem de 0,08 — perto demais para
+     confiar). Ambos os ícones passaram a usar as variantes `-text`
+     (5,0-5,0:1 medido).
+- Header pool de legibilidade do hero: a primeira versão do gradiente
+  vívido (`120deg`, vinho → hot pink → pêssego) tinha o texto ilegível na
+  borda direita em mobile (2,2–2,4:1, medido por amostragem real de pixel
+  via canvas, não CSS computado) porque o "pool" escuro radial não cobria
+  a largura toda do texto. Redesenhado como dois gradientes lineares
+  (vertical + horizontal) formando um vinhete no canto inferior-esquerdo;
+  reajustado três vezes até todos os pontos amostrados em 375–1440px
+  passarem de 4,5:1 (mínimo observado: 4,83:1) sem escurecer o hero
+  inteiro.
+- Estados de hover verificados via `getComputedStyle` após o fim da
+  transição CSS (a primeira leitura, feita antes de a transição
+  assentar, capturou cores intermediárias e gerou falsos positivos):
+  CTA editorial vinho→hot-pink-escuro, card de produto com borda por
+  categoria, ícone e CTA do Instagram em hot pink, do TikTok em coral,
+  chip do hero com wash de pink discreto (`color-mix`), @analunps do
+  footer em hot pink sobre preto (6,14:1).
+- Três tokens da paleta (`--color-coral`, `--color-yellow`,
+  `--color-lilac`, na forma pura) não tinham nenhum consumidor seguro —
+  todo uso real passa pelas variantes derivadas (`-soft`, `-border`,
+  `-text`) — e foram removidos do arquivo em vez de ficarem como tokens
+  mortos.
+- Revisão visual em 375/390/430/768/1024/1440px: hero com gradiente vívido
+  e texto legível em todas as larguras, seções de categoria cada uma com
+  seu acento (beleza=pink, cabelo=amarelo, skincare=lilás,
+  acessórios=coral, treino=pink+coral), footer e header permanecem
+  neutros como âncora, zero overflow horizontal, zero erro de console.

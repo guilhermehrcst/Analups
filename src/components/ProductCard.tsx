@@ -21,6 +21,7 @@ export function ProductCard({
       href={product.url}
       target="_blank"
       rel="noreferrer noopener"
+      data-category={product.category}
       className={[
         styles.card,
         orientation === 'horizontal' ? styles.horizontal : '',

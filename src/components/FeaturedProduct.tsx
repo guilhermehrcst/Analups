@@ -15,6 +15,7 @@ export function FeaturedProduct({ product, reverse = false }: FeaturedProductPro
       href={product.url}
       target="_blank"
       rel="noreferrer noopener"
+      data-category={product.category}
       className={`${styles.card} ${reverse ? styles.reverse : ''}`}
     >
       <AspectImage
