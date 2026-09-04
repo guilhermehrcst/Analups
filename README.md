@@ -469,3 +469,25 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
     round anterior) confirmam visualmente o ritmo pedido: skincare e
     acessórios não dominam mais a tela, treino não parece miniatura,
     melu e cabelo continuam como referência.
+- Footer reduzido a só `@analunps`: removidos `© {ano} Analunps` e a nav
+  de categorias (melu/cabelo/skincare/acessórios/treino) de
+  `Footer.tsx`, junto com os imports (`categories`, `site.fullName`,
+  `year`) que ficaram sem uso — e as regras `.copyright`/`.nav`/`.nav a`
+  de `Footer.module.css`, que ficariam mortas sem esses elementos.
+  - `.bar` mantém `display:flex; justify-content:space-between` como
+    estava — não foi tocado. Com um só filho, `space-between` sozinho
+    jogaria o handle para a ESQUERDA (o comportamento do flexbox com 1
+    item), então `margin-left:auto` foi adicionado a `.handle`
+    especificamente para continuar empurrando-o para a direita, exatamente
+    onde estava.
+  - Nada mais em `.bar`/`.footer` mudou: `min-height` (56px mobile/64px
+    desktop), `padding-block`, `background:#111111` e a tipografia do
+    `.handle` (tamanho, peso, tracking, cor, hover) ficaram intocados —
+    confirmado por medição, não assumido: altura do footer 56px em
+    375px e 64px em 768px/1440px, idêntica a antes da mudança; fundo
+    `rgb(17, 17, 17)`; texto do footer é exatamente `"@analunps"`.
+  - `npm run lint` e `npm run build` limpos (a remoção dos imports não
+    usados era obrigatória — `noUnusedLocals` está ligado no
+    `tsconfig`). 0 overflow em 375/768/1440, 0 erros de console.
+    Repetido sob `/Analups/` via `http-server`: mesmo resultado, 0
+    requisições com falha. Nenhuma outra parte da página foi tocada.
