@@ -1,0 +1,111 @@
+/* ---- grid ----
+   Mobile: .topRow and .bottomRow both collapse to a single column, so all
+   4 cards read as one continuous stack.
+   Tablet+: each row becomes 2 even columns — featured paired with one
+   card on top, the remaining two below. Every pairing uses the same 4/5
+   image ratio, so within a row the height difference is just "wider card,
+   taller card" (bounded, proportional) rather than the ~3x mismatch a
+   single card stacked against 3 others would force. Desktop widens
+   .featured's share of the top row for more presence, which is a WIDTH
+   change only — the ratio stays 4/5 for every card, so no crop is
+   affected by it. */
+
+.grid {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.topRow,
+.bottomRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .topRow,
+  .bottomRow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    /* Grid's default align-items is stretch, which would force both cards
+       in a row to the same height by directly setting a used height on
+       them — bypassing .card's own intrinsic (content-based) sizing the
+       same way the old grid-row: span did. "start" lets each card keep the
+       height its own image ratio + caption produce. */
+    align-items: start;
+  }
+}
+
+@media (min-width: 1024px) {
+  .topRow {
+    grid-template-columns: 1.3fr 1fr;
+  }
+}
+
+/* ---- card ----
+   Same finish as nailsbyanacc's cards (radius, border, shadow) so the two
+   sections read as one system, even though the composition differs. */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  border: 1px solid rgba(91, 33, 54, 0.07);
+  background: var(--color-surface);
+  box-shadow: 0 16px 40px rgba(60, 25, 35, 0.12);
+  overflow: hidden;
+}
+
+.image {
+  border-radius: 0;
+  flex: 1 1 auto;
+}
+
+.caption {
+  padding: var(--space-4) var(--space-4) var(--space-5);
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-wine);
+}
+
+.title {
+  margin-top: 2px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-lg);
+  line-height: var(--leading-snug);
+  color: var(--color-text);
+}
+
+.description {
+  margin-top: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-muted);
+  max-width: 42ch;
+}
+
+/* ---- featured: same 4/5 image ratio as every other card (see
+   CachosCard) — bigger presence comes from getting more flex width at
+   desktop and larger caption type, not a different image shape. ---- */
+
+.featured .title {
+  font-size: var(--text-xl);
+}
+
+.featured .description {
+  font-size: var(--text-md);
+}
+
+@media (min-width: 1024px) {
+  .featured .caption {
+    padding: var(--space-5) var(--space-6) var(--space-6);
+  }
+}

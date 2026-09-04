@@ -27,11 +27,6 @@
    its products carries its own accent (data-accent) instead of sharing
    one color across the whole category — see the accent block below. */
 
-.card[data-category='skincare'] .image {
-  padding: 6px;
-  background: var(--color-lilac-soft);
-}
-
 .card[data-category='acessorios'] .image {
   padding: 6px;
   background: var(--color-coral-soft);
@@ -40,11 +35,6 @@
 .card[data-category='treino'] .image {
   padding: 6px;
   background: var(--color-pink-soft);
-}
-
-.card[data-category='skincare']:hover,
-.card[data-category='skincare']:focus-visible {
-  border-color: var(--color-lilac-border);
 }
 
 .card[data-category='acessorios']:hover,
@@ -151,9 +141,10 @@
 }
 
 /* treino's horizontal cards read small next to the vertical-grid sections —
-   widen the image and body padding (not the shared 1/1 ratio, and without
-   touching skincare's secondary card, which reuses this same .horizontal
-   layout at its default size) to give this category more visual weight.
+   widen the image and body padding (not the shared 1/1 ratio) to give this
+   category more visual weight. treino is the only consumer of .horizontal
+   left in the app, so this override is scoped by category mostly out of
+   habit — nothing else currently shares the layout to protect from it.
 
    align-items:stretch means the row's height is set by whichever of
    image/body has the taller natural (pre-stretch) size — normally the

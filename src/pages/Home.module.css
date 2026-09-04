@@ -13,14 +13,6 @@
   gap: var(--space-5);
 }
 
-.spotlightSecondary {
-  margin-top: var(--space-6);
-  /* Wider than --content-narrow (640px) on purpose: with the featured
-     card above now 25% shorter, this gives the secondary a bit more
-     presence so the pair reads as one composition, not main+afterthought. */
-  max-width: 760px;
-}
-
 @media (min-width: 768px) {
   .splitFeature {
     flex-direction: row;
