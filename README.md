@@ -1,6 +1,6 @@
 # Analunps
 
-Mural pessoal de curadoria: beleza, cabelo, skincare, acessórios e treino.
+Mural pessoal de curadoria: beleza, cabelo, skincare e treino.
 React + Vite + TypeScript, sem framework de UI, sem backend — conteúdo em
 dados estruturados locais.
 

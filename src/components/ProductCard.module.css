@@ -32,11 +32,6 @@
   background: var(--color-lilac-soft);
 }
 
-.card[data-category='acessorios'] .image {
-  padding: 6px;
-  background: var(--color-coral-soft);
-}
-
 .card[data-category='treino'] .image {
   padding: 6px;
   background: var(--color-pink-soft);
@@ -47,8 +42,6 @@
   border-color: var(--color-lilac-border);
 }
 
-.card[data-category='acessorios']:hover,
-.card[data-category='acessorios']:focus-visible,
 .card[data-category='treino']:hover,
 .card[data-category='treino']:focus-visible {
   border-color: var(--color-coral-border);

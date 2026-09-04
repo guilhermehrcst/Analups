@@ -2,7 +2,6 @@ export type CategorySlug =
   | 'melu'
   | 'nails'
   | 'skincare'
-  | 'acessorios'
   | 'treino'
 
 export interface Category {
