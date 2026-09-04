@@ -1,6 +1,5 @@
 .section {
-  padding-top: var(--space-9);
-  padding-bottom: var(--space-8);
+  padding-block: var(--section-space);
   /* Embla translates .track via CSS transform; Chromium/WebKit still let a
      transformed descendant's layout overflow bubble into an ancestor's
      scrollWidth even through the .viewport's own overflow:hidden (its

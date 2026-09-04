@@ -81,6 +81,12 @@
   --space-9: 6.5rem;
 
   /* ---- layout ---- */
+  /* Ritmo vertical entre seções, definido num lugar só: antes cada seção
+     repetia --space-8/--space-9 no seu próprio arquivo, e a nails ainda
+     usava um par assimétrico (104 no topo, 72 embaixo), o que deixava a
+     faixa vazia entre blocos variando de 176 a 208px sem intenção. */
+  --section-space: var(--space-7);
+
   --content-max: 1240px;
   --content-narrow: 640px;
   --edge-padding: clamp(1.25rem, 4vw, 3rem);
@@ -106,6 +112,12 @@
   --duration-reveal: 600ms; /* scroll-reveal fade + translateY, see .reveal in global.css */
 
   color-scheme: light;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --section-space: var(--space-8);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

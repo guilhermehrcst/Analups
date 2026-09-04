@@ -25,7 +25,7 @@ function CachosCard({ look, revealDelay = 0 }: CachosCardProps) {
       <AspectImage
         src={look.image}
         alt={`${look.title} — cabelo da Analunps`}
-        ratio="1 / 1"
+        ratio="5 / 4"
         objectPosition={look.imagePosition}
         className={styles.image}
         priority={look.featured}
