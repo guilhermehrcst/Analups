@@ -1,4 +1,5 @@
 import type { Product } from '../data/types'
+import { useReveal } from '../lib/useReveal'
 import { AspectImage } from './AspectImage'
 import { ArrowUpRightIcon } from './icons/EditorialIcons'
 import styles from './ProductCard.module.css'
@@ -9,23 +10,32 @@ interface ProductCardProps {
   orientation?: 'vertical' | 'horizontal'
   /** Large steps up type scale for a card carrying more visual weight in a section. */
   size?: 'default' | 'large'
+  /** Stagger for cards entering the viewport together — see useReveal. */
+  revealDelay?: number
 }
 
 export function ProductCard({
   product,
   orientation = 'vertical',
   size = 'default',
+  revealDelay = 0,
 }: ProductCardProps) {
+  const { ref, visible } = useReveal<HTMLAnchorElement>()
+
   return (
     <a
+      ref={ref}
       href={product.url}
       target="_blank"
       rel="noreferrer noopener"
       data-category={product.category}
+      style={{ transitionDelay: visible ? `${revealDelay}ms` : undefined }}
       className={[
         styles.card,
         orientation === 'horizontal' ? styles.horizontal : '',
         size === 'large' ? styles.large : '',
+        'reveal',
+        visible ? 'is-visible' : '',
       ].join(' ')}
     >
       <AspectImage

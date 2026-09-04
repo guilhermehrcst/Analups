@@ -23,7 +23,7 @@
    padding here creates that gap on purpose, so the color reads as a small
    frame detail rather than dead CSS. Hover swaps it to a colored hairline. */
 
-.card[data-category='beleza'] .image {
+.card[data-category='melu'] .image {
   padding: 6px;
   background: var(--color-pink-soft);
 }
@@ -48,11 +48,6 @@
   background: var(--color-pink-soft);
 }
 
-.card[data-category='beleza']:hover,
-.card[data-category='beleza']:focus-visible {
-  border-color: var(--color-pink-border);
-}
-
 .card[data-category='cabelo']:hover,
 .card[data-category='cabelo']:focus-visible {
   border-color: var(--color-yellow-border);
@@ -63,6 +58,8 @@
   border-color: var(--color-lilac-border);
 }
 
+.card[data-category='melu']:hover,
+.card[data-category='melu']:focus-visible,
 .card[data-category='acessorios']:hover,
 .card[data-category='acessorios']:focus-visible,
 .card[data-category='treino']:hover,
@@ -72,7 +69,7 @@
 
 .card:hover img,
 .card:focus-visible img {
-  transform: scale(1.015);
+  transform: scale(1.02);
 }
 
 .image {

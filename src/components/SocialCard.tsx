@@ -1,4 +1,5 @@
 import type { SocialProfile } from '../data/social'
+import { useReveal } from '../lib/useReveal'
 import { AspectImage } from './AspectImage'
 import { ArrowUpRightIcon, InstagramIcon, TikTokIcon } from './icons/EditorialIcons'
 import styles from './SocialCard.module.css'
@@ -10,18 +11,23 @@ const ICONS = {
 
 interface SocialCardProps {
   profile: SocialProfile
+  /** Stagger for cards entering the viewport together — see useReveal. */
+  revealDelay?: number
 }
 
-export function SocialCard({ profile }: SocialCardProps) {
+export function SocialCard({ profile, revealDelay = 0 }: SocialCardProps) {
   const Icon = ICONS[profile.platform]
+  const { ref, visible } = useReveal<HTMLAnchorElement>()
 
   return (
     <a
+      ref={ref}
       href={profile.url}
       target="_blank"
       rel="noopener noreferrer"
       data-platform={profile.platform}
-      className={styles.card}
+      style={{ transitionDelay: visible ? `${revealDelay}ms` : undefined }}
+      className={`${styles.card} reveal ${visible ? 'is-visible' : ''}`}
     >
       <AspectImage
         src={profile.image}

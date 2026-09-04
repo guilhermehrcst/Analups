@@ -4,8 +4,10 @@
   privacy, and resilience against third-party CDN blocking.
 
   Only the styles actually used in the app are declared here — no italic
-  Instrument Sans (nothing in the codebase sets font-style:italic on body
-  text), no unused Bodoni Moda weights beyond what the design uses.
+  Outfit (nothing in the codebase sets font-style:italic on body text), no
+  unused Bodoni Moda weights beyond what the design uses. Outfit's weight
+  range is clamped to 400-600 (the file itself supports up to 900) since
+  the design never goes bolder than 600.
 */
 
 @font-face {
@@ -25,9 +27,9 @@
 }
 
 @font-face {
-  font-family: 'Instrument Sans';
+  font-family: 'Outfit';
   font-style: normal;
-  font-weight: 400 700;
+  font-weight: 400 600;
   font-display: swap;
-  src: url('/fonts/instrument-sans-normal.woff2') format('woff2');
+  src: url('/fonts/outfit-variable.woff2') format('woff2');
 }

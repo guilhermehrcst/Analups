@@ -11,7 +11,7 @@ import styles from './Home.module.css'
 const categoryBySlug = Object.fromEntries(categories.map((c) => [c.slug, c]))
 
 export function Home() {
-  const beleza = productsByCategory('beleza')
+  const melu = productsByCategory('melu')
   const cabelo = productsByCategory('cabelo')
   const skincare = productsByCategory('skincare')
   const acessorios = productsByCategory('acessorios')
@@ -23,13 +23,13 @@ export function Home() {
 
       <SocialProfiles />
 
-      <EditorialSection category={categoryBySlug.beleza} index={0}>
+      <EditorialSection category={categoryBySlug.melu} index={0}>
         <div className={styles.splitFeature}>
           <div className={styles.bigCol}>
-            <ProductCard product={beleza[0]} size="large" />
+            <ProductCard product={melu[0]} size="large" />
           </div>
           <div className={styles.smallCol}>
-            <ProductCard product={beleza[1]} />
+            <ProductCard product={melu[1]} revealDelay={75} />
           </div>
         </div>
       </EditorialSection>
@@ -41,7 +41,7 @@ export function Home() {
       <EditorialSection category={categoryBySlug.skincare} index={2}>
         <FeaturedProduct product={skincare[0]} />
         <div className={styles.spotlightSecondary}>
-          <ProductCard product={skincare[1]} orientation="horizontal" />
+          <ProductCard product={skincare[1]} orientation="horizontal" revealDelay={75} />
         </div>
       </EditorialSection>
 
@@ -51,15 +51,20 @@ export function Home() {
             <ProductCard product={acessorios[0]} size="large" />
           </div>
           <div className={styles.smallCol}>
-            <ProductCard product={acessorios[1]} />
+            <ProductCard product={acessorios[1]} revealDelay={75} />
           </div>
         </div>
       </EditorialSection>
 
       <EditorialSection category={categoryBySlug.treino} index={4}>
         <div className={styles.horizontalStack}>
-          {treino.map((product) => (
-            <ProductCard key={product.id} product={product} orientation="horizontal" />
+          {treino.map((product, index) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              orientation="horizontal"
+              revealDelay={index * 75}
+            />
           ))}
         </div>
       </EditorialSection>

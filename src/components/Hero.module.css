@@ -54,7 +54,7 @@
       #5b2136 0%,
       #a23b62 30%,
       #f65b91 58%,
-      #ff8b6a 78%,
+      #ff7a63 78%,
       #ffc9a8 100%
     );
 }
@@ -82,7 +82,8 @@
 
 .eyebrow {
   font-weight: 500;
-  font-size: clamp(1rem, 0.93rem + 0.35vw, 1.125rem);
+  /* 16-17px mobile, 17-19px desktop */
+  font-size: clamp(1rem, 0.97rem + 0.18vw, 1.1875rem);
   letter-spacing: 0.02em;
   text-transform: lowercase;
   margin-bottom: var(--space-2);
