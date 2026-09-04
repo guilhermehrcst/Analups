@@ -29,6 +29,7 @@ export function ProductCard({
       target="_blank"
       rel="noreferrer noopener"
       data-category={product.category}
+      data-accent={product.accent}
       style={{ transitionDelay: visible ? `${revealDelay}ms` : undefined }}
       className={[
         styles.card,
@@ -42,6 +43,7 @@ export function ProductCard({
         src={product.image}
         alt={`${product.name} — ${product.brand}`}
         ratio={orientation === 'horizontal' ? '1 / 1' : '4 / 5'}
+        objectPosition={product.imagePosition}
         className={styles.image}
         sizes={
           orientation === 'horizontal'

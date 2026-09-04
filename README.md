@@ -263,3 +263,71 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
     rodada: 0 erros de console, 0 requisições com falha, 0 overflow,
     Outfit e Bodoni Moda carregando (nenhum Instrument Sans), anchor
     `#melu` resolvendo — confirmado via Playwright.
+- Seção Melu expandida de 2 para exatamente 3 cards, cada um com sua
+  própria identidade de cor (em vez de uma cor por categoria, como o
+  resto do site):
+  - Produtos: "Creme Corporal Vanilove" (Melu, acento amarelo/dourado,
+    `ver produto`), "Sparkle Wave" (Tuluca by Melu, acento hot pink,
+    `ver favorito`) e "Pistachill" (Melu, acento mint/pistache,
+    `ver produto`) — "Bruma Glow" (produto de demonstração da rodada
+    anterior) removido por não estar entre os três pedidos.
+  - Novo campo opcional `Product.accent` (`'pink' | 'coral' | 'yellow' |
+    'lilac' | 'mint'`), consumido via `data-accent` em `ProductCard`/
+    `FeaturedProduct`. As demais categorias (cabelo/skincare/acessórios/
+    treino) continuam coloridas por `data-category`, sem nenhuma mudança
+    — o novo mecanismo é aditivo, não substitui o existente. Token de cor
+    novo: `--color-mint-soft`/`--color-mint-border` (mint/pistache), só
+    usado onde a Melu realmente precisa dele.
+  - `ProductGrid` ganhou uma prop `columns` (2, padrão, ou 3) em vez de
+    um componente novo — a seção Melu passou a usar
+    `<ProductGrid products={melu} columns={3} />` no lugar do
+    split-feature de 2 cards; `cabelo` continua no grid de 2 colunas de
+    sempre, intocado. Grid verificado por posição real dos cards
+    (bounding box, não CSS assumido): 1 coluna em 375px, 2 em 768px,
+    3 em 1024px e 1440px.
+  - 3 novos placeholders gerados com a mesma técnica das artes
+    existentes (gradiente + ruído + borda sutil), cada um na direção de
+    cor pedida por produto: `vanilove-1.svg` (amarelo/laranja/creme),
+    `tuluca-1.svg` (rosa vibrante) e `pistachill-1.svg` (branco/mint).
+    Os antigos `melu-1.svg`/`melu-2.svg` (arte genérica reaproveitada da
+    extinta categoria "beleza") foram removidos por não corresponderem
+    à direção visual de nenhum dos 3 produtos finais.
+  - Duas regras de acento (`coral`, `lilac`) foram implementadas junto
+    com as 3 usadas (`pink`, `yellow`, `mint`) mas removidas antes do
+    commit por não terem nenhum produto que as consumisse — mesmo
+    critério de "sem token/regra morta" já aplicado nas rodadas
+    anteriores.
+  - Marca dos 2 produtos "Melu" normalizada de `'MELU'` para `'Melu'` no
+    dado-fonte (a exibição em caixa alta já vem do CSS
+    `text-transform:uppercase`), alinhando com a convenção Title Case
+    usada por todas as outras marcas do catálogo (Aurel, Raiz, Alva,
+    Orla, Vívida).
+  - Build de produção servido sob `/Analups/` (base path real) após esta
+    rodada: 0 erros de console, 0 requisições com falha, 0 overflow,
+    exatamente 3 cards em `#melu` — confirmado via Playwright.
+- Fotos reais de produto substituem a arte-placeholder gerada da seção
+  Melu (imagens fornecidas pelo usuário, copiadas byte-a-byte —
+  checksum MD5 conferido antes/depois — para `public/images/melu/
+  {vanilove,pistachill,tuluca}.png`; nenhum pixel editado, sem recorte
+  de fundo, sem filtro):
+  - Novo campo opcional `Product.imagePosition`, espelhando o já
+    existente `SocialProfile.imagePosition`, passado por `ProductCard`
+    até `AspectImage` (que já resolve o path com `publicUrl()` — mesma
+    infraestrutura de base path usada em toda a imagem do site, nenhum
+    `src="/images/..."` hardcoded introduzido).
+  - Associação produto↔foto confirmada por conteúdo, não só pelo nome
+    do arquivo: Vanilove → frascos amarelo/laranja, Sparkle Wave/Tuluca
+    → flatlay rosa/azul, Pistachill → potes verde/mint — checado via
+    `naturalWidth` de cada `<img>` batendo com a foto de origem
+    correspondente e por inspeção visual do card renderizado.
+  - `object-position` ajustado por card (não o padrão `center` para
+    todos) para não cortar conteúdo importante das fotos, que têm
+    proporção original mais alta que o `4/5` do card (crop necessário
+    fica só no espaço vazio de fundo, nunca nos produtos/labels).
+  - As 3 artes-placeholder de SVG geradas na rodada anterior
+    (`vanilove-1.svg`, `tuluca-1.svg`, `pistachill-1.svg`) foram
+    removidas por ficarem sem nenhum consumidor.
+  - Build de produção servido sob `/Analups/` (base path real): 0 erros
+    de console, 0 requisições com falha, 0 overflow, as 3 fotos
+    carregando com a dimensão original (`naturalWidth`/`complete`
+    confirmados via Playwright, não assumidos).

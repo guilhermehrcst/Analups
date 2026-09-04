@@ -24,14 +24,7 @@ export function Home() {
       <SocialProfiles />
 
       <EditorialSection category={categoryBySlug.melu} index={0}>
-        <div className={styles.splitFeature}>
-          <div className={styles.bigCol}>
-            <ProductCard product={melu[0]} size="large" />
-          </div>
-          <div className={styles.smallCol}>
-            <ProductCard product={melu[1]} revealDelay={75} />
-          </div>
-        </div>
+        <ProductGrid products={melu} columns={3} />
       </EditorialSection>
 
       <EditorialSection category={categoryBySlug.cabelo} index={1}>

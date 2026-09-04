@@ -27,4 +27,11 @@ export interface Product {
   featured?: boolean
   /** Overrides the default "ver produto" call to action. */
   cta?: string
+  /** Overrides the category's default accent — for sections (like "melu")
+   *  where each product carries its own color identity instead of sharing
+   *  one accent across the whole category. */
+  accent?: 'pink' | 'coral' | 'yellow' | 'lilac' | 'mint'
+  /** CSS object-position, for real photos whose subject isn't centered
+   *  at the card's 4:5 crop — mirrors SocialProfile.imagePosition. */
+  imagePosition?: string
 }

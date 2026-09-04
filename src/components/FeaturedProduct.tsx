@@ -22,6 +22,7 @@ export function FeaturedProduct({ product, reverse = false, revealDelay = 0 }: F
       target="_blank"
       rel="noreferrer noopener"
       data-category={product.category}
+      data-accent={product.accent}
       style={{ transitionDelay: visible ? `${revealDelay}ms` : undefined }}
       className={`${styles.card} ${reverse ? styles.reverse : ''} reveal ${visible ? 'is-visible' : ''}`}
     >
