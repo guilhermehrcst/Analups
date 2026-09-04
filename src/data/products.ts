@@ -47,28 +47,6 @@ export const products: Product[] = [
     accent: 'mint',
   },
   {
-    id: 'colar-signo',
-    name: 'Colar Signo',
-    brand: 'Orla',
-    category: 'acessorios',
-    image: '/images/placeholders/acessorios-1.svg',
-    description:
-      'meu conjunto de prata com o meu signo — uso praticamente todo dia, combina com tudo.',
-    url: 'https://example.com/produto/colar-signo',
-    featured: true,
-    cta: 'conhecer',
-  },
-  {
-    id: 'colar-solar',
-    name: 'Colar Solar Minimal',
-    brand: 'Orla',
-    category: 'acessorios',
-    image: '/images/placeholders/acessorios-2.svg',
-    description:
-      'peça que vira o centro do look sozinha — uso solo ou empilhado, sempre chama atenção sem exagerar.',
-    url: 'https://example.com/produto/colar-solar',
-  },
-  {
     id: 'legging-second-skin',
     name: 'Legging Second Skin',
     brand: 'Vívida',
