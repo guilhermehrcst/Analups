@@ -3,10 +3,11 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 60vh;
-  min-height: 60svh;
+  min-height: 66vh;
+  min-height: 66svh;
   overflow: hidden;
   color: var(--color-surface);
+  background: #0c0914; /* fallback shown while the background art decodes, and on fetch failure */
 }
 
 .image {
@@ -15,48 +16,37 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 
-/* Layered on top of the placeholder image (never edited — see Hero.tsx):
-   1) a corner-anchored dark vignette behind the text, built from two linear
-      fades (bottom-up, left-to-right) rather than a single radial — a radial
-      pool measured short of the text's full width at several breakpoints
-      (verified via real pixel sampling: contrast dropped to ~2.2-2.4:1 at
-      the trailing edge). Two linear fades give predictable, full-width
-      coverage regardless of how wide the text block renders;
-   2) a very subtle lilac glow, opposite corner, for depth;
-   3) the vivid identity gradient as the base skin.
-   Layers paint top-to-bottom in this order, so the vignette and glow sit
-   above the gradient exactly where they need to. */
+/* Neutral scrim over real photography (never over the flat placeholder
+   gradient the old comment described — that layer is gone now that Hero.tsx
+   renders actual art). Two linear fades, not a radial pool: a radial
+   measured short of the text block's full width at several breakpoints
+   (contrast dropped to ~2.2-2.4:1 at the trailing edge in earlier testing).
+   1) bottom fade — carries the copy + chip row, which sit at the hero's
+      bottom edge;
+   2) left fade — the copy column is left-aligned, so contrast is needed
+      there independent of the bottom fade.
+   Kept neutral/dark rather than brand-tinted so it reads as a lighting
+   grade on the art, not a color layer fighting it. */
 .scrim {
   position: absolute;
   inset: 0;
   background:
     linear-gradient(
       to top,
-      rgba(28, 10, 20, 0.7) 0%,
-      rgba(28, 10, 20, 0.7) 22%,
-      rgba(28, 10, 20, 0) 50%
+      rgba(10, 8, 15, 0.82) 0%,
+      rgba(10, 8, 15, 0.55) 30%,
+      rgba(10, 8, 15, 0) 62%
     ),
     linear-gradient(
       to right,
-      rgba(28, 10, 20, 0.66) 0%,
-      rgba(28, 10, 20, 0.66) 88%,
-      rgba(28, 10, 20, 0) 100%
+      rgba(10, 8, 15, 0.55) 0%,
+      rgba(10, 8, 15, 0.16) 42%,
+      rgba(10, 8, 15, 0) 72%
     ),
-    radial-gradient(
-      55% 55% at 88% 10%,
-      rgba(185, 154, 248, 0.18) 0%,
-      rgba(185, 154, 248, 0) 60%
-    ),
-    linear-gradient(
-      120deg,
-      #5b2136 0%,
-      #a23b62 30%,
-      #f65b91 58%,
-      #ff7a63 78%,
-      #ffc9a8 100%
-    );
+    rgba(10, 8, 15, 0.08);
 }
 
 .content {
@@ -100,8 +90,8 @@
 
 @media (min-width: 768px) {
   .hero {
-    min-height: 70vh;
-    min-height: 70svh;
+    min-height: 76vh;
+    min-height: 76svh;
   }
 
   .content {
@@ -111,7 +101,7 @@
 
 @media (min-width: 1024px) {
   .hero {
-    min-height: 80vh;
-    min-height: 80svh;
+    min-height: 92vh;
+    min-height: 92svh;
   }
 }

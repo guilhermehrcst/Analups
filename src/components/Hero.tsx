@@ -6,11 +6,13 @@ import styles from './Hero.module.css'
 export function Hero() {
   return (
     <section className={styles.hero} aria-label="Apresentação">
-      {/* Placeholder art — replace with a real photograph of {site.fullName}
-          and give it a descriptive alt (e.g. "{site.fullName} sorrindo,
-          cabelo cacheado solto"), since it would no longer be decorative. */}
+      {/* Decorative hero background — atmospheric art, not a photo of
+          {site.fullName}, so it stays alt="" / aria-hidden. Native <img>
+          renders an animated .gif exactly like a still image (no <video>
+          needed): drop a real animated file at this same path and nothing
+          else here has to change. */}
       <img
-        src={publicUrl('/images/hero.svg')}
+        src={publicUrl('/images/hero/hero-bg.jpg')}
         alt=""
         aria-hidden="true"
         loading="eager"
