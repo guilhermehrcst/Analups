@@ -27,16 +27,6 @@
    its products carries its own accent (data-accent) instead of sharing
    one color across the whole category — see the accent block below. */
 
-.card[data-category='treino'] .image {
-  padding: 6px;
-  background: var(--color-pink-soft);
-}
-
-.card[data-category='treino']:hover,
-.card[data-category='treino']:focus-visible {
-  border-color: var(--color-coral-border);
-}
-
 /* ---- per-product accent (melu): each of its 3 cards carries its own
    color identity instead of sharing one across the category. ---- */
 
@@ -108,52 +98,6 @@
   line-height: var(--leading-normal);
   color: var(--color-muted);
   max-width: 44ch;
-}
-
-/* ---- horizontal variant: compact row, used for editorial variety ---- */
-
-.horizontal {
-  flex-direction: row;
-  align-items: stretch;
-  gap: var(--space-4);
-}
-
-.horizontal .image {
-  width: 34%;
-  max-width: 180px;
-}
-
-.horizontal .body {
-  min-width: 0;
-  padding: var(--space-2) var(--space-2) var(--space-2) 0;
-  justify-content: center;
-}
-
-.horizontal .description {
-  max-width: none;
-}
-
-/* treino's horizontal cards read small next to the vertical-grid sections —
-   widen the image and body padding (not the shared 1/1 ratio) to give this
-   category more visual weight. treino is the only consumer of .horizontal
-   left in the app, so this override is scoped by category mostly out of
-   habit — nothing else currently shares the layout to protect from it.
-
-   align-items:stretch means the row's height is set by whichever of
-   image/body has the taller natural (pre-stretch) size — normally the
-   text body. max-width here MUST stay measurably below 195px: at 193px
-   the image is still shorter than the body (~212px row, the intended
-   ~113% of baseline); at 196px+ the image's own 1:1-ratio height
-   overtakes the body's, flipping which side drives the row and jumping
-   it to ~255px (~136%) — measured, not estimated. Don't "round" this to
-   195/200 without re-measuring the real rendered height. */
-.card[data-category='treino'].horizontal .image {
-  width: 37%;
-  max-width: 193px;
-}
-
-.card[data-category='treino'].horizontal .body {
-  padding: calc(var(--space-4) + var(--space-1)) var(--space-3) calc(var(--space-4) + var(--space-1)) 0;
 }
 
 /* ---- large variant: more visual weight, used for a section's stand-out pick ---- */

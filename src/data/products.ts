@@ -1,12 +1,11 @@
 import type { Product } from './types'
 
 /**
- * Placeholder catalogue for the layout and editorial voice.
+ * The melu catalogue — real product photography, placeholder `url`s.
  *
- * `image` points at generated placeholder art (see /public/images/placeholders)
- * and `url` points at example.com — both are meant to be replaced with real
- * product photography and real affiliate links before launch. Swapping either
- * is a one-line edit here; no component needs to change.
+ * `url` points at example.com, meant to be replaced with the real
+ * affiliate link before launch — a one-line edit here, no component
+ * needs to change.
  */
 export const products: Product[] = [
   {
@@ -45,26 +44,6 @@ export const products: Product[] = [
       'uma pegada refrescante e diferente, com visual marcante e uma vibe leve e gostosa.',
     url: 'https://example.com/produto/pistachill',
     accent: 'mint',
-  },
-  {
-    id: 'legging-second-skin',
-    name: 'Legging Second Skin',
-    brand: 'Vívida',
-    category: 'treino',
-    image: '/images/placeholders/treino-1.svg',
-    description: 'não marca, não escorrega e aguenta o treino inteiro sem transparecer.',
-    url: 'https://example.com/produto/legging-second-skin',
-    featured: true,
-    cta: 'ver meu favorito',
-  },
-  {
-    id: 'top-livre',
-    name: 'Top Livre',
-    brand: 'Vívida',
-    category: 'treino',
-    image: '/images/placeholders/treino-2.svg',
-    description: 'sustentação boa pra qualquer treino e conforto pra usar o dia todo.',
-    url: 'https://example.com/produto/top-livre',
   },
 ]
 
