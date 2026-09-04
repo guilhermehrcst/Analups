@@ -331,3 +331,61 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
     de console, 0 requisições com falha, 0 overflow, as 3 fotos
     carregando com a dimensão original (`naturalWidth`/`complete`
     confirmados via Playwright, não assumidos).
+- Sistema tipográfico trocado por completo: `Bodoni Moda` → `Fraunces`
+  (editorial/display) e `Outfit` → `Inter` (interface/leitura). Rodada
+  exclusiva de tipografia — layout, grid, cores, imagens e conteúdo
+  intocados; identidade visual já aprovada nas rodadas anteriores.
+  - `fonts.css` reescrito: as duas antigas famílias (3 `@font-face`,
+    incluindo um itálico de Bodoni Moda confirmado morto por `grep` —
+    nenhum componente aplica `font-style: italic`) foram substituídas
+    por 2 declarações novas, ambas variable, `normal`, peso `400 600`,
+    `font-display: swap`, self-hosted em `public/fonts/`
+    (`fraunces-variable.woff2`, `inter-variable.woff2`) — mesmo processo
+    de extração das rodadas anteriores: CSS2 API do Google Fonts com
+    User-Agent de Chrome desktop para obter woff2, subset "latin" (cobre
+    acentuação do português), baixado direto via `curl`.
+  - `tokens.css`: `--font-display` passou de `'Bodoni Moda', serif` para
+    `'Fraunces', Georgia, serif` (fallback trocado por instrução
+    explícita); `--font-body` de `'Outfit', ...` para `'Inter', ...`.
+    Duas escalas foram retunadas porque o alvo em px mudou nesta rodada
+    (mesma fórmula de interpolação linear de 2 pontos usada em todo o
+    projeto): `--text-2xl` (nome de produto featured) de 42-56px para
+    40-54px; `--text-md` (subtítulo de seção/cards sociais) de
+    ~16.9-18px para 16-19px. As demais 6 tokens de escala já batiam
+    exatamente com o novo alvo — recalculadas e conferidas uma a uma
+    antes de decidir não mexer, não assumido.
+  - `font-weight` do `.heading` subiu de 400 para 500 em
+    `EditorialSection.module.css` e `SocialProfiles.module.css` (títulos
+    de seção), por especificação explícita desta rodada; o `<h1>` do
+    Hero ("analunps") permanece em 400, sem instrução para mudá-lo.
+  - `index.html`: os 2 `<link rel="preload">` passaram a apontar para os
+    novos arquivos; nenhum peso adicional precisou de preload por ambas
+    as fontes serem variable (cobrem 400-600 num único arquivo).
+  - Os 3 arquivos antigos (`bodoni-moda-normal.woff2`,
+    `bodoni-moda-italic.woff2`, `outfit-variable.woff2`) foram
+    removidos de `public/fonts/`; `grep -rn "Bodoni Moda\|Outfit" src
+    public index.html` retorna vazio — nenhuma referência morta restante.
+  - Verificado via Playwright (Chromium headless), não assumido:
+    `document.fonts` mostra só `Fraunces 400 600 [loaded]` e
+    `Inter 400 600 [loaded]`, nenhuma entrada de Bodoni Moda/Outfit; 0
+    overflow horizontal nos 6 breakpoints padrão (375/390/430/768/
+    1024/1440); 0 erros de console; `--text-2xl` medido por
+    `getComputedStyle` em 40.0033px @375 e 54px @1440 (bate exato com o
+    alvo); `--text-md` em 16.0015px @375 e 19px @1440 (idem); título de
+    seção em Fraunces 500 confirmado em 7 seções, wordmark do Hero em
+    Fraunces 400; nenhum uso de Fraunces abaixo de 24px (menor
+    ocorrência: nome de produto normal, 28px). Screenshots de página
+    inteira em 375/768/1024/1440 (com scroll incremental prévio para
+    dar tempo ao `IntersectionObserver` do `.reveal` antes da captura —
+    sem isso, cards fora do viewport inicial aparecem em branco na
+    screenshot mesmo estando corretos no DOM, artefato de método já
+    identificado e descartado, não um bug real) não mostram corte de
+    descendentes do Fraunces, quebra de nome de produto ou desalinhamento
+    de cards. Repetido sob `/Analups/` (base path real, `http-server`
+    emulando GitHub Pages): mesmos resultados, 0 requisições com falha,
+    nenhum 404 de fonte. `npm run lint` e `npm run build` limpos.
+  - Instrução condicional de manter "o SVG oficial Analunps onde ele já
+    estiver sendo usado" é no-op: `Hero.tsx`, `Header.tsx` e
+    `Footer.tsx` foram lidos por completo e nenhum usa um SVG como
+    assinatura/wordmark — todos os três exibem texto puro; nada a trocar
+    aqui.

@@ -10,7 +10,7 @@
 
 .heading {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 500;
   font-size: var(--text-3xl);
   line-height: var(--leading-tight);
   color: var(--color-wine);
