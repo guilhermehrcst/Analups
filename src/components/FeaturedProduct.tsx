@@ -29,7 +29,10 @@ export function FeaturedProduct({ product, reverse = false, revealDelay = 0 }: F
       <AspectImage
         src={product.image}
         alt={`${product.name} — ${product.brand}`}
-        ratio="4 / 5"
+        // 4/5 made this card ~735px tall on desktop (near a full 900px
+        // viewport) — 16/15 cuts that by 25% while keeping it the
+        // clear visual anchor of the section, see ProductCard's imageRatio.
+        ratio="16 / 15"
         className={styles.image}
         sizes="(min-width: 1024px) 50vw, 92vw"
       />

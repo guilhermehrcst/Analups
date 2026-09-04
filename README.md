@@ -389,3 +389,83 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
     `Footer.tsx` foram lidos por completo e nenhum usa um SVG como
     assinatura/wordmark — todos os três exibem texto puro; nada a trocar
     aqui.
+- Corrigido desequilíbrio de escala entre os cards de cada seção — não
+  "cards pequenos", como uma leitura anterior do mesmo sintoma poderia
+  sugerir, mas um único `aspect-ratio` (4/5 vertical, 1/1 horizontal)
+  aplicado igual em todo lugar, que produz alturas absolutas muito
+  diferentes conforme a largura que cada layout dá ao card (2 vs. 3
+  colunas de grid, uma coluna 1.6fr de split-feature, ...), já que altura
+  escala direto com largura. Nenhum grid, contagem de coluna, cor,
+  tipografia, imagem ou conteúdo foi alterado — só a proporção da imagem
+  por categoria/tamanho, mais 2 ajustes pontuais de padding/largura.
+  - Medido o estado real ANTES de mexer em qualquer coisa (`git stash` +
+    Playwright, 1440px): melu 693px, cabelo 894px, skincare-featured
+    733px, acessórios (as duas colunas, forçadas à mesma altura por
+    `align-items: stretch` no `.splitFeature`) 1066px — mais alto que o
+    viewport de teste (900px) sozinho, confirmando o "pôster gigante"
+    relatado — e treino 188px, a menor de todas por larga margem.
+  - `ProductCard.tsx` ganhou uma função `imageRatio(category,
+    orientation, size)` — antes o ratio era só `orientation === 
+    'horizontal' ? '1/1' : '4/5'`, agora cabelo usa `7/8`, acessórios
+    `9/8` (tamanho "large") ou `8/9` (default), mantendo `4/5` para melu
+    (única seção "praticamente correta", zero mudança) e para o resto.
+    `FeaturedProduct.tsx` (uso único, skincare) foi de `4/5` para
+    `16/15`. Nenhum destes é uma fração "bonita" escolhida a esmo — cada
+    uma foi resolvida analiticamente a partir da ALTURA TOTAL do card
+    (imagem + gap + bloco de texto, não só a imagem) para cair na faixa
+    pedida, e então confirmada por medição, não assumida.
+  - Resultado medido em 1440px (% da altura real anterior): melu 100%
+    (inalterado, como pedido), cabelo 93.3% (6.7% de redução — a
+    instrução da seção pedia "5-8%"; a tabela-resumo global pedia
+    "95-100%": as duas só se sobrepõem perto de 5%, e a instrução mais
+    específica foi a que prevaleceu), skincare-featured 75.0% (exato no
+    piso da faixa 75-80% pedida — 733px→550px, bem abaixo de "quase tela
+    inteira"), acessórios (as duas colunas, ainda iguais entre si via
+    stretch) 76.8% (dentro de 75-80%), treino 112.8% (dentro de 110-115%,
+    a única seção que devia crescer).
+  - Repetido nos 7 breakpoints pedidos (1440/1280/1024/768/430/390/375):
+    melu seguiu 100% em todos; cabelo 93.3-94.8%; skincare-featured
+    75.0-75.0% no desktop mas 82-84% no mobile (a proporção fixa reduz a
+    imagem igual em toda parte, mas no mobile o bloco de texto — que não
+    muda de tamanho — vira uma fatia maior do total; o problema relatado
+    era especificamente de desktop, onde a imagem ocupa muito mais
+    espaço absoluto, então a correção mais branda no mobile é esperada e
+    aceitável); acessórios-grande 76.8-81.1%; acessórios-pequeno
+    76.8-93.3% (77% no desktop, igualado ao grande pelo stretch; ~93% no
+    mobile, onde o `.splitFeature` empilha em coluna e cada card volta a
+    ser dimensionado pelo próprio conteúdo — a redução "leve" pedida
+    especificamente para este card); treino 108.8-120.5%. O pico de
+    120.5% em 390px não é a correção "estourando": a MEDIÇÃO DA
+    BASELINE em 390px (239px) já era, sozinha, mais baixa que a de 375px
+    (264px) e 430px (239px) — quebra de linha do texto pré-existente,
+    não relacionada a esta mudança — então o percentual ali compara
+    contra um ponto de referência anormalmente baixo; o valor absoluto
+    corrigido (288px) é idêntico ao de 375px e consistente com 430px
+    (263px). Confirmado lendo a baseline diretamente, não assumido.
+  - Ao tentar ampliar treino só alargando a imagem, uma instabilidade
+    real de CSS foi encontrada e não contornada às cegas: com
+    `align-items: stretch`, a altura da linha é o maior entre o
+    "preferido" da imagem (largura × ratio) e o do texto; em 1440px,
+    194px de `max-width` mede 212px de card (texto ainda manda), mas
+    196px mede 255px (a imagem passa a mandar) — um salto de 43px por 2px
+    de diferença de input, não uma curva suave. A correção final fica
+    deliberadamente 2px abaixo desse ponto de virada (`max-width: 193px`
+    para a imagem) e usa o padding do bloco de texto — que cresce de
+    forma linear e previsível, confirmado testando vários valores — para
+    fechar a diferença até a faixa pedida. Comentário deixado no CSS
+    citando os números medidos, para que um "arredondamento" futuro para
+    195/200px não reintroduza o salto sem re-medir.
+  - `Home.module.css`: `.spotlightSecondary` (card secundário da seção
+    skincare) teve o `max-width` aumentado de 640px para 760px — não
+    pedido para mudar a imagem (que continua presa no cap de 180px, sem
+    efeito visível vindo desse aumento), mas para dar ao card mais
+    presença ao lado do featured agora mais curto, formando uma
+    composição, não featured-gigante-mais-nota-de-rodapé.
+  - `npm run lint` e `npm run build` limpos. 0 overflow horizontal em
+    todos os 7 breakpoints, antes e depois. Repetido sob `/Analups/`
+    (base path real, `http-server` emulando GitHub Pages): 0 erros de
+    console, 0 requisições com falha. Screenshots de página inteira em
+    1440/1024/768/375 (com scroll incremental prévio, mesmo cuidado do
+    round anterior) confirmam visualmente o ritmo pedido: skincare e
+    acessórios não dominam mais a tela, treino não parece miniatura,
+    melu e cabelo continuam como referência.
