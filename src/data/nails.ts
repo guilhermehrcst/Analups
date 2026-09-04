@@ -3,41 +3,40 @@ import type { NailLook } from './types'
 /**
  * nailsbyanacc carousel — editorial nail-art photography, not products.
  *
- * `image` currently points at generated placeholder art (see
- * /public/images/placeholders) while the 6 real photos are pending; once
- * they land at /public/images/nailsbyanacc/nail-0N.jpg, only the `image`
- * (and, where a photo's subject isn't centered, `imagePosition`) fields
- * below need to change — the carousel itself doesn't.
+ * Real photos, copied byte-for-byte (checksum verified) from the provided
+ * files — no crop, filter, or edit. Each `name` was assigned by actually
+ * looking at its photo's content (chrome finish, charms, palette), not by
+ * filename order.
  */
 export const nails: NailLook[] = [
   {
     id: 'chrome-estelar',
-    image: '/images/placeholders/nails-01.svg',
+    image: '/images/nailsbyanacc/nail-01.jpg',
     name: 'Chrome Estelar',
   },
   {
     id: 'dourado-floral',
-    image: '/images/placeholders/nails-02.svg',
+    image: '/images/nailsbyanacc/nail-02.jpg',
     name: 'Dourado Floral',
   },
   {
     id: 'luz-dourada',
-    image: '/images/placeholders/nails-03.svg',
+    image: '/images/nailsbyanacc/nail-03.jpg',
     name: 'Luz Dourada',
   },
   {
     id: 'cosmic-purple',
-    image: '/images/placeholders/nails-04.svg',
+    image: '/images/nailsbyanacc/nail-04.jpg',
     name: 'Cosmic Purple',
   },
   {
     id: 'pop-colors',
-    image: '/images/placeholders/nails-05.svg',
+    image: '/images/nailsbyanacc/nail-05.jpg',
     name: 'Pop Colors',
   },
   {
     id: 'chrome-aura',
-    image: '/images/placeholders/nails-06.svg',
+    image: '/images/nailsbyanacc/nail-06.jpg',
     name: 'Chrome Aura',
   },
 ]

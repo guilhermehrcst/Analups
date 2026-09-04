@@ -491,3 +491,46 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
     `tsconfig`). 0 overflow em 375/768/1440, 0 erros de console.
     Repetido sob `/Analups/` via `http-server`: mesmo resultado, 0
     requisições com falha. Nenhuma outra parte da página foi tocada.
+- As 6 fotos reais da nailsbyanacc substituíram os placeholders: copiadas
+  byte-a-byte (checksum MD5 conferido antes/depois) para
+  `public/images/nailsbyanacc/nail-01.jpg` a `nail-06.jpg` — nenhum pixel
+  editado, sem recorte de arquivo, sem filtro.
+  - Nomes editoriais associados por conteúdo real de cada foto, não pela
+    ordem do arquivo: nail-01 (chrome magenta/roxo com charms de
+    estrela/lua) → "Chrome Estelar"; nail-02 (francesinha branca + flores
+    e borboletas 3D douradas) → "Dourado Floral"; nail-03 (nude/dourado
+    com folha de ouro e pérolas) → "Luz Dourada"; nail-04 (chrome
+    roxo/lilás com cristais prateados sobre fundo preto) → "Cosmic
+    Purple"; nail-05 (vermelho/branco/azul-turquesa com estrelas
+    douradas, a mais colorida das 6) → "Pop Colors"; nail-06 (chrome
+    branco/prateado com reflexo iridescente roxo) → "Chrome Aura" — por
+    coincidência (ou não: os nomes sugeridos originalmente pelo usuário
+    já estavam nessa ordem), bate exatamente com a ordem dos arquivos
+    enviados, mas a associação foi feita olhando cada foto, não assumida
+    pela ordem.
+  - `object-position` padrão (centro) mantido em todas as 6 — verificado
+    visualmente card por card (screenshot de cada um via clique nos
+    dots) que nenhum charm/detalhe importante fica cortado; nenhuma
+    precisou de ajuste individual.
+  - Placeholders SVG (`public/images/placeholders/nails-01..06.svg`)
+    removidos.
+  - Repetida a verificação completa dos 7 breakpoints com as fotos reais
+    carregadas: mesmos números de antes (0 overflow, mesma fração de
+    cards visíveis por breakpoint — a troca de imagem não muda a
+    geometria, que já era controlada por aspect-ratio + object-fit,
+    não pela imagem em si). Interações (setas, dots, teclado, drag,
+    loop, pausa no hover) re-testadas com as fotos reais: idênticas ao
+    round anterior. Repetido sob `/Analups/` via `http-server`: 0 erros
+    de console, 0 requisições com falha, `publicUrl()` resolvendo
+    `/Analups/images/nailsbyanacc/nail-01.jpg` corretamente.
+  - Validação específica em Safari/iPad pedida pelo usuário NÃO foi
+    possível neste ambiente: só há motor Chromium disponível no
+    sandbox (sem WebKit instalado, e instalação de novos browsers do
+    Playwright está fora do permitido aqui) — dizendo isso
+    explicitamente em vez de presumir. Como proxy mais próximo:
+    comportamento de toque testado via contexto Playwright com
+    `hasTouch:true`/`isMobile:true` (swipe real avançou o carrossel,
+    0 erros), e o carrossel usa Embla, biblioteca com suporte
+    documentado e testado para Safari/iOS — mas isso não substitui um
+    teste real em dispositivo/Safari, que continua pendente.
+  - `npm run lint` e `npm run build` limpos.
