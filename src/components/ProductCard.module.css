@@ -27,11 +27,6 @@
    its products carries its own accent (data-accent) instead of sharing
    one color across the whole category — see the accent block below. */
 
-.card[data-category='cabelo'] .image {
-  padding: 6px;
-  background: var(--color-yellow-soft);
-}
-
 .card[data-category='skincare'] .image {
   padding: 6px;
   background: var(--color-lilac-soft);
@@ -45,11 +40,6 @@
 .card[data-category='treino'] .image {
   padding: 6px;
   background: var(--color-pink-soft);
-}
-
-.card[data-category='cabelo']:hover,
-.card[data-category='cabelo']:focus-visible {
-  border-color: var(--color-yellow-border);
 }
 
 .card[data-category='skincare']:hover,

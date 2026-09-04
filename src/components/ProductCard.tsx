@@ -20,13 +20,12 @@ interface ProductCardProps {
  * grid columns, a 1.6fr split-feature column, ...), since height scales
  * directly with width. These per-category/size overrides correct the
  * resulting scale imbalance without changing any grid, column count, or
- * flex proportion: cabelo's 2-column cards were ~7% taller than they read
- * next to melu's 3-column ones (7/8 trims that back); acessorios' 1.6fr
- * split-feature column made the "big" card ~1060px tall, close to a full
- * viewport (9/8 brings its own image + the split-feature's stretch-forced
- * partner down to ~77% of that), while its own 8/9 gives the smaller
- * column an independent, milder trim. See README "Verificado nesta
- * sessão" for the measured before/after height at every breakpoint.
+ * flex proportion: acessorios' 1.6fr split-feature column made the "big"
+ * card ~1060px tall, close to a full viewport (9/8 brings its own image +
+ * the split-feature's stretch-forced partner down to ~77% of that), while
+ * its own 8/9 gives the smaller column an independent, milder trim. See
+ * README "Verificado nesta sessão" for the measured before/after height
+ * at every breakpoint.
  */
 function imageRatio(
   category: Product['category'],
@@ -34,7 +33,6 @@ function imageRatio(
   size: 'default' | 'large',
 ): string {
   if (orientation === 'horizontal') return '1 / 1'
-  if (category === 'cabelo') return '7 / 8'
   if (category === 'acessorios') return size === 'large' ? '9 / 8' : '8 / 9'
   return '4 / 5'
 }

@@ -8,9 +8,9 @@ export const categories: Category[] = [
       'meus favoritos da Melu, com beleza leve, divertida e cheia de personalidade.',
   },
   {
-    slug: 'cabelo',
-    label: 'cabelo',
-    description: 'o que mantém o cronograma capilar em dia, sem enrolação.',
+    slug: 'nails',
+    label: 'nailsbyanacc',
+    description: 'inspirações que traduzem personalidade, beleza e atitude.',
   },
   {
     slug: 'skincare',

@@ -1,6 +1,7 @@
 import { EditorialSection } from '../components/EditorialSection'
 import { FeaturedProduct } from '../components/FeaturedProduct'
 import { Hero } from '../components/Hero'
+import { NailsByAnacc } from '../components/NailsByAnacc'
 import { ProductCard } from '../components/ProductCard'
 import { ProductGrid } from '../components/ProductGrid'
 import { SocialProfiles } from '../components/SocialProfiles'
@@ -12,7 +13,6 @@ const categoryBySlug = Object.fromEntries(categories.map((c) => [c.slug, c]))
 
 export function Home() {
   const melu = productsByCategory('melu')
-  const cabelo = productsByCategory('cabelo')
   const skincare = productsByCategory('skincare')
   const acessorios = productsByCategory('acessorios')
   const treino = productsByCategory('treino')
@@ -27,9 +27,7 @@ export function Home() {
         <ProductGrid products={melu} columns={3} />
       </EditorialSection>
 
-      <EditorialSection category={categoryBySlug.cabelo} index={1}>
-        <ProductGrid products={cabelo} />
-      </EditorialSection>
+      <NailsByAnacc index={1} />
 
       <EditorialSection category={categoryBySlug.skincare} index={2}>
         <FeaturedProduct product={skincare[0]} />

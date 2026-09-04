@@ -12,5 +12,5 @@ export const site = {
   heroTagline: 'Moda, cachos e lifestyle',
   heroHeading: 'analunps',
   metaDescription:
-    'O mural pessoal de achados da Analunps: beleza, cabelo, skincare, acessórios e treino — tudo testado e indicado de verdade.',
+    'O mural pessoal de achados da Analunps: beleza, nails, skincare, acessórios e treino — tudo testado e indicado de verdade.',
 } as const

@@ -84,6 +84,36 @@ export function ArrowRightIcon({ className, size = 16 }: IconProps) {
   )
 }
 
+export function ChevronLeftIcon({ className, size = 18 }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true" className={className}>
+      <path
+        d="M15 5 8 12l7 7"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={STROKE}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+export function ChevronRightIcon({ className, size = 18 }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true" className={className}>
+      <path
+        d="M9 5l7 7-7 7"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={STROKE}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export function ExternalLinkIcon({ className, size = 16 }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true" className={className}>

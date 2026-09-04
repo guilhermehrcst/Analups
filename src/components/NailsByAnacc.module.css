@@ -1,0 +1,281 @@
+.section {
+  padding-block: var(--space-8);
+  /* Embla translates .track via CSS transform; Chromium/WebKit still let a
+     transformed descendant's layout overflow bubble into an ancestor's
+     scrollWidth even through the .viewport's own overflow:hidden (its
+     rendered box is correctly clipped — verified via getBoundingClientRect
+     — only .scrollWidth leaks). This is the standard containment for that,
+     scoped to this section rather than body, so it can't mask an unrelated
+     overflow bug anywhere else on the page. */
+  overflow-x: hidden;
+}
+
+.sunken {
+  background: var(--color-surface-sunken);
+}
+
+.header {
+  max-width: var(--content-narrow);
+  margin-bottom: var(--space-6);
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  /* The requested clamp(64px, 7vw, 104px) doesn't fit "nailsbyanacc." (one
+     word, can't wrap at a space) on one line at 375-430px — measured
+     natural width 412px at 64px font-size vs 335px available. Floor
+     lowered to 50px, the largest size that fits with a safety margin at
+     the narrowest tested viewport (measured, not guessed); the 7vw
+     preferred term and 104px ceiling are unchanged from the request. */
+  font-size: clamp(3.125rem, 7vw, 6.5rem);
+  line-height: 0.95;
+  color: var(--color-wine);
+  letter-spacing: var(--tracking-tight);
+}
+
+.subtitle {
+  margin-top: var(--space-3);
+  font-family: var(--font-body);
+  color: var(--color-muted);
+  font-size: var(--text-md);
+  line-height: 1.5;
+}
+
+.subtitleSecondary {
+  margin-top: var(--space-1);
+  font-family: var(--font-body);
+  color: var(--color-muted);
+  font-size: var(--text-base);
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: var(--space-9);
+  }
+}
+
+/* ---- carousel ---- */
+
+.carousel {
+  position: relative;
+  width: 100%;
+}
+
+.viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.track {
+  display: flex;
+  touch-action: pan-y;
+}
+
+.slide {
+  flex: 0 0 auto;
+  min-width: 0;
+  width: var(--nails-slide-w);
+  margin-right: var(--space-5);
+}
+
+/* ---- card ---- */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 20px;
+  border: 1px solid rgba(91, 33, 54, 0.1);
+  background: var(--color-surface);
+  box-shadow: 0 12px 35px rgba(60, 25, 35, 0.1);
+  overflow: hidden;
+  transform: scale(0.96);
+  opacity: 0.9;
+  transition:
+    transform var(--duration-base) var(--ease-editorial),
+    opacity var(--duration-base) var(--ease-editorial);
+}
+
+.cardActive {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.image {
+  border-radius: 0;
+}
+
+.overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.12));
+  pointer-events: none;
+}
+
+.caption {
+  padding: var(--space-3) var(--space-4) var(--space-4);
+}
+
+.by {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+.name {
+  margin-top: 2px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: var(--leading-snug);
+  color: var(--color-text);
+}
+
+/* ---- arrows ---- */
+
+.arrow {
+  position: absolute;
+  top: 40%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(91, 33, 54, 0.16);
+  background: var(--color-surface);
+  color: var(--color-wine);
+  box-shadow: 0 6px 18px rgba(60, 25, 35, 0.12);
+  transition:
+    transform var(--duration-fast) var(--ease-editorial),
+    box-shadow var(--duration-fast) var(--ease-editorial);
+}
+
+.arrow:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(60, 25, 35, 0.16);
+}
+
+.arrow:focus-visible {
+  border-radius: 50%;
+}
+
+.arrowPrev {
+  left: var(--space-3);
+}
+
+.arrowNext {
+  right: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .arrow {
+    width: 52px;
+    height: 52px;
+  }
+
+  .arrowPrev {
+    left: var(--space-5);
+  }
+
+  .arrowNext {
+    right: var(--space-5);
+  }
+}
+
+/* ---- dots ---- */
+
+.dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* No gap: each .dot is already a 44px touch target (see below) — a gap
+     here would space those targets apart rather than the small visible
+     dots, spreading the row far wider than intended. */
+  margin-top: var(--space-6);
+}
+
+/* The visible dot is 7px, but a 7px tap target fails the ≥44px touch-target
+   floor — the button itself is the full hit area, sized invisibly around
+   the small dot drawn as its ::after. */
+.dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+}
+
+.dot::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-pink-soft);
+  transition:
+    background-color var(--duration-fast) var(--ease-editorial),
+    transform var(--duration-fast) var(--ease-editorial);
+}
+
+.dot:hover::after {
+  transform: scale(1.2);
+}
+
+.dotActive::after {
+  background: var(--color-wine);
+  transform: scale(1.15);
+}
+
+/* ---- responsive slide widths ----
+   Each breakpoint targets the visible-card-count called for by the design
+   (mobile: ~1 card + a sliver of the next; tablet: ~2 + partial; desktop:
+   ~2.5-3; desktop-large: 3 + partial), verified against the section's own
+   real rendered width via Playwright rather than assumed from viewport
+   width alone. */
+
+.slide {
+  --nails-slide-w: 68vw;
+}
+
+@media (min-width: 430px) {
+  .slide {
+    --nails-slide-w: 320px;
+  }
+}
+
+@media (min-width: 640px) {
+  .slide {
+    --nails-slide-w: 300px;
+  }
+}
+
+@media (min-width: 768px) {
+  .slide {
+    --nails-slide-w: 320px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .slide {
+    --nails-slide-w: 340px;
+  }
+}
+
+@media (min-width: 1280px) {
+  /* --content-max (1240px) caps the container from here up, so 1280px and
+     1440px+ share the same available width — one value for both. */
+  .slide {
+    --nails-slide-w: 345px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}

@@ -22,11 +22,6 @@
    accent is now per-product rather than per-category — see ProductCard's
    data-accent rules if this component ever needs the same treatment. */
 
-.card[data-category='cabelo'] .image {
-  padding: 8px;
-  background: var(--color-yellow-soft);
-}
-
 .card[data-category='skincare'] .image {
   padding: 8px;
   background: var(--color-lilac-soft);
@@ -40,11 +35,6 @@
 .card[data-category='treino'] .image {
   padding: 8px;
   background: var(--color-pink-soft);
-}
-
-.card[data-category='cabelo']:hover .image,
-.card[data-category='cabelo']:focus-visible .image {
-  border-color: var(--color-yellow-border);
 }
 
 .card[data-category='skincare']:hover .image,

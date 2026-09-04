@@ -47,28 +47,6 @@ export const products: Product[] = [
     accent: 'mint',
   },
   {
-    id: 'oleo-nutritivo',
-    name: 'Óleo Nutritivo Diário',
-    brand: 'Raiz',
-    category: 'cabelo',
-    image: '/images/placeholders/cabelo-1.svg',
-    description:
-      'uso pra manter o cronograma capilar em dia sem precisar caçar produto separado.',
-    url: 'https://example.com/produto/oleo-nutritivo',
-  },
-  {
-    id: 'mascara-reconstrutora',
-    name: 'Máscara Reconstrutora Intensiva',
-    brand: 'Raiz',
-    category: 'cabelo',
-    image: '/images/placeholders/cabelo-2.svg',
-    description:
-      'desde que entrou na rotina o cabelo tá visivelmente mais forte e com mais brilho.',
-    url: 'https://example.com/produto/mascara-reconstrutora',
-    featured: true,
-    cta: 'ver meu favorito',
-  },
-  {
     id: 'serum-vitamina-c',
     name: 'Sérum Vitamina C',
     brand: 'Alva',

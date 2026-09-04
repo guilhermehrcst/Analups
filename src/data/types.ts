@@ -1,6 +1,6 @@
 export type CategorySlug =
   | 'melu'
-  | 'cabelo'
+  | 'nails'
   | 'skincare'
   | 'acessorios'
   | 'treino'
@@ -33,5 +33,20 @@ export interface Product {
   accent?: 'pink' | 'coral' | 'yellow' | 'lilac' | 'mint'
   /** CSS object-position, for real photos whose subject isn't centered
    *  at the card's 4:5 crop — mirrors SocialProfile.imagePosition. */
+  imagePosition?: string
+}
+
+/**
+ * A single nail-art photo in the nailsbyanacc carousel — editorial
+ * photography, not a shoppable product: no brand, price, or outbound
+ * link, so it deliberately doesn't reuse Product.
+ */
+export interface NailLook {
+  id: string
+  /** Path under /public. */
+  image: string
+  /** Short editorial title, e.g. "Chrome Estelar". */
+  name: string
+  /** CSS object-position — mirrors Product.imagePosition. */
   imagePosition?: string
 }
