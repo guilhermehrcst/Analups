@@ -10,6 +10,22 @@
   }
 }
 
+/* Between 640-1023px .threeUp still renders the base 2-column grid (its
+   own 3-column rule only kicks in at 1024px) — for melu's fixed 3 items
+   that leaves the 3rd card alone on its own row, flush left with a wide
+   empty gap beside it. Centering it at one column's width fixes that
+   without touching the 2-column grid itself, which is correct for any
+   count. Scoped to "3rd child that's also the last child" so it only
+   fires for a grid of exactly 3 items — melu's real shape, not a
+   guess — and never touches SocialProfiles' or any other 2-up grid. */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .threeUp > :nth-child(3):last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - var(--space-5) / 2);
+  }
+}
+
 @media (min-width: 1024px) {
   .threeUp {
     grid-template-columns: repeat(3, 1fr);

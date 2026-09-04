@@ -91,12 +91,19 @@
   background: var(--color-surface);
   box-shadow: var(--card-shadow);
   overflow: hidden;
-  transform: scale(0.985);
-  transition: transform var(--duration-base) var(--ease-editorial);
+  transform: scale(0.92);
+  /* Dims the side cards so the active one reads as the clear focus of the
+     row, not just marginally bigger — the previous 0.985 scale-only delta
+     was too close to 1 to register as "focus" at a glance. */
+  opacity: 0.6;
+  transition:
+    transform var(--duration-base) var(--ease-editorial),
+    opacity var(--duration-base) var(--ease-editorial);
 }
 
 .cardActive {
   transform: scale(1);
+  opacity: 1;
 }
 
 .imageWrap {
