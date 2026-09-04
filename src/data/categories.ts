@@ -13,9 +13,9 @@ export const categories: Category[] = [
     description: 'inspirações que traduzem personalidade, beleza e atitude.',
   },
   {
-    slug: 'skincare',
-    label: 'skincare',
-    description: 'rotina enxuta, resultado visível — nada de dez passos.',
+    slug: 'cachos',
+    label: 'cachos',
+    description: 'meus favoritos pra cuidar, finalizar e viver cada fase do meu cabelo.',
   },
   {
     slug: 'treino',

@@ -1,6 +1,6 @@
 # Analunps
 
-Mural pessoal de curadoria: beleza, cabelo, skincare e treino.
+Mural pessoal de curadoria: beleza, cabelo, cachos e treino.
 React + Vite + TypeScript, sem framework de UI, sem backend — conteúdo em
 dados estruturados locais.
 
@@ -623,3 +623,133 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
     limpos. Validação real em Safari/iPad continua não realizada por
     falta de motor WebKit neste ambiente (mesma limitação já registrada
     na rodada anterior).
+- Categoria `skincare` (2 placeholders sem foto real) substituída por
+  `cachos`, com as 4 fotos reais de cabelo cacheado da Analunps:
+  - **Dados**: `CategorySlug` migrado de `'skincare'` para `'cachos'` em
+    `types.ts`; `categories.ts` com o novo título/subtítulo
+    (`cachos.` / `meus favoritos pra cuidar, finalizar e viver cada
+    fase do meu cabelo.`); as 2 entradas de `products.ts` do skincare
+    removidas. Como em `NailLook` (rodada da nailsbyanacc), criada uma
+    interface própria `CachosLook` em vez de reusar `Product` — são
+    fotos pessoais sem `brand`/`url`/CTA, não itens de vitrine.
+  - **Fotos**: as 4 imagens fornecidas copiadas byte a byte para
+    `public/images/cachos/cachos-0{1..4}.png` (checksum MD5 conferido
+    antes/depois — nenhum recorte, filtro ou reencode). Defeito real
+    encontrado e corrigido antes do commit: as 4 primeiras cópias
+    foram salvas com extensão `.jpg`, mas `file` confirmou que os bytes
+    são PNG — corrigido renomeando para `.png` e reconferindo os
+    checksums (extensão errada arrisca Content-Type incorreto no
+    GitHub Pages, que infere o MIME type pela extensão). Título de
+    cada card decidido olhando o conteúdo real da foto, não a ordem de
+    upload — 1 desvio deliberado do microcopy sugerido ("ondas em
+    rosa" → "ondas em vermelho": a iluminação da foto é vermelha/
+    magenta, não rosa).
+  - **Composição (`CachosGrid`, novo componente)**: grid 2×2 — destaque
+    + 1 secundário na linha de cima, 2 secundários na linha de baixo —
+    em vez de "1 destaque ao lado de uma coluna com os outros 3", que
+    foi a primeira tentativa e escondia dois defeitos reais, ambos
+    medidos via Playwright (`getBoundingClientRect`/computed styles),
+    não estimados:
+    1. Com `grid-row: 1 / span 3` forçando o destaque a ocupar a mesma
+       altura da coluna de 3 empilhados, a imagem do destaque foi
+       espremida para uma proporção ~0,27 (larga faixa vertical, sem
+       parecido com um retrato) a 1440px — corrigido trocando para
+       `display:flex; align-items:flex-start`, cada coluna com altura
+       própria.
+    2. Com as colunas independentes, sobrou um vazio de ~1493px sob o
+       destaque (915px) ao lado da coluna de 3 empilhados (2409px) — 3
+       cards de proporção 4/5 empilhados são, por natureza, ~3x mais
+       altos que 1 só; nenhum ajuste de largura ou proporção do
+       destaque fecha essa conta sem esticá-lo a um formato inutilizável
+       ou sem forçar cortes ruins de rosto/cabelo nos outros 3 (retrato
+       4/5 é o crop que já validei visualmente como correto pra essas
+       4 fotos). Resolvido reestruturando para 2×2: cada linha tem no
+       máximo 2 cards, então o maior desnível possível é "1 card mais
+       largo (logo mais alto) ao lado de 1 mais estreito" — medido em
+       210px de diferença a 1440px (destaque 956px vs. par 746px, ~22%
+       da altura do destaque), não mais os ~1493px da tentativa
+       anterior. Nenhum card fica vazio, e o espaço sobrando sob o
+       card menor lê como respiro editorial, não como algo quebrado
+       (confirmado via screenshot de página inteira, não só números).
+    - Defeito adicional só descoberto ao depurar o item 2: `.card` no
+      CSS antigo tinha `height: 100%`, que resolve para um valor de
+      pixel definido dentro de uma grid mesmo com `align-items: start`
+      no container — isto é, o card mais curto de uma linha era
+      esticado pra bater com o mais alto (mesmo mecanismo do bug 1, em
+      escala menor), espremendo a proporção 4/5 da imagem sem que
+      nenhum erro aparecesse (a métrica só ficou visível comparando a
+      altura da imagem-filha com a largura, não a altura do card).
+      Corrigido removendo o `height: 100%` do `.card` e movendo
+      `align-items: start` para o breakpoint de 768px (antes só
+      existia a partir de 1024px) — sem isso, o mesmo esmagamento
+      silencioso ocorreria em tablet.
+  - **Limpeza de código morto** disparada pela troca: `FeaturedProduct`
+    (componente + CSS) removido — órfão assim que `Home.tsx` deixou de
+    usá-lo; regras `[data-category='skincare']` e comentário
+    desatualizado em `ProductCard.module.css`; tokens
+    `--color-lilac-soft`/`--color-lilac-border` (únicos consumidores
+    eram essas regras); `'lilac'` removido da union de `Product.accent`
+    (nenhum produto usava); `.spotlightSecondary` de `Home.module.css`;
+    os 2 placeholders `skincare-*.svg`.
+  - `metaDescription` (`site.ts`) e `<meta name="description">`
+    (`index.html`) atualizados de "skincare" para "cachos".
+  - `grep -rn "skincare"` final: 0 ocorrências em código; as únicas
+    ocorrências restantes no projeto são entradas de log de rodadas
+    anteriores neste próprio arquivo (histórico do que era verdade
+    naquele momento — não reescrito, é registro, não estado atual).
+  - `npm run lint` e `npm run build` limpos. 0 overflow horizontal, 4
+    cards presentes, 0 imagem quebrada/incompleta, 0 erro de console,
+    0 requisição com falha nos 7 breakpoints (375/390/430/768/1024/
+    1280/1440) — testado no dev server e repetido sob `/Analups/` via
+    `http-server` (emulação do path real do GitHub Pages).
+  - **Risco residual não resolvido nesta sessão**: as 4 fotos somam
+    ~12,4MB (fotos reais não reencodadas, por decisão consistente com
+    as rodadas anteriores de manter os bytes originais) — o `dist/`
+    da build ficou com ~23MB no total. Nenhuma compressão foi aplicada
+    por não ter sido pedida; sinalizando aqui para decisão consciente
+    do usuário caso o tempo de carregamento em conexões lentas vire
+    prioridade.
+- Rodada de proporção/composição da seção `cachos`, sem tocar fotos,
+  textos ou tipografia (só `CachosGrid.tsx`/`CachosGrid.module.css`
+  mudaram): pedido era reduzir ~20% da altura visual dos cards, deixar
+  o primeiro card "levemente destacado sem dominar" e ler como
+  composição editorial compacta, sem virar carrossel nem grade rígida.
+  - **Proporção da imagem**: `4/5` (retrato) → `1/1` (quadrado) nos 4
+    cards. Um crop quadrado tira ~20% da altura da imagem por si só
+    (`altura = largura/proporção`; passar de 1,25× a largura para 1×
+    a largura é exatamente 20% a menos) e continua enquadrando bem
+    close-ups de rosto — confirmado por screenshot nos 3 breakpoints
+    testados (nenhum corte ruim de rosto/cabelo nas 4 fotos). Nenhum
+    `object-position` teve que ser ajustado.
+  - **Captions**: padding reduzido (`--space-4/--space-4/--space-5` →
+    `--space-3/--space-4/--space-4`; no destaque, `--space-5/--space-6/
+    --space-6` → `--space-4/--space-5/--space-5`) — mesmo tamanho de
+    fonte, título e descrição, só menos respiro ao redor.
+  - **Medido, não estimado**: altura das duas linhas somadas (topRow +
+    bottomRow + gap) caiu de 1817px para 1474px a 1440px — redução de
+    18,9%, dentro do "aproximadamente 20%" pedido. Por card individual
+    a redução variou 12-22% (o card secundário do topo ficou um pouco
+    mais largo com a nova divisão de colunas, o que compensa parte do
+    ganho do crop quadrado nele especificamente) — mas o resultado
+    visual agregado da seção é o que foi pedido, e foi conferido por
+    screenshot, não só por número.
+  - **"Levemente destacado sem dominar"**: a divisão de colunas do
+    destaque caiu de `1.3fr / 1fr` (uma diferença de 30% de largura,
+    só a partir de 1024px) para `1.12fr / 1fr` (12%, já a partir de
+    768px) — sem tocar `--text-xl`/`--text-md` do caption do destaque,
+    que continuam os únicos responsáveis por ele "pesar" mais que os
+    outros 3.
+  - **"Não parecer grade rígida"**: a segunda linha, que antes era
+    perfeitamente `1fr / 1fr`, agora é `1fr / 1.08fr` — uma assimetria
+    sutil e espelhada (menor que a do topo, e na direção oposta), só
+    para a seção não ler como uma grade 2×2 idêntica em todas as
+    células.
+  - `npm run lint` e `npm run build` limpos antes e depois do merge de
+    uma PR concorrente (`Torna o HERO um banner cinematográfico
+    full-bleed`, mesclada nesta branch enquanto esta rodada estava em
+    andamento) — `git pull --ff-only` sem conflito (arquivos
+    completamente diferentes: Hero/CategoryNav vs. CachosGrid), e os 7
+    breakpoints reconferidos depois do merge deram os mesmos números
+    de antes, confirmando que a mudança do Hero não teve nenhum efeito
+    colateral aqui. 0 overflow, 4 cards, 0 imagem quebrada, 0 erro de
+    console, 0 requisição com falha nos 7 breakpoints.

@@ -24,19 +24,16 @@
   --color-primary-hover: #de487c; /* preenchimento de hover (chip do hero) — não usar como texto */
   --color-primary-text: #c43c6c; /* hot pink escurecido — único uso seguro como cor de texto, ≥4.5:1 medido */
 
-  /* coral, amarelo e lilás só existem aqui como derivados (soft/border/
-     text): a cor plena (#FF7A63/#FFC857/#B99AF8) mede 1.5-2.6:1 como texto
-     ou ícone sobre este fundo claro, abaixo até do piso de 3:1 para objetos
-     gráficos — então nunca aparece pura em primeiro plano, só nesses tons
-     já ajustados para o uso real que este site faz dela. */
+  /* coral e amarelo só existem aqui como derivados (soft/border/text): a
+     cor plena (#FF7A63/#FFC857) mede 1.5-2.6:1 como texto ou ícone sobre
+     este fundo claro, abaixo até do piso de 3:1 para objetos gráficos —
+     então nunca aparece pura em primeiro plano, só nesses tons já
+     ajustados para o uso real que este site faz dela. */
   --color-coral-text: #c2452f; /* coral escurecido — seguro como texto/ícone, ≥4.5:1 medido */
   --color-coral-border: rgba(255, 122, 99, 0.35);
 
   --color-yellow-soft: #fff1c9;
   --color-yellow-border: rgba(255, 200, 87, 0.45);
-
-  --color-lilac-soft: #efe8ff;
-  --color-lilac-border: rgba(185, 154, 248, 0.35);
 
   --color-pink-soft: #fce4ed;
   --color-pink-border: rgba(246, 91, 145, 0.35);

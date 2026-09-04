@@ -1,10 +1,11 @@
+import { CachosGrid } from '../components/CachosGrid'
 import { EditorialSection } from '../components/EditorialSection'
-import { FeaturedProduct } from '../components/FeaturedProduct'
 import { Hero } from '../components/Hero'
 import { NailsByAnacc } from '../components/NailsByAnacc'
 import { ProductCard } from '../components/ProductCard'
 import { ProductGrid } from '../components/ProductGrid'
 import { SocialProfiles } from '../components/SocialProfiles'
+import { cachosLooks } from '../data/cachos'
 import { categories } from '../data/categories'
 import { productsByCategory } from '../data/products'
 import styles from './Home.module.css'
@@ -13,7 +14,6 @@ const categoryBySlug = Object.fromEntries(categories.map((c) => [c.slug, c]))
 
 export function Home() {
   const melu = productsByCategory('melu')
-  const skincare = productsByCategory('skincare')
   const treino = productsByCategory('treino')
 
   return (
@@ -28,11 +28,8 @@ export function Home() {
 
       <NailsByAnacc index={1} />
 
-      <EditorialSection category={categoryBySlug.skincare} index={2}>
-        <FeaturedProduct product={skincare[0]} />
-        <div className={styles.spotlightSecondary}>
-          <ProductCard product={skincare[1]} orientation="horizontal" revealDelay={75} />
-        </div>
+      <EditorialSection category={categoryBySlug.cachos} index={2}>
+        <CachosGrid looks={cachosLooks} />
       </EditorialSection>
 
       <EditorialSection category={categoryBySlug.treino} index={3}>
