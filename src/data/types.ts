@@ -31,4 +31,7 @@ export interface Product {
    *  where each product carries its own color identity instead of sharing
    *  one accent across the whole category. */
   accent?: 'pink' | 'coral' | 'yellow' | 'lilac' | 'mint'
+  /** CSS object-position, for real photos whose subject isn't centered
+   *  at the card's 4:5 crop — mirrors SocialProfile.imagePosition. */
+  imagePosition?: string
 }

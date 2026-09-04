@@ -305,3 +305,29 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
   - Build de produção servido sob `/Analups/` (base path real) após esta
     rodada: 0 erros de console, 0 requisições com falha, 0 overflow,
     exatamente 3 cards em `#melu` — confirmado via Playwright.
+- Fotos reais de produto substituem a arte-placeholder gerada da seção
+  Melu (imagens fornecidas pelo usuário, copiadas byte-a-byte —
+  checksum MD5 conferido antes/depois — para `public/images/melu/
+  {vanilove,pistachill,tuluca}.png`; nenhum pixel editado, sem recorte
+  de fundo, sem filtro):
+  - Novo campo opcional `Product.imagePosition`, espelhando o já
+    existente `SocialProfile.imagePosition`, passado por `ProductCard`
+    até `AspectImage` (que já resolve o path com `publicUrl()` — mesma
+    infraestrutura de base path usada em toda a imagem do site, nenhum
+    `src="/images/..."` hardcoded introduzido).
+  - Associação produto↔foto confirmada por conteúdo, não só pelo nome
+    do arquivo: Vanilove → frascos amarelo/laranja, Sparkle Wave/Tuluca
+    → flatlay rosa/azul, Pistachill → potes verde/mint — checado via
+    `naturalWidth` de cada `<img>` batendo com a foto de origem
+    correspondente e por inspeção visual do card renderizado.
+  - `object-position` ajustado por card (não o padrão `center` para
+    todos) para não cortar conteúdo importante das fotos, que têm
+    proporção original mais alta que o `4/5` do card (crop necessário
+    fica só no espaço vazio de fundo, nunca nos produtos/labels).
+  - As 3 artes-placeholder de SVG geradas na rodada anterior
+    (`vanilove-1.svg`, `tuluca-1.svg`, `pistachill-1.svg`) foram
+    removidas por ficarem sem nenhum consumidor.
+  - Build de produção servido sob `/Analups/` (base path real): 0 erros
+    de console, 0 requisições com falha, 0 overflow, as 3 fotos
+    carregando com a dimensão original (`naturalWidth`/`complete`
+    confirmados via Playwright, não assumidos).

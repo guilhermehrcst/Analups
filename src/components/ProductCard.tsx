@@ -43,6 +43,7 @@ export function ProductCard({
         src={product.image}
         alt={`${product.name} — ${product.brand}`}
         ratio={orientation === 'horizontal' ? '1 / 1' : '4 / 5'}
+        objectPosition={product.imagePosition}
         className={styles.image}
         sizes={
           orientation === 'horizontal'
