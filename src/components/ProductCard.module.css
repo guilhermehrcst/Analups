@@ -35,19 +35,9 @@
    padding here creates that gap on purpose, so the color reads as a small
    frame detail rather than dead CSS. Hover swaps it to a colored hairline.
 
-   "melu" has no rule of its own here: unlike the other sections, each of
-   its products carries its own accent (data-accent) instead of sharing
-   one color across the whole category — see the accent block below. */
-
-.card[data-category='treino'] .image {
-  padding: 6px;
-  background: var(--color-pink-soft);
-}
-
-.card[data-category='treino']:hover,
-.card[data-category='treino']:focus-visible {
-  border-color: var(--color-coral-border);
-}
+   melu is the only section using this card now (treino moved to its own
+   TreinoGrid), and each of its products carries its own accent via
+   data-accent rather than sharing one across the category. */
 
 /* ---- per-product accent (melu): each of its 3 cards carries its own
    color identity instead of sharing one across the category. ---- */
@@ -138,3 +128,4 @@
   color: var(--color-muted);
   max-width: 44ch;
 }
+

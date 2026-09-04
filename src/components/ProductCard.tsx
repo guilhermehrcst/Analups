@@ -6,20 +6,11 @@ import styles from './ProductCard.module.css'
 
 interface ProductCardProps {
   product: Product
-  /** CSS aspect-ratio for the image. Set by the grid from its column count:
-   *  a card's height is its width divided by this ratio, so the same 4/5
-   *  portrait that reads well in a narrow 3-up column turns into a poster
-   *  in a wide 2-up one. See ProductGrid. */
-  imageRatio?: string
   /** Stagger for cards entering the viewport together — see useReveal. */
   revealDelay?: number
 }
 
-export function ProductCard({
-  product,
-  imageRatio = '4 / 5',
-  revealDelay = 0,
-}: ProductCardProps) {
+export function ProductCard({ product, revealDelay = 0 }: ProductCardProps) {
   const { ref, visible } = useReveal<HTMLAnchorElement>()
 
   return (
@@ -36,7 +27,7 @@ export function ProductCard({
       <AspectImage
         src={product.image}
         alt={`${product.name} — ${product.brand}`}
-        ratio={imageRatio}
+        ratio="4 / 5"
         objectPosition={product.imagePosition}
         className={styles.image}
         sizes="(min-width: 1024px) 32vw, (min-width: 768px) 45vw, 88vw"

@@ -785,3 +785,68 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
     requisição com falha. Repetido sob `/Analups/` (base path real via
     `http-server`): mesmos números. `npm run lint` e `npm run build`
     limpos.
+- Rodada final de visual QA / correção de bugs em toda a landing page. Cada
+  item abaixo foi medido no build de produção servido sob `/Analups/`
+  (Playwright, 8 larguras: 375/390/430/768/820/1024/1280/1440), não
+  estimado visualmente:
+  - **Dois sistemas de card na mesma página.** nails e cachos usavam
+    radius 20px + hairline 0.07 + sombra suave; melu, social e treino
+    usavam `--radius-sm` (3px), borda 0.14 e nenhuma sombra em repouso —
+    e o SocialCard ainda punha um `--radius-md` (8px) na imagem dentro
+    de um card de 3px, dois arredondamentos diferentes no mesmo
+    elemento. Extraídos `--radius-card`/`--card-border`/`--card-shadow`/
+    `--card-shadow-hover` e aplicados nos cinco componentes de card, que
+    antes repetiam (ou divergiam d)o mesmo literal. Medição final: um
+    único radius (20px) em todos os cards, em todas as larguras.
+  - **Escala de card fora de família.** A 1440px: social 905px de altura,
+    melu 693px, cachos 655-743px e treino 212px. Causa: proporção 4/5
+    (retrato) num grid 2-up gera imagem de 683px de altura, enquanto o
+    card horizontal do treino tinha a imagem limitada a 193px de largura.
+    Social passou a 1/1 (mesma alavanca já usada na cachos). Depois:
+    melu 744, social 781, cachos 655-743, treino 725 — uma família só.
+  - **Frame de imagem do treino deformando entre breakpoints.** A razão
+    renderizada ia de 0,406 (375px) a 0,919 (1280px) porque
+    `.horizontal` + `align-items: stretch` fixava a altura do frame pela
+    altura do texto, anulando o `aspect-ratio` (mesma classe de bug já
+    corrigida na cachos). Resolvido pela migração do treino para grid
+    vertical 2-up; a variante `.horizontal` ficou sem consumidor e foi
+    removida.
+  - **CTAs desalinhados** (pedido explícito). Em melu, um nome que
+    quebrava em 2 linhas empurrava seu "ver produto" ~45px abaixo dos
+    vizinhos, mesmo com os cards em altura igual. `.body { flex: 1 }` +
+    `margin-top: auto` no `.editorial-link`. Medido depois: todo CTA a
+    exatamente 25px da base do card, em melu/social/treino, em 768/1024/
+    1440.
+  - **~208px de vazio antes do footer**: `footer { margin-top: --space-9 }`
+    empilhado sobre o `padding-bottom` que a última seção já tinha.
+    Margin removida — gap medido caiu de 104px para 0.
+  - **Alvos de toque abaixo de 44px**: `@analunps` do footer media 80x22
+    e o skip-link 40px de altura. Ambos com `min-height: 44px`. Contagem
+    de alvos <44px por largura: 2 → 0.
+  - **Safari**: `backdrop-filter` dos chips do hero estava sem
+    `-webkit-backdrop-filter` — sem o prefixo o blur não existe em Safari
+    anterior ao 18, que é a maior parte dos iPads em uso.
+  - **`overflow-x: hidden` do `<html>` auditado** (era pedido explícito
+    não aceitá-lo como maquiagem): reexecutei as 8 larguras com a regra
+    desativada em runtime — overflow continua 0 em `html` e em `body` em
+    todas elas. A contenção real é o `overflow-x` da própria seção do
+    carrossel; a regra global é rede de segurança, não está escondendo
+    bug estrutural.
+  - **Código morto removido**: `Home.module.css` inteiro (só continha
+    `.horizontalStack`), variantes `.horizontal` e `.large` do
+    ProductCard e as props `orientation`/`size` que as acionavam (nenhum
+    consumidor), `public/images/hero.svg` (substituído por
+    `hero/hero-bg.jpg`), e os tokens `--radius-md`, `--color-border`,
+    `--text-2xl`, `--leading-relaxed`, `--tracking-normal` — todos com 0
+    usos, violando a regra declarada no topo do próprio tokens.css.
+  - **Investigado e descartado como não-bug**: (a) `nail-05.jpg` aparecia
+    como não carregada abaixo de 1280px — é artefato da medição (imagem
+    `loading="lazy"` fora do viewport), confirmado carregando ao entrar
+    em tela; (b) o `<h2>` "nailsbyanacc." tem `scrollWidth` maior que o
+    container de 720px, mas o texto escala com 9vw e fica sempre em
+    ~55% da largura da viewport — conferido por screenshot, não há corte
+    em nenhuma largura.
+  - `npm run lint` e `npm run build` limpos; 0 erro de console e 0
+    requisição com falha nas 8 larguras, no build de produção sob o base
+    path real. `prefers-reduced-motion` reconferido: card entra com
+    opacity 1, sem transform e com transição zerada.

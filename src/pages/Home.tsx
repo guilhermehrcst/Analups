@@ -4,15 +4,16 @@ import { Hero } from '../components/Hero'
 import { NailsByAnacc } from '../components/NailsByAnacc'
 import { ProductGrid } from '../components/ProductGrid'
 import { SocialProfiles } from '../components/SocialProfiles'
+import { TreinoGrid } from '../components/TreinoGrid'
 import { cachosLooks } from '../data/cachos'
 import { categories } from '../data/categories'
 import { productsByCategory } from '../data/products'
+import { treinoLooks } from '../data/treino'
 
 const categoryBySlug = Object.fromEntries(categories.map((c) => [c.slug, c]))
 
 export function Home() {
   const melu = productsByCategory('melu')
-  const treino = productsByCategory('treino')
 
   return (
     <>
@@ -31,7 +32,7 @@ export function Home() {
       </EditorialSection>
 
       <EditorialSection category={categoryBySlug.treino} index={3}>
-        <ProductGrid products={treino} columns={2} />
+        <TreinoGrid looks={treinoLooks} />
       </EditorialSection>
     </>
   )
