@@ -1,5 +1,6 @@
 import type { Product } from '../data/types'
 import { AspectImage } from './AspectImage'
+import { ArrowUpRightIcon } from './icons/EditorialIcons'
 import styles from './ProductCard.module.css'
 
 interface ProductCardProps {
@@ -20,6 +21,7 @@ export function ProductCard({
       href={product.url}
       target="_blank"
       rel="noreferrer noopener"
+      data-category={product.category}
       className={[
         styles.card,
         orientation === 'horizontal' ? styles.horizontal : '',
@@ -44,9 +46,7 @@ export function ProductCard({
         <p className={styles.description}>{product.description}</p>
         <span className="editorial-link">
           {product.cta ?? 'ver produto'}
-          <span className="editorial-link__arrow" aria-hidden="true">
-            →
-          </span>
+          <ArrowUpRightIcon className="editorial-link__arrow" />
         </span>
       </div>
     </a>

@@ -1,0 +1,99 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  transition:
+    transform var(--duration-base) var(--ease-editorial),
+    box-shadow var(--duration-base) var(--ease-editorial),
+    border-color var(--duration-base) var(--ease-editorial);
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px -20px rgba(37, 28, 26, 0.35);
+}
+
+/* ---- per-platform accent: Instagram in hot pink, TikTok in coral —
+   icon, CTA hover and hairline-on-hover only, never a filled background.
+   Icons use the darkened -text variants, not the raw accents: measured
+   against this white card, raw coral clears only 2.6:1 (below the 3:1
+   floor for graphical objects) and raw hot pink clears it by just 0.08 —
+   too close to trust. The darkened variants clear 5:1+ with real margin. */
+
+.card[data-platform='instagram'] .icon {
+  color: var(--color-primary-text);
+}
+
+.card[data-platform='tiktok'] .icon {
+  color: var(--color-coral-text);
+}
+
+.card[data-platform='instagram']:hover,
+.card[data-platform='instagram']:focus-visible {
+  border-color: var(--color-pink-border);
+}
+
+.card[data-platform='tiktok']:hover,
+.card[data-platform='tiktok']:focus-visible {
+  border-color: var(--color-coral-border);
+}
+
+.card[data-platform='instagram'] :global(.editorial-link):hover,
+.card[data-platform='instagram'] :global(.editorial-link):focus-visible {
+  color: var(--color-primary-text);
+}
+
+.card[data-platform='tiktok'] :global(.editorial-link):hover,
+.card[data-platform='tiktok'] :global(.editorial-link):focus-visible {
+  color: var(--color-coral-text);
+}
+
+.card:hover img,
+.card:focus-visible img {
+  transform: scale(1.015);
+}
+
+.image {
+  border-radius: var(--radius-md);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-2) var(--space-3);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-wine);
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.handle {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-xl);
+  line-height: var(--leading-snug);
+  color: var(--color-text);
+}
+
+.text {
+  font-size: var(--text-md);
+  line-height: 1.55;
+  color: var(--color-muted);
+  max-width: 40ch;
+}

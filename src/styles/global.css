@@ -116,7 +116,11 @@ p {
 /* ---------------------------------------------------------------- */
 
 :focus-visible {
-  outline: 2px solid var(--color-primary);
+  /* Wine, not hot pink: measured contrast for the pink family sits at
+     2.9-3.1:1 against this site's cream/white backgrounds — under the 3:1
+     WCAG floor for a non-text UI indicator. Wine measures 11.6-12.2:1, so
+     the focus ring keeps using it rather than reusing --color-primary. */
+  outline: 2px solid var(--color-wine);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }
@@ -137,7 +141,9 @@ p {
   position: absolute;
   left: var(--space-4);
   top: -3rem;
-  background: var(--color-primary);
+  /* Wine, not hot pink: white text on hot pink measures 3.1:1, below the
+     4.5:1 this text size needs. White on wine measures 12.2:1. */
+  background: var(--color-wine);
   color: var(--color-surface);
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-sm);
@@ -167,31 +173,39 @@ p {
 
 .editorial-link {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   gap: var(--space-2);
   font-family: var(--font-body);
   font-size: var(--text-sm);
+  font-weight: 500;
   letter-spacing: var(--tracking-wide);
   text-transform: lowercase;
-  color: var(--color-primary);
+  color: var(--color-wine);
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
   background-repeat: no-repeat;
   background-size: 100% 1px;
   padding-bottom: 0.2em;
-  transition: background-size var(--duration-base) var(--ease-editorial);
+  transition:
+    background-size var(--duration-base) var(--ease-editorial),
+    color var(--duration-fast) var(--ease-editorial);
 }
 
 .editorial-link:hover,
 .editorial-link:focus-visible {
+  /* --color-primary-text, not --color-primary: raw hot pink measures
+     2.9-3.1:1 as text on this site's backgrounds, below the 4.5:1 this
+     size needs. The darkened variant measures 4.7-5.0:1. */
+  color: var(--color-primary-text);
   background-size: 0% 1px;
 }
 
 .editorial-link__arrow {
-  transition: transform var(--duration-base) var(--ease-editorial);
+  flex-shrink: 0;
+  transition: transform 250ms var(--ease-editorial);
 }
 
 .editorial-link:hover .editorial-link__arrow,
 .editorial-link:focus-visible .editorial-link__arrow {
-  transform: translateX(3px);
+  transform: translate(2px, -2px);
 }

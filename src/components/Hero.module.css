@@ -1,9 +1,10 @@
 .hero {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  aspect-ratio: 4 / 5;
-  min-height: 480px;
-  max-height: 92vh;
+  min-height: 60vh;
+  min-height: 60svh;
   overflow: hidden;
   color: var(--color-surface);
 }
@@ -16,72 +17,100 @@
   object-fit: cover;
 }
 
-/* Independent second contrast layer: the placeholder art is already dark
-   toward the bottom-left, but real photography can't be guaranteed to be —
-   this scrim keeps the overlaid text legible regardless of what image ships. */
+/* Layered on top of the placeholder image (never edited — see Hero.tsx):
+   1) a corner-anchored dark vignette behind the text, built from two linear
+      fades (bottom-up, left-to-right) rather than a single radial — a radial
+      pool measured short of the text's full width at several breakpoints
+      (verified via real pixel sampling: contrast dropped to ~2.2-2.4:1 at
+      the trailing edge). Two linear fades give predictable, full-width
+      coverage regardless of how wide the text block renders;
+   2) a very subtle lilac glow, opposite corner, for depth;
+   3) the vivid identity gradient as the base skin.
+   Layers paint top-to-bottom in this order, so the vignette and glow sit
+   above the gradient exactly where they need to. */
 .scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    190deg,
-    rgba(20, 10, 12, 0) 40%,
-    rgba(20, 10, 12, 0.55) 78%,
-    rgba(20, 10, 12, 0.72) 100%
-  );
+  background:
+    linear-gradient(
+      to top,
+      rgba(28, 10, 20, 0.7) 0%,
+      rgba(28, 10, 20, 0.7) 22%,
+      rgba(28, 10, 20, 0) 50%
+    ),
+    linear-gradient(
+      to right,
+      rgba(28, 10, 20, 0.66) 0%,
+      rgba(28, 10, 20, 0.66) 88%,
+      rgba(28, 10, 20, 0) 100%
+    ),
+    radial-gradient(
+      55% 55% at 88% 10%,
+      rgba(185, 154, 248, 0.18) 0%,
+      rgba(185, 154, 248, 0) 60%
+    ),
+    linear-gradient(
+      120deg,
+      #5b2136 0%,
+      #a23b62 30%,
+      #f65b91 58%,
+      #ff8b6a 78%,
+      #ffc9a8 100%
+    );
 }
 
 .content {
+  /*
+    .hero is a flex column and this is its only flex item, pinned to the
+    bottom via margin-top:auto — deliberately not `height:100%` + justify-end,
+    since .hero's height comes from min-height, which computes to `auto` for
+    the purpose of resolving a child's percentage height (it would just
+    collapse to content size). Flex alignment doesn't have that problem: it
+    works off .hero's own resolved size regardless of how that size was set.
+  */
   position: relative;
-  height: 100%;
+  margin-top: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   gap: var(--space-5);
-  padding-bottom: var(--space-6);
+  padding-block: var(--space-6);
 }
 
 .copy {
   max-width: var(--content-narrow);
 }
 
-.kicker {
-  font-size: var(--text-sm);
-  letter-spacing: var(--tracking-wider);
+.eyebrow {
+  font-weight: 500;
+  font-size: clamp(1rem, 0.93rem + 0.35vw, 1.125rem);
+  letter-spacing: 0.02em;
   text-transform: lowercase;
-  opacity: 0.9;
   margin-bottom: var(--space-2);
 }
 
 .heading {
   font-family: var(--font-display);
-  font-style: italic;
   font-weight: 400;
   font-size: var(--text-3xl);
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
-}
-
-.subheading {
-  margin-top: var(--space-3);
-  font-size: var(--text-md);
-  line-height: var(--leading-relaxed);
-  max-width: 34ch;
-  text-wrap: pretty;
+  text-transform: lowercase;
 }
 
 @media (min-width: 768px) {
   .hero {
-    aspect-ratio: 16 / 9;
-    max-height: 88vh;
+    min-height: 70vh;
+    min-height: 70svh;
   }
 
   .content {
-    padding-bottom: var(--space-8);
+    padding-block: var(--space-8);
   }
 }
 
 @media (min-width: 1024px) {
   .hero {
-    aspect-ratio: 21 / 10;
+    min-height: 80vh;
+    min-height: 80svh;
   }
 }

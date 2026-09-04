@@ -1,5 +1,6 @@
 import type { Product } from '../data/types'
 import { AspectImage } from './AspectImage'
+import { ArrowUpRightIcon } from './icons/EditorialIcons'
 import styles from './FeaturedProduct.module.css'
 
 interface FeaturedProductProps {
@@ -14,6 +15,7 @@ export function FeaturedProduct({ product, reverse = false }: FeaturedProductPro
       href={product.url}
       target="_blank"
       rel="noreferrer noopener"
+      data-category={product.category}
       className={`${styles.card} ${reverse ? styles.reverse : ''}`}
     >
       <AspectImage
@@ -30,9 +32,7 @@ export function FeaturedProduct({ product, reverse = false }: FeaturedProductPro
         <p className={styles.description}>{product.description}</p>
         <span className="editorial-link">
           {product.cta ?? 'ver produto'}
-          <span className="editorial-link__arrow" aria-hidden="true">
-            →
-          </span>
+          <ArrowUpRightIcon className="editorial-link__arrow" />
         </span>
       </div>
     </a>

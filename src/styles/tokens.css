@@ -5,42 +5,76 @@
 */
 
 :root {
-  /* ---- color ---- */
-  --color-background: #f7f1e4; /* creme sofisticado */
-  --color-surface: #fffdf9; /* branco quente */
-  --color-surface-sunken: #f1e9da; /* creme mais escuro, para separar seções */
-  --color-primary: #5a1c28; /* vinho profundo */
-  --color-primary-strong: #3f131c; /* vinho, hover/pressed */
-  --color-accent: #f0dcd8; /* rosa extremamente suave */
-  --color-accent-strong: #e2bdb8; /* rosa suave, usado com parcimônia */
-  --color-text: #251c1a; /* carvão quente */
-  --color-muted: #6a5952; /* texto secundário — contraste ≥4.5:1 em todos os fundos usados */
-  --color-border: #e7ddc9;
-  --color-border-strong: #d8c9ad;
+  /* ---- color ----
+     Sistema: base clara (cream/surface) domina; vinho carrega texto e
+     títulos; hot pink/coral/amarelo/lilás entram só como acento (ícones,
+     bordas, fundos muito suaves, hover) — nunca como cor de texto corrido,
+     pois nenhum deles sozinho atinge 4.5:1 em fundo claro (medido). Onde a
+     direção pede "hot pink"/"coral" como texto (hover de CTA), usamos a
+     variante -text, uma versão escurecida da mesma cor que passa em AA. */
+  --color-background: #fff8ef; /* cream */
+  --color-surface: #ffffff;
+  --color-surface-sunken: #f9f0e5; /* cream levemente mais escuro, mesma proporção de escurecimento de antes — alternância de seção */
+  --color-text: #2a2023;
+  --color-muted: #67585d; /* contraste ≥6:1 em background/surface/surface-sunken (medido) */
+
+  --color-wine: #5b2136; /* títulos de seção, marca/eyebrow, links editoriais, focus ring, skip-link */
+
+  --color-primary: #f65b91; /* hot pink — acento: ícone, borda, hover de fundo. NÃO usar como texto (2.9-3.1:1, abaixo de AA) */
+  --color-primary-hover: #de487c; /* preenchimento de hover (chip do hero) — não usar como texto */
+  --color-primary-text: #c43c6c; /* hot pink escurecido — único uso seguro como cor de texto, ≥4.5:1 medido */
+
+  /* coral, amarelo e lilás só existem aqui como derivados (soft/border/
+     text): a cor plena (#FF7A63/#FFC857/#B99AF8) mede 1.5-2.6:1 como texto
+     ou ícone sobre este fundo claro, abaixo até do piso de 3:1 para objetos
+     gráficos — então nunca aparece pura em primeiro plano, só nesses tons
+     já ajustados para o uso real que este site faz dela. */
+  --color-coral-text: #c2452f; /* coral escurecido — seguro como texto/ícone, ≥4.5:1 medido */
+  --color-coral-soft: #ffe3db;
+  --color-coral-border: rgba(255, 122, 99, 0.35);
+
+  --color-yellow-soft: #fff1c9;
+  --color-yellow-border: rgba(255, 200, 87, 0.45);
+
+  --color-lilac-soft: #efe8ff;
+  --color-lilac-border: rgba(185, 154, 248, 0.35);
+
+  --color-pink-soft: #fce4ed;
+  --color-pink-border: rgba(246, 91, 145, 0.35);
+
+  --color-border: rgba(91, 33, 54, 0.14); /* hairline sutil em cards sobre o fundo cream */
 
   /* ---- typography ---- */
-  --font-display: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
-  --font-body: 'Instrument Sans', ui-sans-serif, system-ui, -apple-system,
-    'Segoe UI', sans-serif;
+  --font-display: 'Bodoni Moda', serif;
+  --font-body: 'Instrument Sans', system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-  --text-xs: 0.75rem;
-  --text-sm: 0.8125rem;
-  --text-base: 1rem;
-  --text-md: 1.125rem;
-  --text-lg: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);
-  --text-xl: clamp(1.75rem, 1.45rem + 1.2vw, 2.25rem);
-  --text-2xl: clamp(2.25rem, 1.7rem + 2.2vw, 3.25rem);
-  --text-3xl: clamp(2.75rem, 1.9rem + 3.6vw, 4.75rem);
+  /* eyebrow/marca (13-14px) e rodapé — legível mesmo pequeno */
+  --text-xs: 0.875rem;
+  /* navegação, CTAs, chips — 15px, nunca 13px para texto interativo */
+  --text-sm: 0.9375rem;
+  /* corpo global e descrição de produto — ~16-17px */
+  --text-base: clamp(1rem, 0.978rem + 0.1vw, 1.0625rem);
+  /* subtítulo de seção e texto dos cards sociais — ~16-20px */
+  --text-md: clamp(1rem, 1rem + 0.2vw, 1.25rem);
+  /* nome de produto, cards normais — ~27-34px */
+  --text-lg: clamp(1.6875rem, 1.619rem + 0.56vw, 2.25rem);
+  /* nome de produto, variante "large" — ~34-44px */
+  --text-xl: clamp(2.125rem, 1.905rem + 0.94vw, 2.75rem);
+  /* nome de produto, featured — ~40-56px */
+  --text-2xl: clamp(2.5rem, 2.148rem + 1.5vw, 3.5rem);
+  /* títulos de seção + hero — ~42-76px */
+  --text-3xl: clamp(2.625rem, 1.877rem + 3.2vw, 4.75rem);
 
   --leading-tight: 1.05;
   --leading-snug: 1.25;
-  --leading-normal: 1.5;
-  --leading-relaxed: 1.7;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.6;
 
   --tracking-tight: -0.01em;
   --tracking-normal: 0;
   --tracking-wide: 0.04em;
-  --tracking-wider: 0.09em;
+  --tracking-wider: 0.08em;
 
   /* ---- spacing (4px base) ---- */
   --space-1: 0.25rem;

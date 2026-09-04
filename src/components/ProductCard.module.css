@@ -2,16 +2,72 @@
   display: flex;
   flex-direction: column;
   background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   transition:
     transform var(--duration-base) var(--ease-editorial),
-    box-shadow var(--duration-base) var(--ease-editorial);
+    box-shadow var(--duration-base) var(--ease-editorial),
+    border-color var(--duration-base) var(--ease-editorial);
 }
 
 .card:hover,
 .card:focus-visible {
   transform: translateY(-3px);
   box-shadow: 0 14px 28px -20px rgba(37, 28, 26, 0.35);
+}
+
+/* ---- per-category accent: soft tint as a thin mat around the image.
+   A plain background on .image would sit fully behind the photo and never
+   show — object-fit:cover fills the frame edge-to-edge with no gap for it
+   to peek through (verified by screenshot: the tint was invisible). The
+   padding here creates that gap on purpose, so the color reads as a small
+   frame detail rather than dead CSS. Hover swaps it to a colored hairline. */
+
+.card[data-category='beleza'] .image {
+  padding: 6px;
+  background: var(--color-pink-soft);
+}
+
+.card[data-category='cabelo'] .image {
+  padding: 6px;
+  background: var(--color-yellow-soft);
+}
+
+.card[data-category='skincare'] .image {
+  padding: 6px;
+  background: var(--color-lilac-soft);
+}
+
+.card[data-category='acessorios'] .image {
+  padding: 6px;
+  background: var(--color-coral-soft);
+}
+
+.card[data-category='treino'] .image {
+  padding: 6px;
+  background: var(--color-pink-soft);
+}
+
+.card[data-category='beleza']:hover,
+.card[data-category='beleza']:focus-visible {
+  border-color: var(--color-pink-border);
+}
+
+.card[data-category='cabelo']:hover,
+.card[data-category='cabelo']:focus-visible {
+  border-color: var(--color-yellow-border);
+}
+
+.card[data-category='skincare']:hover,
+.card[data-category='skincare']:focus-visible {
+  border-color: var(--color-lilac-border);
+}
+
+.card[data-category='acessorios']:hover,
+.card[data-category='acessorios']:focus-visible,
+.card[data-category='treino']:hover,
+.card[data-category='treino']:focus-visible {
+  border-color: var(--color-coral-border);
 }
 
 .card:hover img,
@@ -27,31 +83,31 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-1);
+  gap: var(--space-2);
   padding: var(--space-4) var(--space-1) var(--space-2);
 }
 
 .brand {
   font-size: var(--text-xs);
+  font-weight: 600;
   letter-spacing: var(--tracking-wider);
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--color-wine);
 }
 
 .name {
   font-family: var(--font-display);
+  font-weight: 500;
   font-size: var(--text-lg);
   line-height: var(--leading-snug);
   color: var(--color-text);
 }
 
 .description {
-  font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
   color: var(--color-muted);
-  max-width: 34ch;
-  margin-top: var(--space-1);
-  margin-bottom: var(--space-2);
+  max-width: 44ch;
 }
 
 /* ---- horizontal variant: compact row, used for editorial variety ---- */
@@ -85,5 +141,5 @@
 
 .large .description {
   font-size: var(--text-md);
-  max-width: 40ch;
+  max-width: 46ch;
 }
