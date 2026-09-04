@@ -15,12 +15,12 @@
    show — object-fit:cover fills the frame edge-to-edge with no gap for it
    to peek through (verified by screenshot: the tint was invisible). The
    padding here creates that gap on purpose, so the color reads as a small
-   frame detail rather than dead CSS. Hover swaps it to a colored hairline. */
+   frame detail rather than dead CSS. Hover swaps it to a colored hairline.
 
-.card[data-category='melu'] .image {
-  padding: 8px;
-  background: var(--color-pink-soft);
-}
+   No "melu" rule here: none of its products currently render through
+   FeaturedProduct (they use the 3-up ProductGrid instead), and melu's
+   accent is now per-product rather than per-category — see ProductCard's
+   data-accent rules if this component ever needs the same treatment. */
 
 .card[data-category='cabelo'] .image {
   padding: 8px;
@@ -52,8 +52,6 @@
   border-color: var(--color-lilac-border);
 }
 
-.card[data-category='melu']:hover .image,
-.card[data-category='melu']:focus-visible .image,
 .card[data-category='acessorios']:hover .image,
 .card[data-category='acessorios']:focus-visible .image,
 .card[data-category='treino']:hover .image,

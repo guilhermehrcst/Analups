@@ -21,12 +21,11 @@
    show — object-fit:cover fills the frame edge-to-edge with no gap for it
    to peek through (verified by screenshot: the tint was invisible). The
    padding here creates that gap on purpose, so the color reads as a small
-   frame detail rather than dead CSS. Hover swaps it to a colored hairline. */
+   frame detail rather than dead CSS. Hover swaps it to a colored hairline.
 
-.card[data-category='melu'] .image {
-  padding: 6px;
-  background: var(--color-pink-soft);
-}
+   "melu" has no rule of its own here: unlike the other sections, each of
+   its products carries its own accent (data-accent) instead of sharing
+   one color across the whole category — see the accent block below. */
 
 .card[data-category='cabelo'] .image {
   padding: 6px;
@@ -58,13 +57,44 @@
   border-color: var(--color-lilac-border);
 }
 
-.card[data-category='melu']:hover,
-.card[data-category='melu']:focus-visible,
 .card[data-category='acessorios']:hover,
 .card[data-category='acessorios']:focus-visible,
 .card[data-category='treino']:hover,
 .card[data-category='treino']:focus-visible {
   border-color: var(--color-coral-border);
+}
+
+/* ---- per-product accent (melu): each of its 3 cards carries its own
+   color identity instead of sharing one across the category. ---- */
+
+.card[data-accent='pink'] .image {
+  padding: 6px;
+  background: var(--color-pink-soft);
+}
+
+.card[data-accent='yellow'] .image {
+  padding: 6px;
+  background: var(--color-yellow-soft);
+}
+
+.card[data-accent='mint'] .image {
+  padding: 6px;
+  background: var(--color-mint-soft);
+}
+
+.card[data-accent='pink']:hover,
+.card[data-accent='pink']:focus-visible {
+  border-color: var(--color-pink-border);
+}
+
+.card[data-accent='yellow']:hover,
+.card[data-accent='yellow']:focus-visible {
+  border-color: var(--color-yellow-border);
+}
+
+.card[data-accent='mint']:hover,
+.card[data-accent='mint']:focus-visible {
+  border-color: var(--color-mint-border);
 }
 
 .card:hover img,

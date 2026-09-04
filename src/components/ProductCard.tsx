@@ -29,6 +29,7 @@ export function ProductCard({
       target="_blank"
       rel="noreferrer noopener"
       data-category={product.category}
+      data-accent={product.accent}
       style={{ transitionDelay: visible ? `${revealDelay}ms` : undefined }}
       className={[
         styles.card,

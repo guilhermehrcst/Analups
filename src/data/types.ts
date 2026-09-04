@@ -27,4 +27,8 @@ export interface Product {
   featured?: boolean
   /** Overrides the default "ver produto" call to action. */
   cta?: string
+  /** Overrides the category's default accent — for sections (like "melu")
+   *  where each product carries its own color identity instead of sharing
+   *  one accent across the whole category. */
+  accent?: 'pink' | 'coral' | 'yellow' | 'lilac' | 'mint'
 }
