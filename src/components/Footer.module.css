@@ -11,15 +11,20 @@
 }
 
 .signature {
+  /* Fixed, not var(--text-xl) — that token now covers ProductCard's
+     "large" name variant; the footer mark is explicitly meant to stay
+     as it was. */
   font-family: var(--font-display);
   font-style: italic;
-  font-size: var(--text-xl);
+  font-size: clamp(1.75rem, 1.45rem + 1.2vw, 2.25rem);
 }
 
 .note {
   margin-top: var(--space-3);
   max-width: 42ch;
-  color: rgba(255, 253, 249, 0.75);
+  /* Solid color, not opacity — contrast against the wine background stays
+     predictable regardless of what sits behind it. */
+  color: #d6c5c5;
   line-height: var(--leading-relaxed);
 }
 
@@ -30,6 +35,7 @@
   align-content: start;
   margin: calc(var(--space-2) * -1) 0;
   font-size: var(--text-sm);
+  font-weight: 500;
   letter-spacing: var(--tracking-wide);
   text-transform: lowercase;
 }
@@ -46,6 +52,7 @@
 
 .handle {
   font-size: var(--text-sm);
+  font-weight: 500;
   letter-spacing: var(--tracking-wide);
   align-self: start;
   transition: opacity var(--duration-fast) var(--ease-editorial);
@@ -60,7 +67,8 @@
   border-top: 1px solid rgba(255, 253, 249, 0.15);
   padding-block: var(--space-4);
   font-size: var(--text-xs);
-  color: rgba(255, 253, 249, 0.6);
+  /* Solid color, not opacity — see .note above. */
+  color: #bda3a5;
 }
 
 @media (min-width: 768px) {

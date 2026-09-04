@@ -11,9 +11,11 @@
 }
 
 .signature {
+  /* Fixed, not var(--text-md) — that token is now fluid for body-ish text
+     elsewhere; the header signature is explicitly meant to stay as-is. */
   font-family: var(--font-display);
   font-style: italic;
-  font-size: var(--text-md);
+  font-size: 1.125rem;
   letter-spacing: var(--tracking-tight);
   color: var(--color-primary);
 }
@@ -23,6 +25,7 @@
   align-items: center;
   gap: var(--space-6);
   font-size: var(--text-sm);
+  font-weight: 500;
   letter-spacing: var(--tracking-wide);
   text-transform: lowercase;
   color: var(--color-text);

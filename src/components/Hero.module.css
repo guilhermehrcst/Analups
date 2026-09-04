@@ -52,11 +52,10 @@
 }
 
 .eyebrow {
-  font-weight: 400;
-  font-size: var(--text-sm);
+  font-weight: 500;
+  font-size: clamp(1rem, 0.93rem + 0.35vw, 1.125rem);
   letter-spacing: 0.02em;
   text-transform: lowercase;
-  opacity: 0.92;
   margin-bottom: var(--space-2);
 }
 

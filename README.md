@@ -121,3 +121,30 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
   real (`SVGGraphicsElement.getBBox()`), não só visualmente — ambos
   resultam em ~18×18 dentro do viewBox de 24×24, não só "mesmo `size` em
   px" (que já havia se mostrado insuficiente).
+- Rodada de legibilidade: `--color-text`/`--color-muted` recalibradas e
+  toda a escala tipográfica (`--text-xs` a `--text-3xl`) redefinida por
+  papel textual (corpo, título de seção, nome de produto normal/large/
+  featured, eyebrow/marca, descrição, CTA, handle social), com contraste
+  verificado por cálculo de luminância relativa (não visual): texto
+  principal 14.56–16.13:1, texto secundário 5.59–6.64:1 — ambos folgados
+  acima do mínimo AA de 4.5:1.
+- Duas cores de texto que dependiam de `opacity` sobre o fundo vinho do
+  footer (`rgba(255,253,249,0.75)` e `rgba(255,253,249,0.6)`) foram
+  substituídas por hex sólidos pré-calculados via alpha-blend
+  (`#d6c5c5`, 7.75:1; `#bda3a5`, 5.48:1) — contraste passa a ser
+  determinístico, independente do que estiver atrás.
+- `--text-md` e `--text-xl` foram redefinidos para os novos papéis
+  (subtítulo de seção/texto social; nome de produto "large"/handle
+  social). A assinatura do Header e a assinatura do Footer usavam esses
+  mesmos tokens e foram deliberadamente desacopladas com `font-size`
+  fixo equivalente ao valor antigo, para não herdar o novo tamanho —
+  confirmado por grep que nenhum outro consumidor desses tokens ficou
+  para trás.
+- Revisão visual completa em 375/390/430/768/1024/1440px após os ajustes
+  de tipografia: zero overflow horizontal (medido via Playwright), zero
+  corte de hairline em Bodoni Moda peso 500 nos tamanhos novos (nome de
+  produto, handle social), zero espaçamento apertado introduzido pelos
+  textos maiores.
+- Build de produção servido sob `/Analups/` (base path real) após esta
+  rodada: 0 erros de console, 0 requisições com falha, 0 overflow,
+  exatamente um `<h1>` — confirmado via Playwright, não apenas visual.
