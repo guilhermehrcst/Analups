@@ -709,3 +709,47 @@ Documentado explicitamente em vez de deixado como suposição silenciosa:
     por não ter sido pedida; sinalizando aqui para decisão consciente
     do usuário caso o tempo de carregamento em conexões lentas vire
     prioridade.
+- Rodada de proporção/composição da seção `cachos`, sem tocar fotos,
+  textos ou tipografia (só `CachosGrid.tsx`/`CachosGrid.module.css`
+  mudaram): pedido era reduzir ~20% da altura visual dos cards, deixar
+  o primeiro card "levemente destacado sem dominar" e ler como
+  composição editorial compacta, sem virar carrossel nem grade rígida.
+  - **Proporção da imagem**: `4/5` (retrato) → `1/1` (quadrado) nos 4
+    cards. Um crop quadrado tira ~20% da altura da imagem por si só
+    (`altura = largura/proporção`; passar de 1,25× a largura para 1×
+    a largura é exatamente 20% a menos) e continua enquadrando bem
+    close-ups de rosto — confirmado por screenshot nos 3 breakpoints
+    testados (nenhum corte ruim de rosto/cabelo nas 4 fotos). Nenhum
+    `object-position` teve que ser ajustado.
+  - **Captions**: padding reduzido (`--space-4/--space-4/--space-5` →
+    `--space-3/--space-4/--space-4`; no destaque, `--space-5/--space-6/
+    --space-6` → `--space-4/--space-5/--space-5`) — mesmo tamanho de
+    fonte, título e descrição, só menos respiro ao redor.
+  - **Medido, não estimado**: altura das duas linhas somadas (topRow +
+    bottomRow + gap) caiu de 1817px para 1474px a 1440px — redução de
+    18,9%, dentro do "aproximadamente 20%" pedido. Por card individual
+    a redução variou 12-22% (o card secundário do topo ficou um pouco
+    mais largo com a nova divisão de colunas, o que compensa parte do
+    ganho do crop quadrado nele especificamente) — mas o resultado
+    visual agregado da seção é o que foi pedido, e foi conferido por
+    screenshot, não só por número.
+  - **"Levemente destacado sem dominar"**: a divisão de colunas do
+    destaque caiu de `1.3fr / 1fr` (uma diferença de 30% de largura,
+    só a partir de 1024px) para `1.12fr / 1fr` (12%, já a partir de
+    768px) — sem tocar `--text-xl`/`--text-md` do caption do destaque,
+    que continuam os únicos responsáveis por ele "pesar" mais que os
+    outros 3.
+  - **"Não parecer grade rígida"**: a segunda linha, que antes era
+    perfeitamente `1fr / 1fr`, agora é `1fr / 1.08fr` — uma assimetria
+    sutil e espelhada (menor que a do topo, e na direção oposta), só
+    para a seção não ler como uma grade 2×2 idêntica em todas as
+    células.
+  - `npm run lint` e `npm run build` limpos antes e depois do merge de
+    uma PR concorrente (`Torna o HERO um banner cinematográfico
+    full-bleed`, mesclada nesta branch enquanto esta rodada estava em
+    andamento) — `git pull --ff-only` sem conflito (arquivos
+    completamente diferentes: Hero/CategoryNav vs. CachosGrid), e os 7
+    breakpoints reconferidos depois do merge deram os mesmos números
+    de antes, confirmando que a mudança do Hero não teve nenhum efeito
+    colateral aqui. 0 overflow, 4 cards, 0 imagem quebrada, 0 erro de
+    console, 0 requisição com falha nos 7 breakpoints.

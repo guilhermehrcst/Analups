@@ -1,14 +1,19 @@
 /* ---- grid ----
    Mobile: .topRow and .bottomRow both collapse to a single column, so all
    4 cards read as one continuous stack.
-   Tablet+: each row becomes 2 even columns — featured paired with one
-   card on top, the remaining two below. Every pairing uses the same 4/5
-   image ratio, so within a row the height difference is just "wider card,
-   taller card" (bounded, proportional) rather than the ~3x mismatch a
-   single card stacked against 3 others would force. Desktop widens
-   .featured's share of the top row for more presence, which is a WIDTH
-   change only — the ratio stays 4/5 for every card, so no crop is
-   affected by it. */
+   Tablet+: each row becomes 2 columns, mildly uneven rather than a strict
+   1fr/1fr split — .topRow gives the featured card a bit more width
+   (1.12fr vs 1fr) and .bottomRow mirrors the imbalance the other way
+   (1fr vs 1.08fr, smaller than the top's) so the section reads as a
+   deliberate editorial composition instead of a rigid, perfectly even
+   grid. The featured card's edge over its row partner is intentionally
+   modest — "levemente destacado" — not the wider split used before, which
+   let it dominate the section.
+   Every card shares the same 1/1 image ratio (see CachosCard) — a square
+   crop cuts ~20% off the old 4/5 portrait's height while still framing
+   these close-up shots well, and keeps the "wider card, taller card"
+   height difference within a row small and proportional, never the ~3x
+   mismatch a single card stacked against 3 others would force. */
 
 .grid {
   display: grid;
@@ -25,7 +30,6 @@
 @media (min-width: 768px) {
   .topRow,
   .bottomRow {
-    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-6);
     /* Grid's default align-items is stretch, which would force both cards
        in a row to the same height by directly setting a used height on
@@ -34,11 +38,13 @@
        height its own image ratio + caption produce. */
     align-items: start;
   }
-}
 
-@media (min-width: 1024px) {
   .topRow {
-    grid-template-columns: 1.3fr 1fr;
+    grid-template-columns: 1.12fr 1fr;
+  }
+
+  .bottomRow {
+    grid-template-columns: 1fr 1.08fr;
   }
 }
 
@@ -61,8 +67,11 @@
   flex: 1 1 auto;
 }
 
+/* Tightened from --space-4/--space-4/--space-5 — same type at the same
+   sizes, just less air around it, so the caption contributes less to the
+   card's total height without touching typography. */
 .caption {
-  padding: var(--space-4) var(--space-4) var(--space-5);
+  padding: var(--space-3) var(--space-4) var(--space-4);
 }
 
 .label {
@@ -92,9 +101,9 @@
   max-width: 42ch;
 }
 
-/* ---- featured: same 4/5 image ratio as every other card (see
-   CachosCard) — bigger presence comes from getting more flex width at
-   desktop and larger caption type, not a different image shape. ---- */
+/* ---- featured: same 1/1 image ratio as every other card (see
+   CachosCard) — bigger presence comes from getting more grid-column width
+   at tablet+ and larger caption type, not a different image shape. ---- */
 
 .featured .title {
   font-size: var(--text-xl);
@@ -106,6 +115,6 @@
 
 @media (min-width: 1024px) {
   .featured .caption {
-    padding: var(--space-5) var(--space-6) var(--space-6);
+    padding: var(--space-4) var(--space-5) var(--space-5);
   }
 }
