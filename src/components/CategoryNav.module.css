@@ -16,6 +16,9 @@
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.55);
   background: rgba(37, 28, 26, 0.28);
+  /* Prefixed first: unprefixed backdrop-filter only landed in Safari 18,
+     and this site is used mainly on iPad/iPhone Safari. */
+  -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   color: var(--color-surface);
   font-size: var(--text-sm);

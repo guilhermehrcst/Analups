@@ -29,10 +29,13 @@ export function SocialCard({ profile, revealDelay = 0 }: SocialCardProps) {
       style={{ transitionDelay: visible ? `${revealDelay}ms` : undefined }}
       className={`${styles.card} reveal ${visible ? 'is-visible' : ''}`}
     >
+      {/* Square, not 4/5: these two cards sit in a wide 2-up grid, where a
+          portrait crop measured ~900px tall at 1440px — a poster next to the
+          ~690-740px cards in every other section. */}
       <AspectImage
         src={profile.image}
         alt={profile.alt}
-        ratio="4 / 5"
+        ratio="1 / 1"
         objectPosition={profile.imagePosition}
         className={styles.image}
         sizes="(min-width: 768px) 46vw, 92vw"

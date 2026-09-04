@@ -6,22 +6,18 @@ import styles from './ProductCard.module.css'
 
 interface ProductCardProps {
   product: Product
-  /** Horizontal reads as a compact row — used sparingly for rhythm. */
-  orientation?: 'vertical' | 'horizontal'
-  /** Large steps up type scale for a card carrying more visual weight in a section. */
-  size?: 'default' | 'large'
+  /** CSS aspect-ratio for the image. Set by the grid from its column count:
+   *  a card's height is its width divided by this ratio, so the same 4/5
+   *  portrait that reads well in a narrow 3-up column turns into a poster
+   *  in a wide 2-up one. See ProductGrid. */
+  imageRatio?: string
   /** Stagger for cards entering the viewport together — see useReveal. */
   revealDelay?: number
 }
 
-function imageRatio(orientation: 'vertical' | 'horizontal'): string {
-  return orientation === 'horizontal' ? '1 / 1' : '4 / 5'
-}
-
 export function ProductCard({
   product,
-  orientation = 'vertical',
-  size = 'default',
+  imageRatio = '4 / 5',
   revealDelay = 0,
 }: ProductCardProps) {
   const { ref, visible } = useReveal<HTMLAnchorElement>()
@@ -35,25 +31,15 @@ export function ProductCard({
       data-category={product.category}
       data-accent={product.accent}
       style={{ transitionDelay: visible ? `${revealDelay}ms` : undefined }}
-      className={[
-        styles.card,
-        orientation === 'horizontal' ? styles.horizontal : '',
-        size === 'large' ? styles.large : '',
-        'reveal',
-        visible ? 'is-visible' : '',
-      ].join(' ')}
+      className={[styles.card, 'reveal', visible ? 'is-visible' : ''].join(' ')}
     >
       <AspectImage
         src={product.image}
         alt={`${product.name} — ${product.brand}`}
-        ratio={imageRatio(orientation)}
+        ratio={imageRatio}
         objectPosition={product.imagePosition}
         className={styles.image}
-        sizes={
-          orientation === 'horizontal'
-            ? '(min-width: 768px) 220px, 40vw'
-            : '(min-width: 1024px) 32vw, (min-width: 768px) 45vw, 88vw'
-        }
+        sizes="(min-width: 1024px) 32vw, (min-width: 768px) 45vw, 88vw"
       />
 
       <div className={styles.body}>

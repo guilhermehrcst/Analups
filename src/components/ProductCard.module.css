@@ -1,9 +1,21 @@
+/* Card finish comes from the shared tokens (see --radius-card in tokens.css)
+   so melu/treino, social, cachos and nails read as one system — before this,
+   this card and SocialCard used radius 3px with no resting shadow while
+   cachos/nails used 20px with one, which put two different card systems on
+   the same page. Only the interactive cards (this one and SocialCard) add a
+   hover lift: cachos and nails cards aren't links, so they correctly have no
+   hover state. */
+
 .card {
   display: flex;
   flex-direction: column;
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
+  border: var(--card-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--card-shadow);
+  /* Clips the flush image to the card's radius — the image carries no
+     radius of its own (see .image). */
+  overflow: hidden;
   transition:
     transform var(--duration-base) var(--ease-editorial),
     box-shadow var(--duration-base) var(--ease-editorial),
@@ -13,7 +25,7 @@
 .card:hover,
 .card:focus-visible {
   transform: translateY(-3px);
-  box-shadow: 0 14px 28px -20px rgba(37, 28, 26, 0.35);
+  box-shadow: var(--card-shadow-hover);
 }
 
 /* ---- per-category accent: soft tint as a thin mat around the image.
@@ -77,6 +89,9 @@
 
 .image {
   flex-shrink: 0;
+  /* The card clips it; a radius here left a rounded image floating inside
+     a differently-rounded card. */
+  border-radius: 0;
 }
 
 .body {
@@ -84,7 +99,21 @@
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-2);
-  padding: var(--space-4) var(--space-1) var(--space-2);
+  /* Same caption inset as cachos/nails. Was --space-1 (4px) horizontally,
+     which sat the text 5px from the card's visible border. */
+  padding: var(--space-4) var(--space-4) var(--space-5);
+  /* Fills the card's leftover height so the CTA below can be pinned to the
+     bottom edge. */
+  flex: 1 1 auto;
+}
+
+/* Pins the CTA to the bottom of every card in a row: grid rows already make
+   the cards equal height, but a name that wraps to two lines (or a longer
+   description) pushed its CTA ~45px lower than its neighbours'. */
+.body :global(.editorial-link) {
+  margin-top: auto;
+  /* auto only collapses the gap above it; keep the intended breathing room. */
+  padding-top: var(--space-2);
 }
 
 .brand {
@@ -108,61 +137,4 @@
   line-height: var(--leading-normal);
   color: var(--color-muted);
   max-width: 44ch;
-}
-
-/* ---- horizontal variant: compact row, used for editorial variety ---- */
-
-.horizontal {
-  flex-direction: row;
-  align-items: stretch;
-  gap: var(--space-4);
-}
-
-.horizontal .image {
-  width: 34%;
-  max-width: 180px;
-}
-
-.horizontal .body {
-  min-width: 0;
-  padding: var(--space-2) var(--space-2) var(--space-2) 0;
-  justify-content: center;
-}
-
-.horizontal .description {
-  max-width: none;
-}
-
-/* treino's horizontal cards read small next to the vertical-grid sections —
-   widen the image and body padding (not the shared 1/1 ratio) to give this
-   category more visual weight. treino is the only consumer of .horizontal
-   left in the app, so this override is scoped by category mostly out of
-   habit — nothing else currently shares the layout to protect from it.
-
-   align-items:stretch means the row's height is set by whichever of
-   image/body has the taller natural (pre-stretch) size — normally the
-   text body. max-width here MUST stay measurably below 195px: at 193px
-   the image is still shorter than the body (~212px row, the intended
-   ~113% of baseline); at 196px+ the image's own 1:1-ratio height
-   overtakes the body's, flipping which side drives the row and jumping
-   it to ~255px (~136%) — measured, not estimated. Don't "round" this to
-   195/200 without re-measuring the real rendered height. */
-.card[data-category='treino'].horizontal .image {
-  width: 37%;
-  max-width: 193px;
-}
-
-.card[data-category='treino'].horizontal .body {
-  padding: calc(var(--space-4) + var(--space-1)) var(--space-3) calc(var(--space-4) + var(--space-1)) 0;
-}
-
-/* ---- large variant: more visual weight, used for a section's stand-out pick ---- */
-
-.large .name {
-  font-size: var(--text-xl);
-}
-
-.large .description {
-  font-size: var(--text-md);
-  max-width: 46ch;
 }
