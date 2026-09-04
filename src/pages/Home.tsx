@@ -14,7 +14,6 @@ const categoryBySlug = Object.fromEntries(categories.map((c) => [c.slug, c]))
 
 export function Home() {
   const melu = productsByCategory('melu')
-  const acessorios = productsByCategory('acessorios')
   const treino = productsByCategory('treino')
 
   return (
@@ -33,18 +32,7 @@ export function Home() {
         <CachosGrid looks={cachosLooks} />
       </EditorialSection>
 
-      <EditorialSection category={categoryBySlug.acessorios} index={3}>
-        <div className={`${styles.splitFeature} ${styles.reverse}`}>
-          <div className={styles.bigCol}>
-            <ProductCard product={acessorios[0]} size="large" />
-          </div>
-          <div className={styles.smallCol}>
-            <ProductCard product={acessorios[1]} revealDelay={75} />
-          </div>
-        </div>
-      </EditorialSection>
-
-      <EditorialSection category={categoryBySlug.treino} index={4}>
+      <EditorialSection category={categoryBySlug.treino} index={3}>
         <div className={styles.horizontalStack}>
           {treino.map((product, index) => (
             <ProductCard

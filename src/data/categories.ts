@@ -18,11 +18,6 @@ export const categories: Category[] = [
     description: 'meus favoritos pra cuidar, finalizar e viver cada fase do meu cabelo.',
   },
   {
-    slug: 'acessorios',
-    label: 'acessórios',
-    description: 'peças que uso sozinha ou empilhadas, quase todo dia.',
-  },
-  {
     slug: 'treino',
     label: 'treino',
     description: 'conforto e caimento pra treinar sem pensar na roupa.',
